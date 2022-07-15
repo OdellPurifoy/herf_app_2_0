@@ -87,6 +87,8 @@ GEM
     digest (3.1.0)
     erubi (1.10.0)
     ffi (1.15.5)
+    font-awesome-sass (6.1.1)
+      sassc (~> 2.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.11.0)
@@ -208,6 +210,7 @@ DEPENDENCIES
   bulma-rails (~> 0.9.3)
   debug
   devise
+  font-awesome-sass (~> 6.1.1)
   importmap-rails
   jbuilder
   pg (~> 1.1)
