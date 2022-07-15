@@ -1,6 +1,6 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <%= link_to "Herf", root_path, class: "navbar-item" %>
+    <%= link_to "Herf", root_path, class: "navbar-item is-size-3" %>
 
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
@@ -11,19 +11,26 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item">
-        Home
-      </a>
-
+      <%# Home link %>
       <%= link_to '#', class: "navbar-item" do %>
         <span class="icon is-small">
-            <i class="fa fa-home"></i>
+            <i class="fa fa-home fa-lg"></i>
         </span>
       <% end %>
 
-      <a class="navbar-item">
-        Documentation
-      </a>
+      <%# User Profile %>
+      <%= link_to '#', class: "navbar-item" do %>
+        <span class="icon is-small">
+            <i class="fa-solid fa-square-plus fa-lg"></i>
+        </span>
+      <% end %>
+
+      <%# Create new lounge %>
+      <%= link_to '#', class: "navbar-item" do %>
+        <span class="icon is-small">
+            <i class="fa-solid fa-user fa-lg"></i>
+        </span>
+      <% end %>
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
@@ -31,19 +38,10 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item">
-            About
-          </a>
-          <a class="navbar-item">
-            Jobs
-          </a>
-          <a class="navbar-item">
-            Contact
-          </a>
+          <%= link_to "Profile", '#', class: "navbar-item" %>
+          <%= link_to "Subscription", '#', class: "navbar-item" %>
           <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
+          <%= link_to "Report an issue", '#', class: "navbar-item" %>
         </div>
       </div>
     </div>
@@ -51,12 +49,8 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light">
-            Log in
-          </a>
+          <%= link_to "Sign Up", '#', class: "button is-primary is-light" %>
+          <%= link_to "Log In", '#', class: "button is-primary is-light" %>
         </div>
       </div>
     </div>
