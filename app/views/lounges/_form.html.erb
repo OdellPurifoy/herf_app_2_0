@@ -1,0 +1,22 @@
+
+<%= simple_form_for(@lounge) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :address_street_1 %>
+    <%= f.input :address_street_2 %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :zip_code %>
+    <%= f.input :details %>
+    <%= f.input :opening_time %>
+    <%= f.input :closing_time %>
+    <%= f.association :user %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
