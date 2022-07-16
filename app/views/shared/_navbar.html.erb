@@ -11,38 +11,47 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <%# Home link %>
-      <%= link_to '#', class: "navbar-item" do %>
-        <span class="icon is-small">
-            <i class="fa-solid fa-house fa-lg"></i>
-        </span>
-      <% end %>
+        <% if user_signed_in? %>
+        <%# Home link %>
+        <%= link_to '#', class: "navbar-item" do %>
+            <span class="icon is-small">
+                <i class="fa-solid fa-house fa-lg"></i>
+            </span>
+        <% end %>
 
-      <%# User Profile %>
-      <%= link_to '#', class: "navbar-item" do %>
-        <span class="icon is-small">
-            <i class="fa-regular fa-square-plus fa-lg"></i>
-        </span>
-      <% end %>
+        <%# Add new lounge %>
+        <%= link_to '#', class: "navbar-item" do %>
+            <span class="icon is-small">
+                <i class="fa-regular fa-square-plus fa-lg"></i>
+            </span>
+        <% end %>
 
-      <%# Create new lounge %>
-      <%= link_to '#', class: "navbar-item" do %>
-        <span class="icon is-small">
-            <i class="fa-regular fa-bell fa-lg"></i>
-        </span>
-      <% end %>
+        <%# Notification %>
+        <%= link_to '#', class: "navbar-item" do %>
+            <span class="icon is-small">
+                <i class="fa-regular fa-bell fa-lg"></i>
+            </span>
+        <% end %>
 
-      <%# Additional Information %>
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More
-        </a>
+        <%# Additional Information %>
+        <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+            More
+            </a>
 
-        <div class="navbar-dropdown">
-          <%= link_to "Subscription", '#', class: "navbar-item" %>
-          <hr class="navbar-divider">
-          <%= link_to "Report an issue", '#', class: "navbar-item" %>
-        </div>
+            <div class="navbar-dropdown">
+            <%= link_to "Subscription", '#', class: "navbar-item" %>
+            <hr class="navbar-divider">
+            <%= link_to "Report an issue", '#', class: "navbar-item" %>
+            </div>
+        <% else %>
+        <%# Home link %>
+        <%= link_to '#', class: "navbar-item" do %>
+            <span class="icon is-small">
+                <i class="fa-solid fa-house fa-lg"></i>
+            </span>
+            <% end %>
+        <% end %>
       </div>
     </div>
 
@@ -54,7 +63,7 @@
             <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"navbar-item" %>
           <% else %>
             <%= link_to "Sign Up", new_user_registration_path, class: "button is-primary is-light" %>
-            <%= link_to "Log In", new_user_session, class: "button is-primary is-light" %>
+            <%= link_to "Log In", new_user_session_path, class: "button is-primary is-light" %>
           <% end %>
         </div>
       </div>
