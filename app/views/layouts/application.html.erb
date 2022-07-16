@@ -15,6 +15,10 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
-    <%= yield %>
+    <div class="container">
+      <%# Navbar  %>
+      <%= render "shared/navbar" %>
+      <%= yield %>
+    </div>
   </body>
 </html>
