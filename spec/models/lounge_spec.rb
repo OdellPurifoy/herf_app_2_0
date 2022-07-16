@@ -15,4 +15,16 @@ RSpec.describe Lounge, type: :model do
     it { should have_db_column(:updated_at).of_type(:datetime) }
     it { should have_db_index([:user_id]) }
   end
+
+  describe 'Model Associations' do
+    it { should belong_to(:user) }
+  end
+
+  describe 'Validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:address_street_1) }
+    it { should validate_presence_of(:city) }
+    it { should validate_presence_of(:state) }
+    it { should validate_presence_of(:zip_code) }
+  end
 end
