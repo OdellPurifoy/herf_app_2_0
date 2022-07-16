@@ -6,6 +6,7 @@ ruby "2.7.5"
 gem "bulma-rails", "~> 0.9.3"
 gem 'devise'
 gem "font-awesome-sass", "~> 6.1.1"
+gem 'rubocop', require: false
 gem 'simple_form'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
