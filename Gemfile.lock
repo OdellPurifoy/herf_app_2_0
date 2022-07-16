@@ -211,6 +211,8 @@ GEM
     ruby-progressbar (1.11.0)
     sassc (2.4.0)
       ffi (~> 1.9)
+    shoulda-matchers (5.1.0)
+      activesupport (>= 5.2.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -262,6 +264,7 @@ DEPENDENCIES
   redis (~> 4.0)
   rspec-rails (~> 5.1, >= 5.1.2)
   rubocop
+  shoulda-matchers (~> 5.1)
   simple_form
   sprockets-rails
   stimulus-rails
