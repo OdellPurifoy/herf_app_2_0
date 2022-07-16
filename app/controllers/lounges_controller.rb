@@ -10,7 +10,9 @@ class LoungesController < ApplicationController
   end
 
   # GET /lounges/1 or /lounges/1.json
-  def show; end
+  def show
+    # flash.now[:notice] = 'Lounge successfully created.'
+  end
 
   # GET /lounges/new
   def new
@@ -26,6 +28,9 @@ class LoungesController < ApplicationController
 
     respond_to do |format|
       if @lounge.save
+        format.turbo_stream do
+          flash.now[:notice] = 'Lounge was successfully created.'
+        end
         format.html { redirect_to lounge_url(@lounge), notice: 'Lounge was successfully created.' }
         format.json { render :show, status: :created, location: @lounge }
       else
