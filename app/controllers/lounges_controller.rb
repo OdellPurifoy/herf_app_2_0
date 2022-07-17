@@ -28,9 +28,6 @@ class LoungesController < ApplicationController
 
     respond_to do |format|
       if @lounge.save
-        format.turbo_stream do
-          flash.now[:notice] = 'Lounge was successfully created.'
-        end
         format.html { redirect_to lounge_url(@lounge), notice: 'Lounge was successfully created.' }
         format.json { render :show, status: :created, location: @lounge }
       else
@@ -72,7 +69,7 @@ class LoungesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def lounge_params
-    params.require(:lounge).permit(:name, :address_street_1, :address_street_2, :city, :state, :zip_code, :details,
+    params.require(:lounge).permit(:name, :email, :phone, :address_street_1, :address_street_2, :city, :state, :zip_code, :details,
                                    :opening_time, :closing_time)
   end
 end
