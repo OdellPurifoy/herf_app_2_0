@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class LoungesController < ApplicationController
-  before_action :set_lounge, only: %i[ show edit update destroy ]
+  before_action :set_lounge, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: %i[index show]
 
   # GET /lounges or /lounges.json
   def index
@@ -8,24 +11,27 @@ class LoungesController < ApplicationController
 
   # GET /lounges/1 or /lounges/1.json
   def show
+    # flash.now[:notice] = 'Lounge successfully created.'
   end
 
   # GET /lounges/new
   def new
-    @lounge = Lounge.new
+    @lounge = current_user.lounges.build
   end
 
   # GET /lounges/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /lounges or /lounges.json
   def create
-    @lounge = Lounge.new(lounge_params)
+    @lounge = current_user.lounges.build(lounge_params)
 
     respond_to do |format|
       if @lounge.save
-        format.html { redirect_to lounge_url(@lounge), notice: "Lounge was successfully created." }
+        format.turbo_stream do
+          flash.now[:notice] = 'Lounge was successfully created.'
+        end
+        format.html { redirect_to lounge_url(@lounge), notice: 'Lounge was successfully created.' }
         format.json { render :show, status: :created, location: @lounge }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +44,7 @@ class LoungesController < ApplicationController
   def update
     respond_to do |format|
       if @lounge.update(lounge_params)
-        format.html { redirect_to lounge_url(@lounge), notice: "Lounge was successfully updated." }
+        format.html { redirect_to lounge_url(@lounge), notice: 'Lounge was successfully updated.' }
         format.json { render :show, status: :ok, location: @lounge }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +58,21 @@ class LoungesController < ApplicationController
     @lounge.destroy
 
     respond_to do |format|
-      format.html { redirect_to lounges_url, notice: "Lounge was successfully destroyed." }
+      format.html { redirect_to lounges_url, notice: 'Lounge was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lounge
-      @lounge = Lounge.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def lounge_params
-      params.require(:lounge).permit(:name, :address_street_1, :address_street_2, :city, :state, :zip_code, :details, :opening_time, :closing_time, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lounge
+    @lounge = Lounge.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def lounge_params
+    params.require(:lounge).permit(:name, :address_street_1, :address_street_2, :city, :state, :zip_code, :details,
+                                   :opening_time, :closing_time)
+  end
 end
