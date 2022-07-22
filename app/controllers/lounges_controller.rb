@@ -28,6 +28,7 @@ class LoungesController < ApplicationController
 
     respond_to do |format|
       if @lounge.save
+        format.turbo_stream { redirect_to lounge_url(@lounge) }
         format.html { redirect_to lounge_url(@lounge), notice: 'Lounge was successfully created.' }
         format.json { render :show, status: :created, location: @lounge }
       else
