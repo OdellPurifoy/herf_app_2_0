@@ -8,10 +8,8 @@
 #  address_street_1 :string
 #  address_street_2 :string
 #  city             :string
-#  closing_time     :time
 #  email            :string
 #  name             :string
-#  opening_time     :time
 #  phone            :string
 #  state            :string
 #  zip_code         :string
