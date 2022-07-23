@@ -61,20 +61,9 @@
             </div>
           </div>
 
-          <div class="columns">
-            <div class="column">
-              <div class="field">
-                <div class="control">
-                  <%= f.input :opening_time, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-                </div>
-              </div>
-            </div>
-            <div class="column">
-              <div class="field">
-                <div class="control">
-                  <%= f.input :closing_time, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-                </div>
-              </div>
+          <div class="field">
+            <div class="control">
+              <%= f.input :hours, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }, placeholder: 'Mon-Fri 9am-5pm, Sat-Sun 10am-6pm' %>
             </div>
           </div>
         </div>

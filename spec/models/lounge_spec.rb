@@ -8,10 +8,9 @@
 #  address_street_1 :string
 #  address_street_2 :string
 #  city             :string
-#  closing_time     :time
 #  email            :string
+#  hours            :string
 #  name             :string
-#  opening_time     :time
 #  phone            :string
 #  state            :string
 #  zip_code         :string
@@ -34,10 +33,9 @@ RSpec.describe Lounge, type: :model do
     it { should have_db_column(:address_street_1).of_type(:string) }
     it { should have_db_column(:address_street_2).of_type(:string) }
     it { should have_db_column(:city).of_type(:string) }
-    it { should have_db_column(:closing_time).of_type(:time) }
     it { should have_db_column(:email).of_type(:string) }
+    it { should have_db_column(:hours).of_type(:string) }
     it { should have_db_column(:name).of_type(:string) }
-    it { should have_db_column(:opening_time).of_type(:time) }
     it { should have_db_column(:phone).of_type(:string) }
     it { should have_db_column(:state).of_type(:string) }
     it { should have_db_column(:user_id).of_type(:integer) }
