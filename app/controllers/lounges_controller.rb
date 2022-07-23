@@ -29,7 +29,8 @@ class LoungesController < ApplicationController
     respond_to do |format|
       if @lounge.save
         format.turbo_stream { redirect_to lounge_url(@lounge) }
-        format.html { redirect_to lounge_url(@lounge), notice: 'Lounge was successfully created.' }
+        flash[:notice] = 'Lounge successfully created.'
+        format.html { redirect_to lounge_url(@lounge) }
         format.json { render :show, status: :created, location: @lounge }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,6 +43,8 @@ class LoungesController < ApplicationController
   def update
     respond_to do |format|
       if @lounge.update(lounge_params)
+        format.turbo_stream { redirect_to lounge_url(@lounge) }
+        flash[:notice] = 'Lounge successfully updated.'
         format.html { redirect_to lounge_url(@lounge), notice: 'Lounge was successfully updated.' }
         format.json { render :show, status: :ok, location: @lounge }
       else
@@ -55,10 +58,8 @@ class LoungesController < ApplicationController
   def destroy
     @lounge.destroy
 
-    respond_to do |format|
-      format.html { redirect_to lounges_url, notice: 'Lounge was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to root_path, status: :see_other
+    flash[:notice] = "Lounge successfully deleted."
   end
 
   private
