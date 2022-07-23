@@ -9,6 +9,7 @@
 #  address_street_2 :string
 #  city             :string
 #  email            :string
+#  hours            :string
 #  name             :string
 #  phone            :string
 #  state            :string
