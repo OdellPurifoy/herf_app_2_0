@@ -12,6 +12,7 @@
 #  hours            :string
 #  name             :string
 #  phone            :string
+#  slug             :string
 #  state            :string
 #  zip_code         :string
 #  created_at       :datetime         not null
@@ -20,6 +21,7 @@
 #
 # Indexes
 #
+#  index_lounges_on_slug     (slug) UNIQUE
 #  index_lounges_on_user_id  (user_id)
 #
 # Foreign Keys

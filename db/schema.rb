@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_22_235832) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_29_233800) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_235832) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
   create_table "lounges", force: :cascade do |t|
     t.string "name"
     t.string "address_street_1"
@@ -65,6 +76,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_235832) do
     t.string "phone"
     t.string "email"
     t.string "hours"
+    t.string "slug"
+    t.index ["slug"], name: "index_lounges_on_slug", unique: true
     t.index ["user_id"], name: "index_lounges_on_user_id"
   end
 
