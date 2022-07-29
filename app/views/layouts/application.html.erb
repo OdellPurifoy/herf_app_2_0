@@ -12,8 +12,14 @@
 
   <body>
     <%# <-- Devise flash messages --> %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%# <p class="notice"><%= notice %>
+    <%# <p class="alert"><%= alert %>
+
+    <% flash.each do |key, message| %>
+      <div class=<%= key == "notice" ? 'notification is-primary is-light' : 'notification is-danger is-light'  %> role="">
+        <strong><%= message %></strong>
+      </div>
+    <% end %>
 
     <div class="container">
       <%# Navbar  %>
