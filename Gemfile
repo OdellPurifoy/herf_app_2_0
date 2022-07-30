@@ -5,6 +5,7 @@ ruby "2.7.5"
 
 gem "bulma-rails", "~> 0.9.3"
 gem 'devise'
+gem 'faker', '~> 2.22'
 gem 'friendly_id', '~> 5.4.0'
 gem "font-awesome-sass", "~> 6.1.1"
 gem 'rubocop', require: false

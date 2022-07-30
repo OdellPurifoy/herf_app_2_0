@@ -39,6 +39,7 @@ RSpec.describe Lounge, type: :model do
     it { should have_db_column(:hours).of_type(:string) }
     it { should have_db_column(:name).of_type(:string) }
     it { should have_db_column(:phone).of_type(:string) }
+    it { should have_db_column(:slug).of_type(:string) }
     it { should have_db_column(:state).of_type(:string) }
     it { should have_db_column(:user_id).of_type(:integer) }
     it { should have_db_column(:zip_code).of_type(:string) }

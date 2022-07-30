@@ -91,6 +91,8 @@ GEM
     diff-lcs (1.5.0)
     digest (3.1.0)
     erubi (1.10.0)
+    faker (2.22.0)
+      i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
     font-awesome-sass (6.1.1)
       sassc (~> 2.0)
@@ -267,6 +269,7 @@ DEPENDENCIES
   bulma-rails (~> 0.9.3)
   debug
   devise
+  faker (~> 2.22)
   font-awesome-sass (~> 6.1.1)
   friendly_id (~> 5.4.0)
   image_processing (~> 1.2)
