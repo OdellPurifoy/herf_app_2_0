@@ -34,6 +34,7 @@ class Lounge < ApplicationRecord
 
   belongs_to :user
   has_rich_text :details
+  has_one_attched :logo
 
   validates_presence_of :name, :address_street_1, :city, :state, :zip_code, :phone, :email
   validates :email, uniqueness: true
@@ -41,4 +42,7 @@ class Lounge < ApplicationRecord
     scope: %i[address_street_1 city state zip_code],
     message: 'A lounge already exists at this location.'
   }
+  
+  validates :logo, file_size: { less_than_or_equal_to: 5.megabytes },
+                     file_content_type: { allow: ['image/jpeg', 'image/png'] }
 end

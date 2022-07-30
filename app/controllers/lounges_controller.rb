@@ -72,6 +72,6 @@ class LoungesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def lounge_params
     params.require(:lounge).permit(:name, :email, :phone, :address_street_1, :address_street_2, :city, :state, :zip_code, :details,
-                                   :hours)
+                                   :hours, :logo)
   end
 end
