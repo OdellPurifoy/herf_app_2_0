@@ -5,6 +5,7 @@ ruby "2.7.5"
 
 gem "bulma-rails", "~> 0.9.3"
 gem 'devise'
+gem 'faker', '~> 2.22'
 gem 'friendly_id', '~> 5.4.0'
 gem "font-awesome-sass", "~> 6.1.1"
 gem 'rubocop', require: false
@@ -58,6 +59,7 @@ gem "image_processing", "~> 1.2"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'factory_bot_rails', '~> 6.2'
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
   gem 'shoulda-matchers', '~> 5.1'
 end
