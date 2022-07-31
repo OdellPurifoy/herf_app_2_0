@@ -34,7 +34,7 @@ class Lounge < ApplicationRecord
 
   belongs_to :user
   has_rich_text :details
-  has_one_attched :logo
+  has_one_attached :logo
 
   validates_presence_of :name, :address_street_1, :city, :state, :zip_code, :phone, :email
   validates :email, uniqueness: true
