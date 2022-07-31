@@ -1,41 +1,44 @@
-<div id="<%= dom_id lounge %>">
-  <p>
-    <strong>Name:</strong>
-    <%= lounge.name %>
-  </p>
 
-  <p>
-    <strong>Address street 1:</strong>
-    <%= lounge.address_street_1 %>
-  </p>
+<section class="section instrument-show">
+  <div class="columns">
+    <div class="column is-8" id="<%= dom_id lounge %>">
+      <h1 class="title is-2"><%= lounge.name %></h1>
+      
+        <% if lounge.logo.present? %>
+          <%= image_tag(lounge.logo.variant(resize_to_fill: [96,96]), class: "is-rounded") %>
+        <% else %>
+        <figure class="image is-96x96">
+          <img alt="image" class="is-rounded" src="/assets/images/default_logo_small.png">
+        </figure>
+        <% end %>
 
-  <p>
-    <strong>Address street 2:</strong>
-    <%= lounge.address_street_2 %>
-  </p>
+        <ul class="pv1">
+          <li class="inline-block pr3"><%= lounge.address_street_1 %></li>
 
-  <p>
-    <strong>City:</strong>
-    <%= lounge.city %>
-  </p>
+          <% if lounge.address_street_2.present? %>
+            <li class="inline-block pr3"><%= lounge.address_street_2 %></li>
+          <% end %>
 
-  <p>
-    <strong>State:</strong>
-    <%= lounge.state %>
-  </p>
+          <li class="inline-block pr3"><%= lounge.city %></li>
 
-  <p>
-    <strong>Zip code:</strong>
-    <%= lounge.zip_code %>
-  </p>
+          <li class="inline-block pr3"><%= lounge.state %></li>
 
-  <p>
-    <strong>Details:</strong>
-    <%= lounge.details %>
-  </p>
+          <li class="inline-block pr3"><%= lounge.zip_code %></li>
+          
+          <% if lounge.phone.present? %>
+            <li class="inline-block pr3"><%= lounge.phone %></li>
+          <% end %>
 
-  <p>
-    <strong>Hours:</strong>
-    <%= lounge.hours %>
-  </p>
-</div>
+          <li class="inline-block pr3"><%= lounge.email %></li>
+
+          <% if lounge.hours.present? %>
+            <li class="inline-block pr3"><%= lounge.hours %></li>
+          <% end %>
+      </ul>
+
+      <div class="content">
+        <p><%= lounge.details %></p>
+      </div>
+    </div>
+  </div>
+</section>
