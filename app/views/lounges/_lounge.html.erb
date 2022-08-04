@@ -7,9 +7,9 @@
         <% if lounge.logo.present? %>
           <%= image_tag(lounge.logo.variant(resize_to_fill: [96,96]), class: "is-rounded") %>
         <% else %>
-        <figure class="image is-96x96">
-          <img alt="image" class="is-rounded" src="/assets/images/default_logo_small.png">
-        </figure>
+          <figure class="image is-96x96">
+            <img alt="image" class="is-rounded" src="/assets/images/default_logo_small.png">
+          </figure>
         <% end %>
 
         <ul class="pv1">
@@ -34,7 +34,7 @@
           <% if lounge.hours.present? %>
             <li class="inline-block pr3"><%= lounge.hours %></li>
           <% end %>
-      </ul>
+        </ul>
 
       <div class="content">
         <p><%= lounge.details %></p>
