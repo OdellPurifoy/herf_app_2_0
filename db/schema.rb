@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_29_233800) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_04_234942) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -77,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_29_233800) do
     t.string "email"
     t.string "hours"
     t.string "slug"
+    t.boolean "featured", default: false
     t.index ["slug"], name: "index_lounges_on_slug", unique: true
     t.index ["user_id"], name: "index_lounges_on_user_id"
   end
