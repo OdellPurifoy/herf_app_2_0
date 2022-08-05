@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class HomeController < ApplicationController
-    def index
-        @lounges = Lounge.featured
-    end
+  def index
+    @featured_lounges = Lounge.featured
+    @lounges = Lounge.all
+  end
 end
