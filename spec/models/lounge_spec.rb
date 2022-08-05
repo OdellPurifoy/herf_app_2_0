@@ -62,4 +62,26 @@ RSpec.describe Lounge, type: :model do
     it { should validate_presence_of(:state) }
     it { should validate_presence_of(:zip_code) }
   end
+
+  describe '.featured' do
+    let!(:lounge_1) { FactoryBot.create(:lounge, featured: true) }
+    let!(:lounge_2) { FactoryBot.create(:lounge, featured: true) }
+    let!(:lounge_3) { FactoryBot.create(:lounge, featured: false) }
+    let!(:lounge_4) { FactoryBot.create(:lounge, featured: false) }
+
+    it 'only returns lounges with the featured attribute set to true' do
+      expect(Lounge.featured.length).to eq 2
+    end
+
+    context 'when there are no featured lounges' do
+      let!(:lounge_1) { FactoryBot.create(:lounge, featured: false) }
+      let!(:lounge_2) { FactoryBot.create(:lounge, featured: false) }
+      let!(:lounge_3) { FactoryBot.create(:lounge, featured: false) }
+      let!(:lounge_4) { FactoryBot.create(:lounge, featured: false) }
+
+      it 'returns an empty collection' do
+        expect(Lounge.featured).to eq []
+      end
+    end
+  end
 end
