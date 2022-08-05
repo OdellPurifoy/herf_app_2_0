@@ -1,5 +1,34 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: lounges
+#
+#  id               :bigint           not null, primary key
+#  address_street_1 :string
+#  address_street_2 :string
+#  city             :string
+#  email            :string
+#  featured         :boolean          default(FALSE)
+#  hours            :string
+#  name             :string
+#  phone            :string
+#  slug             :string
+#  state            :string
+#  zip_code         :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  user_id          :bigint           not null
+#
+# Indexes
+#
+#  index_lounges_on_slug     (slug) UNIQUE
+#  index_lounges_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 require 'faker'
 
 FactoryBot.define do
