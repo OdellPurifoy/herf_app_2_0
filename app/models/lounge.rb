@@ -4,21 +4,23 @@
 #
 # Table name: lounges
 #
-#  id               :bigint           not null, primary key
-#  address_street_1 :string
-#  address_street_2 :string
-#  city             :string
-#  email            :string
-#  featured         :boolean          default(FALSE)
-#  hours            :string
-#  name             :string
-#  phone            :string
-#  slug             :string
-#  state            :string
-#  zip_code         :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  user_id          :bigint           not null
+#  id                     :bigint           not null, primary key
+#  address_street_1       :string
+#  address_street_2       :string
+#  city                   :string
+#  email                  :string
+#  featured               :boolean          default(FALSE)
+#  hours                  :string
+#  name                   :string
+#  outside_cigars_allowed :boolean          default(FALSE)
+#  outside_drinks_allowed :boolean          default(FALSE)
+#  phone                  :string
+#  slug                   :string
+#  state                  :string
+#  zip_code               :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  user_id                :bigint           not null
 #
 # Indexes
 #

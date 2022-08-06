@@ -4,21 +4,23 @@
 #
 # Table name: lounges
 #
-#  id               :bigint           not null, primary key
-#  address_street_1 :string
-#  address_street_2 :string
-#  city             :string
-#  email            :string
-#  featured         :boolean          default(FALSE)
-#  hours            :string
-#  name             :string
-#  phone            :string
-#  slug             :string
-#  state            :string
-#  zip_code         :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  user_id          :bigint           not null
+#  id                     :bigint           not null, primary key
+#  address_street_1       :string
+#  address_street_2       :string
+#  city                   :string
+#  email                  :string
+#  featured               :boolean          default(FALSE)
+#  hours                  :string
+#  name                   :string
+#  outside_cigars_allowed :boolean          default(FALSE)
+#  outside_drinks_allowed :boolean          default(FALSE)
+#  phone                  :string
+#  slug                   :string
+#  state                  :string
+#  zip_code               :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  user_id                :bigint           not null
 #
 # Indexes
 #
@@ -37,9 +39,12 @@ RSpec.describe Lounge, type: :model do
     it { should have_db_column(:address_street_2).of_type(:string) }
     it { should have_db_column(:city).of_type(:string) }
     it { should have_db_column(:email).of_type(:string) }
+    it { should have_db_column(:featured).of_type(:boolean) }
     it { should have_db_column(:hours).of_type(:string) }
     it { should have_db_column(:name).of_type(:string) }
     it { should have_db_column(:phone).of_type(:string) }
+    it { should have_db_column(:outside_cigars_allowed).of_type(:boolean) }
+    it { should have_db_column(:outside_drinks_allowed).of_type(:boolean) }
     it { should have_db_column(:slug).of_type(:string) }
     it { should have_db_column(:state).of_type(:string) }
     it { should have_db_column(:user_id).of_type(:integer) }
