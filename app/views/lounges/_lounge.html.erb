@@ -35,9 +35,13 @@
     </div>
   </div>
   <footer class="card-footer">
-    <a href="#" class="card-footer-item">Save</a>
-    <a href="#" class="card-footer-item">Edit</a>
-    <a href="#" class="card-footer-item">Delete</a>
+    <% if user_signed_in? && current_user.id == @lounge.user_id %>
+      <%= link_to "Edit", edit_lounge_path, class: "button is-primary is-light card-footer-item" %>
+      <%= link_to "View Events", "#", class: "button is-primary is-light card-footer-item" %>
+      <%= link_to "Delete", "#", class: "button is-primary is-light card-footer-item" %>
+    <% else %>
+      <%= link_to "View Events", "#", class: "button is-primary is-light card-footer-item" %>
+    <% end %>
   </footer>
 </div>
 </section>
