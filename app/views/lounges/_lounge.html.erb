@@ -1,44 +1,43 @@
+<section>
+<div class="card" id="<%= dom_id lounge %>">
+  <header class="card-header">
+    <p class="card-header-title">
+      <%= @lounge.name %>
+    </p>
+  </header>
+  <div class="card-content">
+    <figure class="image is-48x48 mb-2">
+      <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+    </figure><br />
+    <p><%= @lounge.address_street_1 %>
+    <% if lounge.address_street_2.present? %>
+      <p class="inline-block pr3"><%= lounge.address_street_2 %></p>
+    <% end %>
 
-<section class="section instrument-show">
-  <div class="columns">
-    <div class="column is-8" id="<%= dom_id lounge %>">
-      <h1 class="title is-2"><%= lounge.name %></h1>
-      
-        <% if lounge.logo.present? %>
-          <%= image_tag(lounge.logo.variant(resize_to_fill: [96,96]), class: "is-rounded") %>
-        <% else %>
-          <figure class="image is-96x96">
-            <img alt="image" class="is-rounded" src="/assets/images/default_logo_small.png">
-          </figure>
-        <% end %>
+    <p><%= lounge.city %><p>
 
-        <ul class="pv1">
-          <li class="inline-block pr3"><%= lounge.address_street_1 %></li>
+    <p><%= lounge.state %></p>
 
-          <% if lounge.address_street_2.present? %>
-            <li class="inline-block pr3"><%= lounge.address_street_2 %></li>
-          <% end %>
+    <p><%= lounge.zip_code %></p>
+    
+    <% if lounge.phone.present? %>
+      <p><%= lounge.phone %></p>
+    <% end %>
 
-          <li class="inline-block pr3"><%= lounge.city %></li>
+    <p><%= lounge.email %></p>
 
-          <li class="inline-block pr3"><%= lounge.state %></li>
+    <% if lounge.hours.present? %>
+      <p><%= lounge.hours %></p>
+    <% end %>
 
-          <li class="inline-block pr3"><%= lounge.zip_code %></li>
-          
-          <% if lounge.phone.present? %>
-            <li class="inline-block pr3"><%= lounge.phone %></li>
-          <% end %>
-
-          <li class="inline-block pr3"><%= lounge.email %></li>
-
-          <% if lounge.hours.present? %>
-            <li class="inline-block pr3"><%= lounge.hours %></li>
-          <% end %>
-        </ul>
-
-      <div class="content">
-        <p><%= lounge.details %></p>
-      </div>
+    <div class="content">
+      <%= @lounge.details %><br />
     </div>
   </div>
+  <footer class="card-footer">
+    <a href="#" class="card-footer-item">Save</a>
+    <a href="#" class="card-footer-item">Edit</a>
+    <a href="#" class="card-footer-item">Delete</a>
+  </footer>
+</div>
 </section>
