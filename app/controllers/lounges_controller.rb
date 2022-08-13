@@ -59,7 +59,7 @@ class LoungesController < ApplicationController
     @lounge.destroy
 
     redirect_to root_path, status: :see_other
-    flash[:notice] = "Lounge successfully deleted."
+    flash[:notice] = 'Lounge successfully deleted.'
   end
 
   private
@@ -72,6 +72,7 @@ class LoungesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def lounge_params
     params.require(:lounge).permit(:name, :email, :phone, :address_street_1, :address_street_2, :city, :state, :zip_code, :details,
-                                   :hours, :logo, :outside_cigars_allowed, :outside_drinks_allowed)
+                                   :hours, :logo, :outside_cigars_allowed, :outside_drinks_allowed, :weekday_opening_hour, :weekday_closing_hour, 
+                                   :weekend_opening_hour, :weekend_closing_hour)
   end
 end

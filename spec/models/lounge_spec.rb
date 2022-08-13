@@ -10,13 +10,16 @@
 #  city                   :string
 #  email                  :string
 #  featured               :boolean          default(FALSE)
-#  hours                  :string
 #  name                   :string
 #  outside_cigars_allowed :boolean          default(FALSE)
 #  outside_drinks_allowed :boolean          default(FALSE)
 #  phone                  :string
 #  slug                   :string
 #  state                  :string
+#  weekday_closing_hour   :string
+#  weekday_opening_hour   :string
+#  weekend_closing_hour   :string
+#  weekend_opening_hour   :string
 #  zip_code               :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -40,7 +43,6 @@ RSpec.describe Lounge, type: :model do
     it { should have_db_column(:city).of_type(:string) }
     it { should have_db_column(:email).of_type(:string) }
     it { should have_db_column(:featured).of_type(:boolean) }
-    it { should have_db_column(:hours).of_type(:string) }
     it { should have_db_column(:name).of_type(:string) }
     it { should have_db_column(:phone).of_type(:string) }
     it { should have_db_column(:outside_cigars_allowed).of_type(:boolean) }
@@ -48,6 +50,10 @@ RSpec.describe Lounge, type: :model do
     it { should have_db_column(:slug).of_type(:string) }
     it { should have_db_column(:state).of_type(:string) }
     it { should have_db_column(:user_id).of_type(:integer) }
+    it { should have_db_column(:weekday_opening_hour).of_type(:string) }
+    it { should have_db_column(:weekday_closing_hour).of_type(:string) }
+    it { should have_db_column(:weekend_opening_hour).of_type(:string) }
+    it { should have_db_column(:weekend_closing_hour).of_type(:string) }
     it { should have_db_column(:zip_code).of_type(:string) }
     it { should have_db_column(:created_at).of_type(:datetime) }
     it { should have_db_column(:updated_at).of_type(:datetime) }

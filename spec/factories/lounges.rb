@@ -10,13 +10,16 @@
 #  city                   :string
 #  email                  :string
 #  featured               :boolean          default(FALSE)
-#  hours                  :string
 #  name                   :string
 #  outside_cigars_allowed :boolean          default(FALSE)
 #  outside_drinks_allowed :boolean          default(FALSE)
 #  phone                  :string
 #  slug                   :string
 #  state                  :string
+#  weekday_closing_hour   :string
+#  weekday_opening_hour   :string
+#  weekend_closing_hour   :string
+#  weekend_opening_hour   :string
 #  zip_code               :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -41,7 +44,6 @@ FactoryBot.define do
     address_street_2 { Faker::Address.secondary_address }
     city { Faker::Address.city }
     state { Faker::Address.state }
-    hours { "Mon-Fri 9am-5pm" }
     phone { Faker::PhoneNumber.cell_phone }
     zip_code { Faker::Address.zip_code }
     user

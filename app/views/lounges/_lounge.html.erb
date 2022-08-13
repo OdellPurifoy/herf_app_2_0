@@ -26,8 +26,20 @@
 
     <p><%= lounge.email %></p>
 
-    <% if lounge.hours.present? %>
-      <p><%= lounge.hours %></p>
+    <% if lounge.weekday_opening_hour.present? %>
+      <p><%= lounge.weekday_opening_hour %></p>
+    <% end %>
+
+    <% if lounge.weekday_closing_hour.present? %>
+      <p><%= lounge.weekday_closing_hour %></p>
+    <% end %>
+
+    <% if lounge.weekend_opening_hour.present? %>
+      <p><%= lounge.weekend_opening_hour %></p>
+    <% end %>
+
+    <% if lounge.weekend_closing_hour.present? %>
+      <p><%= lounge.weekend_closing_hour %></p>
     <% end %>
 
     <div class="content">
