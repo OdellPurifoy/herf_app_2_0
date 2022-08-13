@@ -69,7 +69,7 @@
                 <label class="label">Closing Time (Mon-Fri)</label>
                 <div class="control has-icons-left">
                   <span class="select">
-                    <%= f.input_field :weekday_closing_hour, collection: Lounge::AM_HOURS %>
+                    <%= f.input_field :weekday_closing_hour, collection: Lounge::PM_HOURS %>
                   </span>
                 </div>
               </div>
@@ -87,7 +87,7 @@
                 <label class="label">Closing Time (Sat-Sun)</label>
                 <div class="control has-icons-left">
                   <span class="select">
-                    <%= f.input_field :weekend_closing_hour, collection: Lounge::AM_HOURS %>
+                    <%= f.input_field :weekend_closing_hour, collection: Lounge::PM_HOURS %>
                   </span>
                 </div>
               </div>

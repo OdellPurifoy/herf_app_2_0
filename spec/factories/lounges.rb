@@ -44,7 +44,6 @@ FactoryBot.define do
     address_street_2 { Faker::Address.secondary_address }
     city { Faker::Address.city }
     state { Faker::Address.state }
-    hours { "Mon-Fri 9am-5pm" }
     phone { Faker::PhoneNumber.cell_phone }
     zip_code { Faker::Address.zip_code }
     user
