@@ -1,59 +1,59 @@
 <section>
-<div class="card" id="<%= dom_id lounge %>">
-  <header class="card-header">
-    <p class="card-header-title">
-      <%= @lounge.name %>
-    </p>
-  </header>
-  <div class="card-content">
-    <figure class="image is-48x48 mb-2">
-      <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-    </figure><br />
-    <p><%= @lounge.address_street_1 %>
-    <% if lounge.address_street_2.present? %>
-      <p class="inline-block pr3"><%= lounge.address_street_2 %></p>
-    <% end %>
+  <div class="card" id="<%= dom_id lounge %>">
+    <header class="card-header">
+      <p class="card-header-title">
+        <%= @lounge.name %>
+      </p>
+    </header>
+    <div class="card-content">
+      <figure class="image is-48x48 mb-2">
+        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+      </figure><br />
+      <p><%= @lounge.address_street_1 %>
+      <% if lounge.address_street_2.present? %>
+        <p class="inline-block pr3"><%= lounge.address_street_2 %></p>
+      <% end %>
 
-    <p><%= lounge.city %><p>
+      <p><%= lounge.city %><p>
 
-    <p><%= lounge.state %></p>
+      <p><%= lounge.state %></p>
 
-    <p><%= lounge.zip_code %></p>
-    
-    <% if lounge.phone.present? %>
-      <p><%= lounge.phone %></p>
-    <% end %>
+      <p><%= lounge.zip_code %></p>
+      
+      <% if lounge.phone.present? %>
+        <p><%= lounge.phone %></p>
+      <% end %>
 
-    <p><%= lounge.email %></p>
+      <p><%= lounge.email %></p>
 
-    <% if lounge.weekday_opening_hour.present? %>
-      <p><%= lounge.weekday_opening_hour %></p>
-    <% end %>
+      <% if lounge.weekday_opening_hour.present? %>
+        <p><%= lounge.weekday_opening_hour %></p>
+      <% end %>
 
-    <% if lounge.weekday_closing_hour.present? %>
-      <p><%= lounge.weekday_closing_hour %></p>
-    <% end %>
+      <% if lounge.weekday_closing_hour.present? %>
+        <p><%= lounge.weekday_closing_hour %></p>
+      <% end %>
 
-    <% if lounge.weekend_opening_hour.present? %>
-      <p><%= lounge.weekend_opening_hour %></p>
-    <% end %>
+      <% if lounge.weekend_opening_hour.present? %>
+        <p><%= lounge.weekend_opening_hour %></p>
+      <% end %>
 
-    <% if lounge.weekend_closing_hour.present? %>
-      <p><%= lounge.weekend_closing_hour %></p>
-    <% end %>
+      <% if lounge.weekend_closing_hour.present? %>
+        <p><%= lounge.weekend_closing_hour %></p>
+      <% end %>
 
-    <div class="content">
-      <%= @lounge.details %><br />
+      <div class="content">
+        <%= @lounge.details %><br />
+      </div>
     </div>
+    <footer class="card-footer">
+      <% if user_signed_in? && current_user.id == @lounge.user_id %>
+        <%= link_to "Edit", edit_lounge_path(@lounge), class: "button is-primary is-light card-footer-item" %>
+        <%= link_to "View Events", "#", class: "button is-primary is-light card-footer-item" %>
+        <%= link_to "Delete", lounge_path(@lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
+      <% else %>
+        <%= link_to "View Events", "#", class: "button is-primary is-light card-footer-item" %>
+      <% end %>
+    </footer>
   </div>
-  <footer class="card-footer">
-    <% if user_signed_in? && current_user.id == @lounge.user_id %>
-      <%= link_to "Edit", edit_lounge_path, class: "button is-primary is-light card-footer-item" %>
-      <%= link_to "View Events", "#", class: "button is-primary is-light card-footer-item" %>
-      <%= link_to "Delete", "#", class: "button is-primary is-light card-footer-item" %>
-    <% else %>
-      <%= link_to "View Events", "#", class: "button is-primary is-light card-footer-item" %>
-    <% end %>
-  </footer>
-</div>
 </section>

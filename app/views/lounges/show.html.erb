@@ -1,12 +1,1 @@
 <%= render @lounge %>
-
-<div>
-  <%= link_to "Edit this lounge", edit_lounge_path(@lounge) %> |
-  <%= link_to "Back to lounges", lounges_path %>
-
-  <%# <%= button_to "Destroy this lounge", @lounge, method: :delete %>
-  <%= link_to "Destroy", lounge_path(@lounge), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></li>
-</div>
