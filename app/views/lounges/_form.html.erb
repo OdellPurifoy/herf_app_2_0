@@ -56,6 +56,44 @@
             </div>
           </div>
 
+          <div class="columns">
+            <div class="field column is-4">
+              <div class="control">
+                <label class="label">Opening Time (Mon-Fri)</label>
+                <div class="control has-icons-left">
+                  <span class="select">
+                    <%= f.input_field :weekday_opening_hour, collection: Lounge::AM_HOURS %>
+                  </span>
+                </div>
+
+                <label class="label">Closing Time (Mon-Fri)</label>
+                <div class="control has-icons-left">
+                  <span class="select">
+                    <%= f.input_field :weekday_closing_hour, collection: Lounge::AM_HOURS %>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="field column is-4">
+              <div class="control">
+                <label class="label">Opening Time (Sat-Sun)</label>
+                <div class="control has-icons-left">
+                  <span class="select">
+                    <%= f.input_field :weekend_opening_hour, collection: Lounge::AM_HOURS %>
+                  </span>
+                </div>
+
+                <label class="label">Closing Time (Sat-Sun)</label>
+                <div class="control has-icons-left">
+                  <span class="select">
+                    <%= f.input_field :weekend_closing_hour, collection: Lounge::AM_HOURS %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="field">
             <div class="control">
               <%= f.rich_text_area :details %>
