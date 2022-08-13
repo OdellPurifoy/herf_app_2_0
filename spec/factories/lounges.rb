@@ -10,12 +10,15 @@
 #  city                   :string
 #  email                  :string
 #  featured               :boolean          default(FALSE)
+#  instagram_handle       :string
 #  name                   :string
 #  outside_cigars_allowed :boolean          default(FALSE)
 #  outside_drinks_allowed :boolean          default(FALSE)
 #  phone                  :string
 #  slug                   :string
 #  state                  :string
+#  tiktok_handle          :string
+#  twitter_handle         :string
 #  weekday_closing_hour   :string
 #  weekday_opening_hour   :string
 #  weekend_closing_hour   :string

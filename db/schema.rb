@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_13_013720) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_13_233554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_013720) do
     t.string "weekday_closing_hour"
     t.string "weekend_opening_hour"
     t.string "weekend_closing_hour"
+    t.string "instagram_handle"
+    t.string "twitter_handle"
+    t.string "tiktok_handle"
     t.index ["slug"], name: "index_lounges_on_slug", unique: true
     t.index ["user_id"], name: "index_lounges_on_user_id"
   end
