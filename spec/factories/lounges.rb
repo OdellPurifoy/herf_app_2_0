@@ -8,10 +8,12 @@
 #  address_street_1       :string
 #  address_street_2       :string
 #  city                   :string
+#  closing_time           :time
 #  email                  :string
 #  featured               :boolean          default(FALSE)
 #  hours                  :string
 #  name                   :string
+#  opening_time           :time
 #  outside_cigars_allowed :boolean          default(FALSE)
 #  outside_drinks_allowed :boolean          default(FALSE)
 #  phone                  :string
