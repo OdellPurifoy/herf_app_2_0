@@ -10,12 +10,15 @@
 #  city                   :string
 #  email                  :string
 #  featured               :boolean          default(FALSE)
+#  instagram_handle       :string
 #  name                   :string
 #  outside_cigars_allowed :boolean          default(FALSE)
 #  outside_drinks_allowed :boolean          default(FALSE)
 #  phone                  :string
 #  slug                   :string
 #  state                  :string
+#  tiktok_handle          :string
+#  twitter_handle         :string
 #  weekday_closing_hour   :string
 #  weekday_opening_hour   :string
 #  weekend_closing_hour   :string
@@ -42,6 +45,9 @@ FactoryBot.define do
     email { Faker::Internet.email }
     address_street_1 { Faker::Address.street_address }
     address_street_2 { Faker::Address.secondary_address }
+    instagram_handle { "@#{SecureRandom.uuid}" }
+    tiktok_handle { "@#{SecureRandom.uuid}" }
+    twitter_handle { "@#{SecureRandom.uuid}" }
     city { Faker::Address.city }
     state { Faker::Address.state }
     phone { Faker::PhoneNumber.cell_phone }
