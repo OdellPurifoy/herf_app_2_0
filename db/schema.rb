@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_13_235434) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_14_001612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_235434) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "event_type", null: false
+    t.string "start_time_display"
+    t.string "end_time_display"
+    t.integer "maximum_capacity"
+    t.boolean "rsvp_needed", default: false
+    t.date "event_date"
+    t.bigint "lounge_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lounge_id"], name: "index_events_on_lounge_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -107,5 +121,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_235434) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "lounges"
   add_foreign_key "lounges", "users"
 end
