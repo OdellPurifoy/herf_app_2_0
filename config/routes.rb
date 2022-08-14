@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :lounges
+  resources :lounges do
+    resources :events
+  end
+  
   devise_scope :user do
-    # Redirests signing out users back to sign-in
+    # Redirects signing out users back to sign-in
     get "users", to: "devise/sessions#new"
   end
 
