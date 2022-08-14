@@ -53,7 +53,7 @@ class Lounge < ApplicationRecord
   has_one_attached :logo
 
   validates_presence_of :name, :address_street_1, :city, :state, :zip_code, :phone, :email
-  validates :email, uniqueness: true
+  validates :email, :instagram_handle, :twitter_handle, :tiktok_handle, uniqueness: true
   validates :name, uniqueness: {
     scope: %i[address_street_1 city state zip_code],
     message: 'A lounge already exists at this location.'

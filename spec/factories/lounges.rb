@@ -45,6 +45,9 @@ FactoryBot.define do
     email { Faker::Internet.email }
     address_street_1 { Faker::Address.street_address }
     address_street_2 { Faker::Address.secondary_address }
+    instagram_handle { "@#{SecureRandom.uuid}" }
+    tiktok_handle { "@#{SecureRandom.uuid}" }
+    twitter_handle { "@#{SecureRandom.uuid}" }
     city { Faker::Address.city }
     state { Faker::Address.state }
     phone { Faker::PhoneNumber.cell_phone }
