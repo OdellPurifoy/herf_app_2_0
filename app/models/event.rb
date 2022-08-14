@@ -24,4 +24,9 @@
 #
 class Event < ApplicationRecord
   belongs_to :lounge
+
+  has_rich_text :description
+  has_one_attached :flyer
+
+  validates_presence_of :end_time_display, :event_date, :event_type, :name, :start_time_display
 end
