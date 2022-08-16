@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: events
@@ -23,6 +25,8 @@
 #  fk_rails_...  (lounge_id => lounges.id)
 #
 class Event < ApplicationRecord
+  TYPES = ['Live Music', 'Whiskey Tasting', 'Cigar Brand Event', 'Holiday', 'Sports'].freeze
+
   belongs_to :lounge
 
   has_rich_text :description
