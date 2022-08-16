@@ -4,7 +4,7 @@
 
         <h1 class="has-text-weight-bold pb-3 is-size-3">Create A New Event</h1>
 
-        <%= simple_form_for(@event) do |f| %>
+        <%= simple_form_for([@lounge, event]) do |f| %>
           <%= f.error_notification %>
           <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
@@ -17,7 +17,7 @@
 
           <div class="field">
             <div class="control">
-              <%= f.input_field :event_type, collection: Event::Types, required: true %>
+              <%= f.input_field :event_type, collection: Event::TYPES, required: true %>
             </div>
           </div>
 
@@ -49,9 +49,6 @@
             <div class="control">
               <%= f.input :event_date, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
             </div>
-          </div>
-
-            <%= f.association :lounge %>
           </div>
 
           <div class="form-actions">

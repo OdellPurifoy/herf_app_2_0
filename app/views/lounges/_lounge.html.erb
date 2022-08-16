@@ -50,6 +50,7 @@
       <% if user_signed_in? && current_user.id == @lounge.user_id %>
         <%= link_to "Edit", edit_lounge_path(@lounge), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "View Events", "#", class: "button is-primary is-light card-footer-item" %>
+        <%= link_to "New Event", new_lounge_event_path(@lounge), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "Delete", lounge_path(@lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
       <% else %>
         <%= link_to "View Events", "#", class: "button is-primary is-light card-footer-item" %>
