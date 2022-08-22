@@ -1,60 +1,61 @@
 <div class="section">
   <div class="container">
-    <div class="columns is-centered">
+    <h1 class="has-text-weight-bold pb-3 is-size-3">Create A New Event</h1>
 
-        <h1 class="has-text-weight-bold pb-3 is-size-3">Create A New Event</h1>
+    <%= simple_form_for([@lounge, event]) do |f| %>
+      <%= f.error_notification %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-        <%= simple_form_for([@lounge, event]) do |f| %>
-          <%= f.error_notification %>
-          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-          <div class="form-inputs">
-          <div class="field">
-            <div class="control">
-              <%= f.input :name, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-            </div>
+      <div class="form-inputs">
+        <div class="field">
+          <div class="control">
+            <%= f.input :name, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
           </div>
+        </div>
 
-          <div class="field">
-            <div class="control">
-              <%= f.input_field :event_type, collection: Event::TYPES, required: true %>
-            </div>
+        <div class="field">
+          <div class="control">
+            <label class="label">Event Type</label>
+            <%= f.input_field :event_type, collection: Event::TYPES, required: true %>
           </div>
+        </div>
 
-          <div class="field">
-            <div class="control">
-              <%= f.input :start_time_display, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
-            </div>
+        <div class="field">
+          <div class="control">
+            <%= f.input :start_time_display, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class:"label" }%>
           </div>
+        </div>
 
-          <div class="field">
-            <div class="control">
-              <%= f.input :end_time_display, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
-            </div>
+        <div class="field">
+          <div class="control">
+            <%= f.input :end_time_display, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
           </div>
+        </div>
 
-          <div class="field">
-            <div class="control">
-              <%= f.input :maximum_capacity, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
-            </div>
+        <div class="field">
+          <div class="control">
+            <%= f.input :maximum_capacity, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
           </div>
+        </div>
 
-          <div class="field">
-            <div class="control">
-              <%= f.input :rsvp_needed, as: :boolean, inline_label: 'RSVP Needed?', required: true %>
-            </div>
+        <div class="field">
+          <div class="control">
+            <%= f.input :rsvp_needed, as: :boolean, inline_label: 'RSVP Needed?', required: true %>
           </div>
+        </div>
 
-          <div class="field">
-            <div class="control">
-              <%= f.input :event_date, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
-            </div>
+        <div class="field">
+          <div class="control">
+            <%= f.input :event_date, as: :date, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class:"label" }%>
           </div>
+        </div>
+      </div>
 
-          <div class="form-actions">
-            <%= f.button :submit %>
-          </div>
-        <% end %>
-    </div>
+      <div class="form-actions">
+        <%= f.button :submit %>
+      </div>
+
+      <%# <%= link_to "Back to events", lounge_events_path(@event) %>
+    <% end %>
   </div>
 </div>
