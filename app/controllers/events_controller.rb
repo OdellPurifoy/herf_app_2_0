@@ -26,7 +26,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.turbo_stream { redirect_to lounge_event_url(@event) }
+        format.turbo_stream { redirect_to lounge_events_url(@event) }
         format.html { redirect_to lounge_event_url(@event), notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
       else
