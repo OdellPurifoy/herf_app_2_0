@@ -13,25 +13,13 @@
     <div class="navbar-start">
         <% if user_signed_in? %>
         <%# Home link %>
-        <%= link_to root_path, class: "navbar-item" do %>
-            <span class="icon is-small">
-                <i class="fa-solid fa-house fa-lg"></i>
-            </span>
-        <% end %>
+        <%= link_to "Home", root_path, class: "navbar-item" %>
 
         <%# Add new lounge %>
-        <%= link_to new_lounge_path, class: "navbar-item" do %>
-            <span class="icon is-small">
-                <i class="fa-regular fa-square-plus fa-lg"></i>
-            </span>
-        <% end %>
+        <%= link_to "Build Lounge", new_lounge_path, class: "navbar-item" %>
 
         <%# Notification %>
-        <%= link_to '#', class: "navbar-item" do %>
-            <span class="icon is-small">
-                <i class="fa-regular fa-bell fa-lg"></i>
-            </span>
-        <% end %>
+        <%= link_to "Notifications", '#', class: "navbar-item" %>
 
         <%# Additional Information %>
         <div class="navbar-item has-dropdown is-hoverable">
@@ -45,12 +33,11 @@
             <%= link_to "Report an issue", '#', class: "navbar-item" %>
             </div>
         <% else %>
-        <%# Home link %>
-        <%= link_to '#', class: "navbar-item" do %>
-            <span class="icon is-small">
-                <i class="fa-solid fa-house fa-lg"></i>
-            </span>
-            <% end %>
+          <%# Home link %>
+          <%= link_to "Home", root_path, class: "navbar-item" %>
+
+          <%# View all lounges %>
+          <%= link_to "All Lounges", lounges_path, class: "navbar-item" %>
         <% end %>
       </div>
     </div>
