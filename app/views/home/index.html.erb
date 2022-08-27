@@ -1,36 +1,36 @@
 <% @lounges.each do |lounge| %>
 
- <div class="card pb-2">
-  <div class="card-content">
-    <div class="media">
-      <div class="media-left">
-        <figure class="image is-48x48 mb-2">
-          <% if lounge.logo.present? %>
-            <%= image_tag(lounge.logo) %>
-          <% else %>
-            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-          <% end %>
-        </figure>
+  <div class="card pb-2">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48 mb-2">
+            <% if lounge.logo.present? %>
+              <%= image_tag(lounge.logo) %>
+            <% else %>
+              <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+            <% end %>
+          </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4"><%= lounge.name %></p>
+          <p class="subtitle is-6"><%= lounge.city %>, <%= lounge.state %></p>
+        </div>
       </div>
-      <div class="media-content">
-        <p class="title is-4"><%= lounge.name %></p>
-        <p class="subtitle is-6"><%= lounge.city %>, <%= lounge.state %></p>
+
+      <div class="content">
+        <%= lounge.details %>
+      </div>
+
+      <div class="buttons">
+        <% if user_signed_in? %>
+          <%= link_to "Edit", edit_lounge_path(lounge), class: "button is-primary is-light" %>
+          <%= link_to "View Events", lounge_events_url(lounge), class: "button is-primary is-light" %>
+        <% else %>
+          <%= link_to "View Events", lounge_events_url(lounge), class: "is-primary" %>
+        <% end %>
       </div>
     </div>
-
-    <div class="content">
-      <%= lounge.details %>
-    </div>
-
-    <div class="buttons">
-      <% if user_signed_in? %>
-        <%= link_to "Edit", "#", class: "button is-primary is-light" %>
-        <%= link_to "View Events", "#", class: "button is-primary is-light" %>
-      <% else %>
-        <%= link_to '#', "View Events", class: "is-primary" %>
-      <% end %>
-    </div>
-  </div>
-</div><br />
+  </div><br />
 
 <% end %>
