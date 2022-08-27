@@ -9,6 +9,7 @@
 #  maximum_capacity   :integer
 #  name               :string           not null
 #  rsvp_needed        :boolean          default(FALSE)
+#  slug               :string
 #  start_time_display :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
@@ -17,6 +18,7 @@
 # Indexes
 #
 #  index_events_on_lounge_id  (lounge_id)
+#  index_events_on_slug       (slug) UNIQUE
 #
 # Foreign Keys
 #
