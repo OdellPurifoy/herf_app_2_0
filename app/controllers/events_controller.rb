@@ -4,7 +4,7 @@ class EventsController < ApplicationController
 
   # GET /events or /events.json
   def index
-    @events = Event.all
+    @events = @lounge.events
   end
 
   # GET /events/1 or /events/1.json
@@ -26,7 +26,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.turbo_stream { redirect_to lounge_events_url(@event) }
+        format.turbo_stream { redirect_to lounge_events_url(@lounge) }
         format.html { redirect_to lounge_event_url(@event), notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
       else
@@ -40,7 +40,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.turbo_stream { redirect_to lounge_event_url(@event) }
+        format.turbo_stream { redirect_to lounge_event_url(@lounge) }
         format.html { redirect_to lounge_event_url(@event), notice: "Event was successfully updated." }
         format.json { render :show, status: :ok, location: @event }
       else
