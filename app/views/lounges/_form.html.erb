@@ -1,130 +1,118 @@
-<div class="section">
-  <div class="container">
-    <div class="columns is-centered">
-      <%= simple_form_for(@lounge) do |f| %>
-        <%= f.error_notification %>
-        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<%= simple_form_for(@lounge) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-        <h1 class="has-text-weight-bold pb-3 is-size-3">Create A New Lounge</h1>
 
-        <div class="form-inputs">
-          <div class="field">
-            <div class="control">
-              <%= f.input :name, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-            </div>
+  <div class="form-inputs">
+    <div class="field">
+      <div class="control">
+        <%= f.input :name, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.input :address_street_1, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.input :address_street_2, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.input :city, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.input :state, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.input :zip_code, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.input :email, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.input :phone, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="field column is-4">
+        <div class="control">
+          <div class="control has-icons-left">
+            <span class="select">
+              <%= f.input_field :weekday_opening_hour, collection: Lounge::AM_HOURS %>
+            </span>
           </div>
 
-          <div class="field">
-            <div class="control">
-              <%= f.input :address_street_1, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.input :address_street_2, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.input :city, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.input :state, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.input :zip_code, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.input :email, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.input :phone, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
-            </div>
-          </div>
-
-          <div class="columns">
-            <div class="field column is-4">
-              <div class="control">
-                <div class="control has-icons-left">
-                  <span class="select">
-                    <%= f.input_field :weekday_opening_hour, collection: Lounge::AM_HOURS %>
-                  </span>
-                </div>
-
-                <div class="control has-icons-left">
-                  <span class="select">
-                    <%= f.input_field :weekday_closing_hour, collection: Lounge::PM_HOURS %>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div class="field column is-4">
-              <div class="control">
-                <div class="control has-icons-left">
-                  <span class="select">
-                    <%= f.input_field :weekend_opening_hour, collection: Lounge::AM_HOURS %>
-                  </span>
-                </div>
-
-                <div class="control has-icons-left">
-                  <span class="select">
-                    <%= f.input_field :weekend_closing_hour, collection: Lounge::PM_HOURS %>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.rich_text_area :details %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.input :outside_drinks_allowed, as: :boolean, inline_label: 'Outside Drinks Allowed?' %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.input :outside_cigars_allowed, as: :boolean, inline_label: 'Outside Cigars Allowed?' %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <strong>Add Logo</strong>
-              <%= f.file_field :logo %>
-            </div>
+          <div class="control has-icons-left">
+            <span class="select">
+              <%= f.input_field :weekday_closing_hour, collection: Lounge::PM_HOURS %>
+            </span>
           </div>
         </div>
+      </div>
 
-        <div class="form-actions">
-          <%= f.button :submit, class: "button is-primary is-light mt-2" %>
+      <div class="field column is-4">
+        <div class="control">
+          <div class="control has-icons-left">
+            <span class="select">
+              <%= f.input_field :weekend_opening_hour, collection: Lounge::AM_HOURS %>
+            </span>
+          </div>
+
+          <div class="control has-icons-left">
+            <span class="select">
+              <%= f.input_field :weekend_closing_hour, collection: Lounge::PM_HOURS %>
+            </span>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="mt-2">
-          <%= link_to "Back to lounges", lounges_path %>
-        </div>
-      <% end %>
+    <div class="field">
+      <div class="control">
+        <%= f.rich_text_area :details %>
+      </div>
+    </div>
 
+    <div class="field">
+      <div class="control">
+        <%= f.input :outside_drinks_allowed, as: :boolean, inline_label: 'Outside Drinks Allowed?' %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= f.input :outside_cigars_allowed, as: :boolean, inline_label: 'Outside Cigars Allowed?' %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <strong>Add Logo</strong>
+        <%= f.file_field :logo %>
+      </div>
     </div>
   </div>
-</div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "button is-primary is-light mt-2" %>
+  </div>
+<% end %>
