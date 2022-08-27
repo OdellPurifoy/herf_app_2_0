@@ -10,15 +10,12 @@
 #  city                   :string
 #  email                  :string
 #  featured               :boolean          default(FALSE)
-#  instagram_handle       :string
 #  name                   :string
 #  outside_cigars_allowed :boolean          default(FALSE)
 #  outside_drinks_allowed :boolean          default(FALSE)
 #  phone                  :string
 #  slug                   :string
 #  state                  :string
-#  tiktok_handle          :string
-#  twitter_handle         :string
 #  weekday_closing_hour   :string
 #  weekday_opening_hour   :string
 #  weekend_closing_hour   :string
@@ -54,7 +51,7 @@ class Lounge < ApplicationRecord
   has_one_attached :logo
 
   validates_presence_of :name, :address_street_1, :city, :state, :zip_code, :phone, :email
-  validates :email, :instagram_handle, :twitter_handle, :tiktok_handle, uniqueness: true
+  validates :email, uniqueness: true
   validates :name, uniqueness: {
     scope: %i[address_street_1 city state zip_code],
     message: 'A lounge already exists at this location.'
