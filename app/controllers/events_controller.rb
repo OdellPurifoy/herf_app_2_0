@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :get_lounge
+  before_action :set_lounge, only: [:index, :new, :create]
 
   # GET /events or /events.json
   def index
@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
-  end
+  end 
 
   # GET /events/new
   def new
@@ -26,7 +26,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.turbo_stream { redirect_to lounge_events_url(@lounge) }
+        format.turbo_stream { redirect_to [@lounge, @event] }
         format.html { redirect_to lounge_event_url(@event), notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
       else
@@ -40,7 +40,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.turbo_stream { redirect_to lounge_event_url(@lounge) }
+        format.turbo_stream { redirect_to [@lounge, @event] }
         format.html { redirect_to lounge_event_url(@event), notice: "Event was successfully updated." }
         format.json { render :show, status: :ok, location: @event }
       else
@@ -63,7 +63,7 @@ class EventsController < ApplicationController
       @event = Event.friendly.find(params[:id])
     end
 
-    def get_lounge
+    def set_lounge
       @lounge = Lounge.friendly.find(params[:lounge_id])
     end
 

@@ -5,6 +5,6 @@
 <br>
 
 <div>
-  <%= link_to "Show this event", @event %> |
-  <%= link_to "Back to events", events_path %>
+  <%= link_to "Show this event", edit_event_path(@event) %> |
+  <%= link_to "Back to events", lounge_events_path([@event, @event.lounge.id]) %>
 </div>
