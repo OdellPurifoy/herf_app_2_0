@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :lounges do
-    resources :events
+    resources :events, shallow: true
   end
   
   devise_scope :user do
