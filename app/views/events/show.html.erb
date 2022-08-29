@@ -3,7 +3,7 @@
 <%= render @event %>
 
 <div>
-  <%= link_to "Edit this event", edit_event_path(@event) %> |
+  <%= link_to "Edit this event", edit_lounge_event_path(@event) %> |
   <%# <%= link_to "Back to events", events_path %> %>
 
   <%= button_to "Destroy this event", @event, method: :delete %>
