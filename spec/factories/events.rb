@@ -28,9 +28,10 @@ FactoryBot.define do
   factory :event do
     name { "MyString" }
     event_type { "MyString" }
+    start_time { Time.now }
+    end_time { Time.now + 3.hours }
     maximum_capacity { 1 }
     rsvp_needed { false }
     event_date { "2022-08-13" }
-    lounge { nil }
   end
 end

@@ -38,4 +38,11 @@ class Event < ApplicationRecord
   has_one_attached :flyer
 
   validates_presence_of :end_time, :event_date, :event_type, :name, :start_time
+  validate :end_time_not_earlier_than_start_time, on: :create
+
+  private
+
+  def end_time_not_earlier_than_start_time
+    errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time < start_time
+  end
 end
