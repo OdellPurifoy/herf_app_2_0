@@ -3,8 +3,9 @@
 <%= render @event %>
 
 <div>
-  <%= link_to "Edit this event", edit_lounge_event_path(@event) %> |
-  <%= link_to "Back to events", lounge_events_path %>
+  <%= link_to "Edit this event", edit_lounge_event_path([@lounge, @event]) %>
+  <%= link_to "Back to events", [@lounge, :events] %>
 
-  <%= button_to "Destroy this event", @event, method: :delete %>
+
+  <%= button_to "Destroy this event", [@lounge, @event], method: :delete %>
 </div>
