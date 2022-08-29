@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[ show edit update destroy ]
-  before_action :set_lounge, only: [:index, :new, :create]
+  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_lounge, only: %i[index new create]
 
   # GET /events or /events.json
   def index
@@ -8,8 +10,7 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1 or /events/1.json
-  def show
-  end 
+  def show; end
 
   # GET /events/new
   def new
@@ -17,8 +18,7 @@ class EventsController < ApplicationController
   end
 
   # GET /events/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /events or /events.json
   def create
@@ -27,7 +27,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.save
         format.turbo_stream { redirect_to [@lounge, @event] }
-        format.html { redirect_to lounge_event_url(@event), notice: "Event was successfully created." }
+        format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       if @event.update(event_params)
         format.turbo_stream { redirect_to [@lounge, @event] }
-        format.html { redirect_to lounge_event_url(@event), notice: "Event was successfully updated." }
+        format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,17 +59,18 @@ class EventsController < ApplicationController
   end
 
   private
-    def set_event
-      @event = Event.friendly.find(params[:id])
-    end
 
-    def set_lounge
-      @lounge = Lounge.friendly.find(params[:lounge_id])
-    end
+  def set_event
+    @event = Event.friendly.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def event_params
-      params.require(:event).permit(:name, :event_type, :maximum_capacity, :rsvp_needed, :event_date, 
-        :lounge_id, :flyer, :description)
-    end
+  def set_lounge
+    @lounge = Lounge.friendly.find(params[:lounge_id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def event_params
+    params.require(:event).permit(:name, :end_time, :event_type, :maximum_capacity, :rsvp_needed, :start_time, :event_date,
+                                  :lounge_id, :flyer, :description)
+  end
 end
