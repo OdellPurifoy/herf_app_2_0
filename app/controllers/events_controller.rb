@@ -40,7 +40,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.turbo_stream { redirect_to lounge_event_url(@lounge) }
+        format.turbo_stream { redirect_to [@lounge, @event] }
         format.html { redirect_to lounge_event_url(@event), notice: "Event was successfully updated." }
         format.json { render :show, status: :ok, location: @event }
       else
