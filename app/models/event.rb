@@ -43,11 +43,11 @@ class Event < ApplicationRecord
   private
 
   def end_time_not_earlier_than_start_time
-    errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time < start_time
+    errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
   end
 
   def start_time_not_earlier_than_now
-    errors.add(:start_time, 'Start time cannot be in the past.') if start_time < Time.now
+    errors.add(:start_time, 'Start time cannot be in the past.') if start_time.before?(Time.now)
   end
 
   def should_validate?
