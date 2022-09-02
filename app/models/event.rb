@@ -38,19 +38,29 @@ class Event < ApplicationRecord
   has_one_attached :flyer
 
   validates_presence_of :end_time, :event_date, :event_type, :name, :start_time
-  validate :end_time_not_earlier_than_start_time, :start_time_not_earlier_than_now, if: :should_validate?
+  validate :end_date_not_after_start_date
 
+  # :end_time_not_earlier_than_start_time, :start_time_not_earlier_than_now, if: :should_validate?
+  
   private
 
-  def end_time_not_earlier_than_start_time
-    errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
+  def end_date_not_after_start_date
+    return if event_date.blank?
+
+    if event_date < Date.today
+      errors.add(:event_date, "Event date cannot be in the past")
+    end
   end
 
-  def start_time_not_earlier_than_now
-    errors.add(:start_time, 'Start time cannot be in the past.') if start_time.before?(Time.now)
-  end
+  # def end_time_not_earlier_than_start_time
+  #   errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
+  # end
 
-  def should_validate?
-    new_record? || start_time.present? || end_time.present?
-  end
+  # def start_time_not_earlier_than_now
+  #   errors.add(:start_time, 'Start time cannot be in the past.') if start_time.before?(Time.now)
+  # end
+
+  # def should_validate?
+  #   new_record? || start_time.present? || end_time.present?
+  # end
 end
