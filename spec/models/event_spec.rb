@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: events
@@ -48,5 +50,23 @@ RSpec.describe Event, type: :model do
     it { should validate_presence_of(:event_type) }
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:start_time) }
+  end
+
+  describe '#end_date_not_after_start_date' do
+    let(:event) { FactoryBot.build(:event, event_date: (Date.today - 1.day)) }
+
+    it 'should raise a validation error' do
+      event.validate
+      expect(event.errors[:event_date]).to include('Event date cannot be in the past')
+    end
+  end
+
+  describe '#end_time_not_earlier_than_start_time' do
+    let(:event) { FactoryBot.build(:event, end_time: (Time.now - 1.hour)) }
+
+    it 'should raise a validation error' do
+      event.validate
+      expect(event.errors[:end_time]).to include('End time cannot be earlier than start time.')
+    end
   end
 end
