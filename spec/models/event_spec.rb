@@ -49,4 +49,13 @@ RSpec.describe Event, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:start_time) }
   end
+
+  describe '#end_date_not_after_start_date' do
+    let(:event) { FactoryBot.build(:event, event_date: (Date.today - 1.day)) }
+    
+    it "should raise a validation error" do
+      event.validate
+      expect(event.errors[:event_date]).to include('Event date cannot be in the past')
+    end
+  end
 end
