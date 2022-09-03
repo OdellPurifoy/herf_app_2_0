@@ -32,6 +32,7 @@ FactoryBot.define do
     end_time { Time.now + 3.hours }
     maximum_capacity { 1 }
     rsvp_needed { false }
-    event_date { "2022-08-13" }
+    event_date { (Date.today + 1.day) }
+    lounge
   end
 end
