@@ -10,43 +10,59 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+ 
+  <div class="control">
+    <div class="field">
+      <%= form.label :event_name, class: "label" %>
+      <%= form.text_field :name, class: "input", placeholder: "Event Name" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :event_date %>
-    <%= form.date_field :event_date %>
+  <div class="control">
+    <div class="field">
+      <%= form.label :event_date, class: "label pt-2" %>
+      <%= form.date_field :event_date, class: "input" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :event_type %>
-    <%= form.text_field :event_type %>
+  <div class="control">
+    <div class="field">
+      <%= form.label :event_type, class: "label pt-2" %>
+      <%= form.text_field :event_type, class: "input" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :start_time %>
-    <%= form.time_field :start_time %>
+  <div class="control">
+    <div class="field">
+      <%= form.label :start_time, class: "label pt-2" %>
+      <%= form.time_field :start_time, class: "input" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :end_time %>
-    <%= form.time_field :end_time %>
+  <div class="control">
+    <div class="field">
+      <%= form.label :end_time, class: "label pt-2" %>
+      <%= form.time_field :end_time, class: "input" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :maximum_capacity %>
-    <%= form.number_field :maximum_capacity, in: 1..100, step: 1 %>
+  <div class="control">
+    <div class="field">
+      <%= form.label :maximum_capacity, class: "label pt-2" %>
+      <%= form.number_field :maximum_capacity, in: 1..100, step: 1, class: "input" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :rsvp_needed %>
-    <%= form.check_box :rsvp_needed %>
+  <div class="control">
+    <div class="field">
+      <%= form.check_box :rsvp_needed %>
+      <%= form.label :rsvp_needed_?, class: "checkbox pt-2" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="control">
+    <div class="actions">
+      <%= form.submit %>
+    </div>
   </div>
 <% end %>
