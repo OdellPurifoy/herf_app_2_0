@@ -27,7 +27,7 @@
 #  fk_rails_...  (lounge_id => lounges.id)
 #
 class Event < ApplicationRecord
-  TYPES = ['Live Music', 'Whiskey Tasting', 'Cigar Brand Event', 'Holiday', 'Sports'].freeze
+  TYPES = ['Live Music', 'Whiskey Tasting', 'Cigar Brand Event', 'Holiday', 'Sports', 'Virtual'].freeze
 
   extend FriendlyId
   friendly_id :name, use: :slugged
