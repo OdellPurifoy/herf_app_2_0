@@ -2,20 +2,31 @@
   <div class="card">
     <header class="card-header">
       <p class="card-header-title">
-        <%= event.name %> |  <%= event.event_type %>
+        <%= event.name %> |  <%= event.event_type %> |  <%= event.event_date.strftime("%b %e, %Y") %>
       </p>
     </header>
     <div class="card-content">
       <div class="content">
         <%= event.description %>
         <br>
-        <p>Date: <%= event.event_date %></p>
-        <p>Start: <%= event.start_time %></p>
-        <p>End: <%= event.end_time %></p>
+        <span class="icon-text">
+          <span class="icon">
+            <i class="fa-solid fa-clock"></i>
+          </span>
+          <span><%= event.start_time.strftime("%I:%M %p") %></span>
+          <span class="icon">
+            <i class="fas fa-arrow-right"></i>
+          </span>
+          <span><%= event.end_time.strftime("%I:%M %p") %></span>
+        </span>
         <br>
         <% if event.rsvp_needed %>
-          <%= link_to "RSVP Here", "#", class: "button is-primary is-light" %>
-          <p><%= event.maximum_capacity %> seats left.</p>
+          <span class="icon-text">
+            <span class="icon">
+              <i class="fa-solid fa-chair"></i>
+            </span>
+            <span><%= event.maximum_capacity %> seats remaining</span>
+          </span>
         <% end %>
       </div>
     </div>
@@ -23,6 +34,8 @@
       <% if user_signed_in? && current_user.id == event.lounge.user_id %>
         <%= link_to "Edit this event", edit_event_path(event), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "Delete", event_path(event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
+      <% elsif user_signed_in? && event.rsvp_needed && current_user.id != event.lounge.user_id %>
+        <%= link_to "RSVP Here", "#", class: "button is-primary is-light" %>
       <% end %>
     </footer>
   </div>
