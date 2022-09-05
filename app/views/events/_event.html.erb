@@ -1,41 +1,30 @@
-<div id="<%= dom_id event %>">
-  <p>
-    <strong>Name:</strong>
-    <%= event.name %>
-  </p>
-
-  <p>
-    <strong>Event type:</strong>
-    <%= event.event_type %>
-  </p>
-
-  <p>
-    <strong>Start time:</strong>
-    <%= event.start_time %>
-  </p>
-
-  <p>
-    <strong>End time:</strong>
-    <%= event.end_time %>
-  </p>
-
-  <p>
-    <strong>Maximum capacity:</strong>
-    <%= event.maximum_capacity %>
-  </p>
-
-  <p>
-    <strong>Rsvp needed:</strong>
-    <%= event.rsvp_needed %>
-  </p>
-
-  <p>
-    <strong>Event date:</strong>
-    <%= event.event_date %>
-  </p>
-
-  <p>
-    <strong>Lounge:</strong>
-    <%= event.lounge_id %>
-  </p>
+<div id="<%= dom_id event %>", class="pb-3">
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        <%= event.name %>
+      </p>
+      <small><%= event.event_type %></small>
+    </header>
+    <div class="card-content">
+      <div class="content">
+        <%= event.description %>
+        <br>
+        <p>Date: <%= event.event_date %></p>
+        <p>Start: <%= event.start_time %></p>
+        <p>End: <%= event.end_time %></p>
+        <br>
+        <% if event.rsvp_needed %>
+          <%= link_to "RSVP Here", "#", class: "button is-primary is-light" %>
+          <p><%= event.maximum_capacity %> seats left.</p>
+        <% end %>
+      </div>
+    </div>
+    <footer class="card-footer">
+      <% if user_signed_in? && current_user.id == event.lounge.user_id %>
+        <%= link_to "Edit this event", edit_event_path(event), class: "button is-primary is-light card-footer-item" %>
+        <%= link_to "Delete", event_path(event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
+      <% end %>
+    </footer>
+  </div>
 </div>
