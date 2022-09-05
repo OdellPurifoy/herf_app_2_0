@@ -55,6 +55,13 @@
 
   <div class="control">
     <div class="field">
+      <%= form.label :description, class: "label pt-2" %>
+      <%= form.rich_text_area :description %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
       <%= form.check_box :rsvp_needed %>
       <%= form.label :rsvp_needed_?, class: "checkbox pt-2" %>
     </div>
