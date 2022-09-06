@@ -71,12 +71,14 @@
       <div class="field column is-4">
         <div class="control">
           <div class="control has-icons-left">
+            <%= form.label :weekday_opening_hour, class: "label pt-2" %>
             <span class="select">
               <%= form.select :weekday_opening_hour, Lounge::AM_HOURS %>
             </span>
           </div>
 
           <div class="control has-icons-left">
+            <%= form.label :weekday_closing_hour, class: "label pt-2" %>
             <span class="select">
               <%= form.select :weekday_closing_hour, Lounge::PM_HOURS %>
             </span>
@@ -87,12 +89,14 @@
       <div class="field column is-4">
         <div class="control">
           <div class="control has-icons-left">
+            <%= form.label :weekend_opening_hour, class: "label pt-2" %>
             <span class="select">
               <%= form.select :weekend_opening_hour, Lounge::AM_HOURS %>
             </span>
           </div>
 
           <div class="control has-icons-left">
+            <%= form.label :weekend_closing_hour, class: "label pt-2" %>
             <span class="select">
               <%= form.select :weekend_closing_hour, Lounge::PM_HOURS %>
             </span>
