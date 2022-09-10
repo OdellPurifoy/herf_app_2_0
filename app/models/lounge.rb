@@ -36,6 +36,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Lounge < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   AM_HOURS_DISPLAY = ['Closed', '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM', '6:00 AM', '7:00 AM',
                       '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM'].freeze
 
@@ -44,16 +47,13 @@ class Lounge < ApplicationRecord
 
   TIME_ZONES = ['Eastern Time', 'Central Time', 'Mountain Time', 'Pacific Time', 'Alaska Time',
               'Hawaii-Aleutian Time'].freeze
-
-  extend FriendlyId
-  friendly_id :name, use: :slugged
-
+              
   belongs_to :user
   has_many :events, dependent: :destroy
-
+  
   has_rich_text :details
   has_one_attached :logo
-
+  
   validates_presence_of :name, :address_street_1, :city, :state, :zip_code, :phone, :email
   validates :email, uniqueness: true
   validates :name, uniqueness: {
@@ -65,4 +65,6 @@ class Lounge < ApplicationRecord
                    file_content_type: { allow: ['image/jpeg', 'image/png'] }
 
   scope :featured, -> { where(featured: true) }
+
+  acts_as_favoritable
 end

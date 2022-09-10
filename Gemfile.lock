@@ -66,6 +66,8 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    acts_as_favoritor (6.0.0)
+      activerecord (>= 5.0)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
@@ -278,6 +280,7 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
+  acts_as_favoritor
   annotate (~> 3.2)
   bootsnap
   bulma-rails (~> 0.9.3)

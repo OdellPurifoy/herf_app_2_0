@@ -62,6 +62,11 @@ class LoungesController < ApplicationController
     flash[:notice] = 'Lounge successfully deleted.'
   end
 
+  def toggle_favorite
+    @lounge = Lounge.friendly.find(params[:id])
+    current_user.favorited?(@lounge) ? current_user.unfavorite(@lounge) : current_user.favorite(@lounge)
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
