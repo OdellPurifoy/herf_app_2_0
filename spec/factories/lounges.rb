@@ -16,6 +16,7 @@
 #  phone                  :string
 #  slug                   :string
 #  state                  :string
+#  time_zone              :string
 #  weekday_closing_hour   :string
 #  weekday_opening_hour   :string
 #  weekend_closing_hour   :string

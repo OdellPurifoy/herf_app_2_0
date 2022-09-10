@@ -73,14 +73,14 @@
           <div class="control has-icons-left">
             <%= form.label :weekday_opening_hour, class: "label pt-2" %>
             <span class="select">
-              <%= form.select :weekday_opening_hour, Lounge::AM_HOURS %>
+              <%= form.select :weekday_opening_hour, Lounge::AM_HOURS_DISPLAY %>
             </span>
           </div>
 
           <div class="control has-icons-left">
             <%= form.label :weekday_closing_hour, class: "label pt-2" %>
             <span class="select">
-              <%= form.select :weekday_closing_hour, Lounge::PM_HOURS %>
+              <%= form.select :weekday_closing_hour, Lounge::PM_HOURS_DISPLAY %>
             </span>
           </div>
         </div>
@@ -91,17 +91,24 @@
           <div class="control has-icons-left">
             <%= form.label :weekend_opening_hour, class: "label pt-2" %>
             <span class="select">
-              <%= form.select :weekend_opening_hour, Lounge::AM_HOURS %>
+              <%= form.select :weekend_opening_hour, Lounge::AM_HOURS_DISPLAY %>
             </span>
           </div>
 
           <div class="control has-icons-left">
             <%= form.label :weekend_closing_hour, class: "label pt-2" %>
             <span class="select">
-              <%= form.select :weekend_closing_hour, Lounge::PM_HOURS %>
+              <%= form.select :weekend_closing_hour, Lounge::PM_HOURS_DISPLAY %>
             </span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="control pb-3">
+      <div class="field">
+        <%= form.label :time_zone, class: "label pt-2" %>
+        <%= form.select :phone, Lounge::TIME_ZONES, class: "input" %>
       </div>
     </div>
 
