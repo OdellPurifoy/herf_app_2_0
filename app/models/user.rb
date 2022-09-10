@@ -28,8 +28,8 @@ class User < ApplicationRecord
          :rememberable,
          :validatable
 
-  has_many :events, through: :lounges
   has_many :lounges, dependent: :destroy
+  has_many :events, through: :lounges
 
   acts_as_favoritor
 end
