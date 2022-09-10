@@ -13,14 +13,14 @@
     <div class="navbar-start">
         <% if user_signed_in? %>
         <%# Home link %>
-        <%= link_to "Home", root_path, class: "navbar-item" %>
+        <%= link_to "Home", root_path, class: "navbar-item has-text-weight-semibold" %>
 
         <%# Notification %>
-        <%= link_to "Notifications", '#', class: "navbar-item" %>
+        <%= link_to "Notifications", '#', class: "navbar-item has-text-weight-semibold" %>
 
         <%# Lounges %>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
+          <a class="navbar-link has-text-weight-semibold">
           Lounges
           </a>
 
@@ -33,7 +33,7 @@
 
         <%# Additional Information %>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
+          <a class="navbar-link has-text-weight-semibold">
           More
           </a>
 

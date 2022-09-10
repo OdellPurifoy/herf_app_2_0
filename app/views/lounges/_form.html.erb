@@ -1,54 +1,69 @@
-<%= simple_form_for(@lounge) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<%= form_with model: @lounge do |form| %>
+  <% if lounge.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(lounge.errors.count, "error") %> prohibited this lounge from being saved:</h2>
 
+        <ul>
+          <% lounge.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div class="form-inputs">
-    <div class="field">
-      <div class="control">
-        <%= f.input :name, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+    <div class="control">
+      <div class="field">
+        <%= form.label :name, class: "label" %>
+        <%= form.text_field :name, class: "input", placeholder: "Lounge Name" %>
       </div>
     </div>
 
-    <div class="field">
-      <div class="control">
-        <%= f.input :address_street_1, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" }%>
+    <div class="control">
+      <div class="field">
+        <%= form.label :address_street_1, class: "label pt-2" %>
+        <%= form.text_field :address_street_1, class: "input" %>
       </div>
     </div>
 
-    <div class="field">
-      <div class="control">
-        <%= f.input :address_street_2, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+    <div class="control">
+      <div class="field">
+        <%= form.label :address_street_2, class: "label pt-2" %>
+        <%= form.text_field :address_street_2, class: "input" %>
       </div>
     </div>
 
-    <div class="field">
-      <div class="control">
-        <%= f.input :city, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+    <div class="control">
+      <div class="field">
+        <%= form.label :state, class: "label pt-2" %>
+        <%= form.select :state, CS.states(:us).invert, { prompt: "Select a state" },  { class: "input" } %>
       </div>
     </div>
 
-    <div class="field">
-      <div class="control">
-        <%= f.input :state, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+    <div class="control">
+      <div class="field">
+        <%= form.label :city, class: "label pt-2" %>
+        <%= form.text_field :city, class: "input"  %>
       </div>
     </div>
 
-    <div class="field">
-      <div class="control">
-        <%= f.input :zip_code, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+    <div class="control">
+      <div class="field">
+        <%= form.label :zip_code, class: "label pt-2" %>
+        <%= form.text_field :zip_code, class: "input" %>
       </div>
     </div>
 
-    <div class="field">
-      <div class="control">
-        <%= f.input :email, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+    <div class="control">
+      <div class="field">
+        <%= form.label :email, class: "label pt-2" %>
+        <%= form.email_field :email, class: "input" %>
       </div>
     </div>
 
-    <div class="field">
-      <div class="control">
-        <%= f.input :phone, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+    <div class="control">
+      <div class="field">
+        <%= form.label :phone, class: "label pt-2" %>
+        <%= form.telephone_field :phone, class: "input" %>
       </div>
     </div>
 
@@ -56,14 +71,16 @@
       <div class="field column is-4">
         <div class="control">
           <div class="control has-icons-left">
+            <%= form.label :weekday_opening_hour, class: "label pt-2" %>
             <span class="select">
-              <%= f.input_field :weekday_opening_hour, collection: Lounge::AM_HOURS %>
+              <%= form.select :weekday_opening_hour, Lounge::AM_HOURS %>
             </span>
           </div>
 
           <div class="control has-icons-left">
+            <%= form.label :weekday_closing_hour, class: "label pt-2" %>
             <span class="select">
-              <%= f.input_field :weekday_closing_hour, collection: Lounge::PM_HOURS %>
+              <%= form.select :weekday_closing_hour, Lounge::PM_HOURS %>
             </span>
           </div>
         </div>
@@ -72,14 +89,16 @@
       <div class="field column is-4">
         <div class="control">
           <div class="control has-icons-left">
+            <%= form.label :weekend_opening_hour, class: "label pt-2" %>
             <span class="select">
-              <%= f.input_field :weekend_opening_hour, collection: Lounge::AM_HOURS %>
+              <%= form.select :weekend_opening_hour, Lounge::AM_HOURS %>
             </span>
           </div>
 
           <div class="control has-icons-left">
+            <%= form.label :weekend_closing_hour, class: "label pt-2" %>
             <span class="select">
-              <%= f.input_field :weekend_closing_hour, collection: Lounge::PM_HOURS %>
+              <%= form.select :weekend_closing_hour, Lounge::PM_HOURS %>
             </span>
           </div>
         </div>
@@ -88,31 +107,32 @@
 
     <div class="field">
       <div class="control">
-        <%= f.rich_text_area :details %>
+        <%= form.rich_text_area :details %>
       </div>
     </div>
 
     <div class="field">
       <div class="control">
-        <%= f.input :outside_drinks_allowed, as: :boolean, inline_label: 'Outside Drinks Allowed?' %>
+        <%= form.label :outside_drinks_allowed_?, class: "label pt-2" %>
+        <%= form.check_box :outside_drinks_allowed  %>
       </div>
     </div>
 
     <div class="field">
       <div class="control">
-        <%= f.input :outside_cigars_allowed, as: :boolean, inline_label: 'Outside Cigars Allowed?' %>
+        <%= form.label :outside_cigars_allowed_?, class: "label pt-2" %>
+        <%= form.check_box :outside_cigars_allowed %>
       </div>
     </div>
 
     <div class="field">
       <div class="control">
         <strong>Add Logo</strong>
-        <%= f.file_field :logo %>
+        <%= form.file_field :logo %>
       </div>
     </div>
-  </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: "button is-primary is-light mt-2" %>
+    <%= form.button :submit, class: "button is-primary is-light mt-2" %>
   </div>
 <% end %>
