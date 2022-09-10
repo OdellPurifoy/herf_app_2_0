@@ -100,4 +100,50 @@ RSpec.describe Lounge, type: :model do
       end
     end
   end
+
+  describe 'lounge gaining followers' do
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:lounge) { FactoryBot.create(:lounge) }
+
+    before do
+      user.favorite(lounge)
+    end
+    
+    it 'should tie the correct user to the correct lounge as a follower' do
+      expect(lounge.favoritors.count).to eq 1
+    end
+
+    it 'the follower should be equal to the correct user' do
+      expect(lounge.favoritors.first).to eq user
+    end
+  end
+
+  describe 'lounge losing followers' do
+    let!(:user_1) { FactoryBot.create(:user) }
+    let!(:user_2) { FactoryBot.create(:user) }
+    let!(:lounge) { FactoryBot.create(:lounge) }
+
+    before do
+      user_1.favorite(lounge)
+      user_2.favorite(lounge)
+    end
+
+    it 'should have a total of 2 followers' do
+      expect(lounge.favoritors.count).to eq 2
+    end
+
+    context "when a user unfavorites a lounge" do
+      before do
+        user_1.unfavorite(lounge)
+      end
+      
+      it 'should tie the correct user to the correct lounge as a follower' do
+        expect(lounge.favoritors.count).to eq 1
+      end
+
+      it 'the follower should be equal to the correct user' do
+        expect(lounge.favoritors.first).to eq user_2
+      end
+    end
+  end
 end
