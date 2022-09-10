@@ -28,7 +28,7 @@
   <div class="control">
     <div class="field">
       <%= form.label :event_type, class: "label pt-2" %>
-      <%= form.text_field :event_type, class: "input" %>
+      <%= form.select :event_type, Event::TYPES, class: "input" %>
     </div>
   </div>
 
