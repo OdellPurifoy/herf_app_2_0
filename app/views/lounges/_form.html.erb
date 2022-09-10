@@ -34,15 +34,15 @@
 
     <div class="control">
       <div class="field">
-        <%= form.label :city, class: "label pt-2" %>
-        <%= form.text_field :city, class: "input" %>
+        <%= form.label :state, class: "label pt-2" %>
+        <%= form.select :state, CS.states(:us).invert, { prompt: "Select a state" },  { class: "input" } %>
       </div>
     </div>
 
     <div class="control">
       <div class="field">
-        <%= form.label :state, class: "label pt-2" %>
-        <%= form.text_field :state, class: "input" %>
+        <%= form.label :city, class: "label pt-2" %>
+        <%= form.text_field :city, class: "input"  %>
       </div>
     </div>
 
