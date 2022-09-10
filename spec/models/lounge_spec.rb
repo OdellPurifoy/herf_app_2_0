@@ -16,6 +16,7 @@
 #  phone                  :string
 #  slug                   :string
 #  state                  :string
+#  time_zone              :string
 #  weekday_closing_hour   :string
 #  weekday_opening_hour   :string
 #  weekend_closing_hour   :string
@@ -49,6 +50,7 @@ RSpec.describe Lounge, type: :model do
     it { should have_db_column(:outside_drinks_allowed).of_type(:boolean) }
     it { should have_db_column(:slug).of_type(:string) }
     it { should have_db_column(:state).of_type(:string) }
+    it { should have_db_column(:time_zone).of_type(:string) }
     it { should have_db_column(:user_id).of_type(:integer) }
     it { should have_db_column(:weekday_opening_hour).of_type(:string) }
     it { should have_db_column(:weekday_closing_hour).of_type(:string) }
