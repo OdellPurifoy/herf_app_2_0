@@ -26,6 +26,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        NotifyFollowersMailer.notify_followers.deliver_later
         format.turbo_stream { redirect_to event_path(@event) }
         format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }

@@ -10,8 +10,8 @@ class NotifyFollowersMailer < ApplicationMailer
 
     mail( 
       from: "herf@support.com",
-      to: Lounge.last.favoritors.last.email, 
-      cc: User.all.pluck(:email), 
+      to: Event.last.lounge.favoritors.last.email, 
+      # cc: User.all.pluck(:email), 
       subject: "You're invited to our new event!"
     )
   end
