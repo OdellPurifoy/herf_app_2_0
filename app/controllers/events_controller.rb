@@ -26,7 +26,9 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        NotifyFollowersMailer.with(event: @event).notify_followers.deliver_later
+        @event.lounge.favoritors.each do |favoritor|
+          NotifyFollowersMailer.with(favoritor: favoritor, event: @event).notify_followers.deliver_later
+        end
         format.turbo_stream { redirect_to event_path(@event) }
         format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
