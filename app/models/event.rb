@@ -40,6 +40,8 @@ class Event < ApplicationRecord
   validates_presence_of :end_time, :event_date, :event_type, :name, :start_time
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
+  after_create :notify_followers
+
   private
 
   def end_date_not_after_start_date
@@ -52,6 +54,14 @@ class Event < ApplicationRecord
     return if end_time.blank? || start_time.blank?
 
     errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
+  end
+
+  def notify_followers
+    return if self.lounge.favoritors.count == 0
+
+    self.lounge.favoritors.each do |favoritor|
+      NotifyFollowersMailer.with(favoritor: favoritor, event: self).notify_followers.deliver_later
+    end
   end
 
   # TODO: Make this validation work
