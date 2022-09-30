@@ -69,4 +69,18 @@ RSpec.describe Event, type: :model do
       expect(event.errors[:end_time]).to include('End time cannot be earlier than start time.')
     end
   end
+
+  describe '#notify_followers' do
+    let(:lounge) { FactoryBot.create(:lounge, events: [event]) }
+    let(:event) { FactoryBot.build(:event) }
+
+    before do
+      allow(event).to receive(:notify_followers)   
+    end
+
+    it 'should call the Notification Mailer with lounge followers' do
+      event.save!
+      expect(event).to have_received(:notify_followers)
+    end
+  end
 end
