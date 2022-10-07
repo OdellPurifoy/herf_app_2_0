@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @lounge_membership %>
+
+<div>
+  <%= link_to "Edit this lounge membership", edit_lounge_membership_path(@lounge_membership) %> |
+  <%= link_to "Back to lounge memberships", lounge_memberships_path %>
+
+  <%= button_to "Destroy this lounge membership", @lounge_membership, method: :delete %>
+</div>
