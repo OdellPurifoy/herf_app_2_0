@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe "lounge_memberships/index", type: :view do
+RSpec.describe "memberships/index", type: :view do
   before(:each) do
-    assign(:lounge_memberships, [
-      LoungeMembership.create!(
+    assign(:memberships, [
+      Membership.create!(
         first_name: "First Name",
         last_name: "Last Name",
         email: "Email",
         phone_number: "Phone Number",
         lounge: nil
       ),
-      LoungeMembership.create!(
+      Membership.create!(
         first_name: "First Name",
         last_name: "Last Name",
         email: "Email",
@@ -20,7 +20,7 @@ RSpec.describe "lounge_memberships/index", type: :view do
     ])
   end
 
-  it "renders a list of lounge_memberships" do
+  it "renders a list of memberships" do
     render
     assert_select "tr>td", text: "First Name".to_s, count: 2
     assert_select "tr>td", text: "Last Name".to_s, count: 2

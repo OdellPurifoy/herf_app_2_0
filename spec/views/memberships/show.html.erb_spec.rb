@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe "lounge_memberships/show", type: :view do
+RSpec.describe "memberships/show", type: :view do
   before(:each) do
-    @lounge_membership = assign(:lounge_membership, LoungeMembership.create!(
+    @membership = assign(:membership, Membership.create!(
       first_name: "First Name",
       last_name: "Last Name",
       email: "Email",
