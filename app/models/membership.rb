@@ -10,10 +10,12 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  lounge_id    :bigint           not null
+#  user_id      :bigint
 #
 # Indexes
 #
 #  index_memberships_on_lounge_id  (lounge_id)
+#  index_memberships_on_user_id    (user_id)
 #
 # Foreign Keys
 #
