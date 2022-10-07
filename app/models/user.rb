@@ -30,6 +30,7 @@ class User < ApplicationRecord
 
   has_many :lounges, dependent: :destroy
   has_many :events, through: :lounges
+  has_many :memberships, dependent: :destroy
 
   acts_as_favoritor
 end

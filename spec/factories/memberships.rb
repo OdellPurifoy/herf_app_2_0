@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :membership do
-    first_name { "MyString" }
-    last_name { "MyString" }
-    email { "MyString" }
-    phone_number { "MyString" }
-    lounge { nil }
+    email { Faker::Internet.email }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    phone_number { Faker::PhoneNumber.cell_phone }
+    lounge
   end
 end
