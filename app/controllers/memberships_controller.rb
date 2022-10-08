@@ -17,7 +17,7 @@ class MembershipsController < ApplicationController
   end
 
   def create
-    @membership = Membership.new(membership_params)
+    @membership = @lounge.memberships.build(membership_params)
 
     respond_to do |format|
       if @membership.save
