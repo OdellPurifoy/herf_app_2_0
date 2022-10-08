@@ -26,5 +26,5 @@ class Membership < ApplicationRecord
   belongs_to :user, optional: true
 
   validates_presence_of :email, :first_name, :last_name
-  validates :email, uniqueness: { scope: :lounge_id, message: 'A Membership already exists with this email.' }
+  validates :email, uniqueness: { scope: :lounge_id, message: 'has already been taken' }
 end

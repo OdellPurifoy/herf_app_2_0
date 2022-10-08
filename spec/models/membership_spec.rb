@@ -36,4 +36,17 @@ RSpec.describe Membership, type: :model do
     it { should belong_to(:lounge) }
     it { should belong_to(:user).optional }
   end
+
+  describe 'Validations' do
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+  end
+
+  describe 'Uniqueness Validations' do
+    let!(:lounge) { FactoryBot.create(:lounge) }
+    let!(:membership_1) { FactoryBot.create(:membership, email: 'test@example.com', lounge_id: lounge.id) }
+
+    it { should validate_uniqueness_of(:email).scoped_to(:lounge_id) }
+  end
 end

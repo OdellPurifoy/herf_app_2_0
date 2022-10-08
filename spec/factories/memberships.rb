@@ -21,6 +21,8 @@
 #
 #  fk_rails_...  (lounge_id => lounges.id)
 #
+require 'faker'
+
 FactoryBot.define do
   factory :membership do
     email { Faker::Internet.email }
