@@ -1,17 +1,46 @@
 
-<%= simple_form_for(@membership) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<%= form_with(model: [@lounge, membership]) do |form| %>
+    <% if membership.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
 
-  <div class="form-inputs">
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :email %>
-    <%= f.input :phone_number %>
-    <%= f.association :lounge %>
+      <ul>
+        <% membership.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control">
+    <div class="field">
+      <%= form.label :first_name, class: "label" %>
+      <%= form.text_field :first_name, class: "input" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
+      <%= form.label :last_name, class: "label" %>
+      <%= form.text_field :last_name, class: "input" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
+      <%= form.label :email, class: "label" %>
+      <%= form.email_field :email, class: "input" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
+      <%= form.label :phone_number, class: "label" %>
+      <%= form.telephone_field :phone_number, class: "input" %>
+    </div>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= form.button :submit %>
   </div>
 <% end %>

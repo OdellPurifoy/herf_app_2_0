@@ -1,27 +1,23 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[ show edit update destroy ]
+  before_action :set_lounge, only: %i[index new create]
 
-  # GET /memberships or /memberships.json
   def index
-    @memberships = Membership.all
+    @memberships = @lounge.memberships
   end
 
-  # GET /memberships/1 or /memberships/1.json
   def show
   end
 
-  # GET /memberships/new
   def new
-    @membership = Membership.new
+    @membership = @lounge.memberships.build
   end
 
-  # GET /memberships/1/edit
   def edit
   end
 
-  # POST /memberships or /memberships.json
   def create
-    @membership = Membership.new(membership_params)
+    @membership = @lounge.memberships.build(membership_params)
 
     respond_to do |format|
       if @membership.save
@@ -34,7 +30,6 @@ class MembershipsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /memberships/1 or /memberships/1.json
   def update
     respond_to do |format|
       if @membership.update(membership_params)
@@ -47,7 +42,6 @@ class MembershipsController < ApplicationController
     end
   end
 
-  # DELETE /memberships/1 or /memberships/1.json
   def destroy
     @membership.destroy
 
@@ -58,12 +52,14 @@ class MembershipsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_membership
       @membership = Membership.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    def set_lounge
+      @lounge = Lounge.friendly.find(params[:lounge_id])
+    end
+
     def membership_params
       params.require(:membership).permit(:first_name, :last_name, :email, :phone_number, :lounge_id)
     end
