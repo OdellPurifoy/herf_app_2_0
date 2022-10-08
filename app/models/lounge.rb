@@ -50,6 +50,7 @@ class Lounge < ApplicationRecord
               
   belongs_to :user
   has_many :events, dependent: :destroy
+  has_many :memberships, dependent: :destroy
   
   has_rich_text :details
   has_one_attached :logo

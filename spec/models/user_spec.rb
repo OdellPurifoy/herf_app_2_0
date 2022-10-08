@@ -35,6 +35,7 @@ RSpec.describe User, type: :model do
   describe 'Model Associations' do
     it { should have_many(:events).through(:lounges) }
     it { should have_many(:lounges).dependent(:destroy) }
+    it { should have_many(:memberships).dependent(:destroy) }
   end
 
   describe 'Following a lounge' do

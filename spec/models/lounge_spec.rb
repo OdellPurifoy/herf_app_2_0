@@ -65,6 +65,7 @@ RSpec.describe Lounge, type: :model do
   describe 'Model Associations' do
     it { should belong_to(:user) }
     it { should have_many(:events).dependent(:destroy) }
+    it { should have_many(:memberships).dependent(:destroy) }
   end
 
   describe 'Validations' do
