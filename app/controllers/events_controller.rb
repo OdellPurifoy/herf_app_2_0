@@ -4,23 +4,18 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   before_action :set_lounge, only: %i[index new create]
 
-  # GET /events or /events.json
   def index
     @events = @lounge.events
   end
 
-  # GET /events/1 or /events/1.json
   def show; end
 
-  # GET /events/new
   def new
     @event = @lounge.events.build
   end
 
-  # GET /events/1/edit
   def edit; end
 
-  # POST /events or /events.json
   def create
     @event = @lounge.events.build(event_params)
 
@@ -36,7 +31,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /events/1 or /events/1.json
   def update
     respond_to do |format|
       if @event.update(event_params)
@@ -50,7 +44,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # DELETE /events/1 or /events/1.json
   def destroy
     @event.destroy
 
@@ -68,7 +61,6 @@ class EventsController < ApplicationController
     @lounge = Lounge.friendly.find(params[:lounge_id])
   end
 
-  # Only allow a list of trusted parameters through.
   def event_params
     params.require(:event).permit(:name, :end_time, :event_type, :maximum_capacity, :rsvp_needed, :start_time, :event_date,
                                   :lounge_id, :flyer, :description)

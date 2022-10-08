@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :memberships
   resources :lounges do
     resources :events, shallow: true
+    resources :memberships, shallow: true
   end
 
   resources :lounges, only: :index do
