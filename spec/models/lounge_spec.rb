@@ -109,7 +109,7 @@ RSpec.describe Lounge, type: :model do
     before do
       user.favorite(lounge)
     end
-    
+
     it 'should tie the correct user to the correct lounge as a follower' do
       expect(lounge.favoritors.count).to eq 1
     end
@@ -133,11 +133,11 @@ RSpec.describe Lounge, type: :model do
       expect(lounge.favoritors.count).to eq 2
     end
 
-    context "when a user unfavorites a lounge" do
+    context 'when a user unfavorites a lounge' do
       before do
         user_1.unfavorite(lounge)
       end
-      
+
       it 'should tie the correct user to the correct lounge as a follower' do
         expect(lounge.favoritors.count).to eq 1
       end
@@ -145,6 +145,20 @@ RSpec.describe Lounge, type: :model do
       it 'the follower should be equal to the correct user' do
         expect(lounge.favoritors.first).to eq user_2
       end
+    end
+  end
+
+  describe 'creating new membership' do
+    let!(:lounge) { FactoryBot.create(:lounge) }
+    let(:membership) do
+      lounge.memberships.build(first_name: 'TestName', last_name: 'TestLastName', email: 'test@example.com',
+                               phone_number: '888-888-8888')
+    end
+
+    it 'creates the membership and ties it to the lounge' do
+      membership.save!
+
+      expect(membership.lounge).to eq lounge
     end
   end
 end
