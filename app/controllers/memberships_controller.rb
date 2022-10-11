@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: %i[ show edit update destroy ]
-  before_action :set_lounge, only: %i[index new create]
+  before_action :set_lounge, only: %i[index new create destroy]
 
   def index
     @memberships = @lounge.memberships
@@ -45,10 +45,8 @@ class MembershipsController < ApplicationController
   def destroy
     @membership.destroy
 
-    respond_to do |format|
-      format.html { redirect_to memberships_url, notice: "Membership was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to lounge_memberships_path, status: :see_other
+    flash[:notice] = 'Membership successfully deleted.'
   end
 
   private

@@ -6,5 +6,6 @@
   <%= link_to "Edit this membership", edit_membership_path(@membership) %> |
   <%# <%= link_to "Back to memberships", memberships_path %>
 
-  <%= button_to "Destroy this membership", @membership, method: :delete %>
+  <%= link_to "Delete", membership_path(@membership), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
+
 </div>
