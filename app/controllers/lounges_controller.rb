@@ -67,6 +67,10 @@ class LoungesController < ApplicationController
     current_user.favorited?(@lounge) ? current_user.unfavorite(@lounge) : current_user.favorite(@lounge)
   end
 
+  def my_lounges
+    @current_user_lounges = current_user.lounges
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
