@@ -11,7 +11,7 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-        <% if user_signed_in? %>
+      <% if user_signed_in? && current_user.lounges.count >= 1 %>
         <%# Home link %>
         <%= link_to "Home", root_path, class: "navbar-item has-text-weight-semibold" %>
 
@@ -43,13 +43,13 @@
             <%= link_to "Report an issue", '#', class: "navbar-item" %>
           </div>
         </div>
-        <% else %>
-          <%# Home link %>
-          <%= link_to "Home", root_path, class: "navbar-item" %>
+      <% else %>
+        <%# Home link %>
+        <%= link_to "Home", root_path, class: "navbar-item" %>
 
-          <%# View all lounges %>
-          <%= link_to "All Lounges", lounges_path, class: "navbar-item" %>
-        <% end %>
+        <%# View all lounges %>
+        <%= link_to "All Lounges", lounges_path, class: "navbar-item" %>
+      <% end %>
       </div>
     </div>
 

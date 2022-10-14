@@ -1,3 +1,11 @@
-<% @current_user_lounges.each do |lounge| %>
- <%= lounge.name %>
-<% end %>
+<p style="color: green"><%= notice %></p>
+
+<h1>Your Lounges</h1>
+
+<div id="lounges">
+  <% @current_user_lounges.each do |lounge| %>
+    <%= render lounge %>
+  <% end %>
+</div>
+
+<%= link_to "New lounge", new_lounge_path %>
