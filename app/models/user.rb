@@ -34,11 +34,11 @@ class User < ApplicationRecord
 
   acts_as_favoritor
 
-  # after_create :sync_user_to_member
+  after_create :sync_user_to_member
 
-  # private
+  private
 
-  # def sync_user_to_member
-  #   SyncUserToMemberJob.perform_later(self)
-  # end
+  def sync_user_to_member
+    SyncUserToMemberJob.perform_later(self)
+  end
 end

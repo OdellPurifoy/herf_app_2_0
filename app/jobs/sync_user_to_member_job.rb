@@ -1,7 +1,11 @@
 class SyncUserToMemberJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    puts "Lets sync the member and user!"
+  def perform(user)
+    membership = Membership.where(email: user.email).first
+    return "Membership not found" if membership.nil?
+    
+    membership.user_id = user.id
+    membership.save!
   end
 end
