@@ -5,6 +5,7 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  admin                  :boolean          default(FALSE)
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
@@ -25,6 +26,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'Database columns' do
+    it { should have_db_column(:admin).of_type(:boolean) }
     it { should have_db_column(:email).of_type(:string) }
     it { should have_db_column(:encrypted_password).of_type(:string) }
     it { should have_db_column(:first_name).of_type(:string) }
