@@ -1,3 +1,4 @@
+  <%= render "shared/hero" %>
 
   <h3 class="title is-3 pb-3">Lounges</h3>
 
@@ -26,12 +27,18 @@
               <%= lounge.details %>
             </div>
 
+            <div class="content">
+              <%= pluralize(lounge.favoritors.count, 'Follower') %>
+            </div>
+
             <div class="buttons">
               <% if user_signed_in? && lounge.user_id == current_user.id %>
                 <%= link_to "Edit", edit_lounge_path(lounge), class: "button is-primary is-light" %>
+                <%= link_to "Lounge Details", lounge_path(lounge), class: "button is-primary is-light" %>
                 <%= link_to "View Events", lounge_events_url(lounge), class: "button is-primary is-light" %>
               <% else %>
-                <%= link_to "View Events", lounge_events_url(lounge), class: "is-primary" %>
+                <%= link_to "Lounge Details", lounge_path(lounge), class: "button is-primary is-light" %>
+                <%= link_to "View Events", lounge_events_url(lounge), class: "button is-primary is-light" %>
               <% end %>
             </div>
           </div>

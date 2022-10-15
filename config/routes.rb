@@ -9,6 +9,8 @@ Rails.application.routes.draw do
       post 'toggle_favorite', to: "lounges#toggle_favorite"
     end
   end
+
+  get 'my_lounges', to: "lounges#my_lounges"
    
   devise_scope :user do
     # Redirects signing out users back to sign-in
