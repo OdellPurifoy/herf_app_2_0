@@ -5,6 +5,5 @@
 <br>
 
 <div>
-  <%= link_to "Show this membership", @membership %> |
-  <%= link_to "Back to memberships", memberships_path %>
+  <%= link_to "Back to memberships", lounge_memberships_path(@membership.lounge) %>
 </div>

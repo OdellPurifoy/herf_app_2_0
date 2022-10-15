@@ -4,7 +4,7 @@
 
 <div>
   <%= link_to "Edit this membership", edit_membership_path(@membership) %> |
-  <%# <%= link_to "Back to memberships", memberships_path %>
+  <%= link_to "Back to memberships", lounge_memberships_path(@membership.lounge) %>
 
   <%= link_to "Delete", membership_path(@membership), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
 
