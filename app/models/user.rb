@@ -33,4 +33,12 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
 
   acts_as_favoritor
+
+  after_create :sync_user_to_member
+
+  private
+
+  def sync_user_to_member
+    SyncUserToMemberJob.perform_later(self)
+  end
 end
