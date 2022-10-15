@@ -51,12 +51,17 @@
       <div class="content">
         <%= lounge.details %><br />
       </div>
+
+      <div class="content">
+        <%= pluralize(lounge.memberships.count, 'Member') %><br />
+      </div>
     </div>
     <footer class="card-footer">
       <% if user_signed_in? && current_user.id == lounge.user_id %>
         <%= link_to "Edit", edit_lounge_path(lounge), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "View Events", lounge_events_path(lounge), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "New Event", new_lounge_event_path(lounge), class: "button is-primary is-light card-footer-item" %>
+        <%= link_to "Memberships", lounge_memberships_path(lounge), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "Delete", lounge_path(lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
       <% else %>
         <%= link_to "View Events", lounge_events_path(lounge), class: "button is-primary is-light card-footer-item" %>
