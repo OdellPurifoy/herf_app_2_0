@@ -19,7 +19,9 @@ Rails.application.routes.draw do
     end
   end
 
-  mount Resque::Server.new, at: '/jobs'
+  authenticate :user, -> (u) { u.admin? } do
+    mount Resque::Server.new, at: '/jobs'
+  end
 
   get 'my_lounges', to: "lounges#my_lounges"
 end
