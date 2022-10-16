@@ -46,17 +46,22 @@ class Lounge < ApplicationRecord
                       '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM'].freeze
 
   TIME_ZONES = ['Eastern Time', 'Central Time', 'Mountain Time', 'Pacific Time', 'Alaska Time',
-              'Hawaii-Aleutian Time'].freeze
-              
+                'Hawaii-Aleutian Time'].freeze
+
   belongs_to :user
   has_many :events, dependent: :destroy
   has_many :memberships, dependent: :destroy
-  
+
   has_rich_text :details
   has_one_attached :logo
-  
+
   validates_presence_of :name, :address_street_1, :city, :state, :zip_code, :phone, :email
   validates :email, uniqueness: true
+  validates :email,
+            format: { with: /\A^(.+)@(.+)$\z/, message: 'Email invalid' },
+            uniqueness: { case_sensitive: false },
+            length: { minimum: 4, maximum: 254 }
+
   validates :name, uniqueness: {
     scope: %i[address_street_1 city state zip_code],
     message: 'A lounge already exists at this location.'

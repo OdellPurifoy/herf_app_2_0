@@ -80,6 +80,22 @@ RSpec.describe Lounge, type: :model do
     it { should validate_presence_of(:zip_code) }
   end
 
+  describe 'Email REGEX validation' do
+    let(:lounge) { FactoryBot.create(:lounge, email: 'invalidemailexample.com') }
+
+    it "raises an Email invalid error" do
+      expect{lounge}.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email Email invalid")
+    end
+
+    context "when valid email is used" do
+      let(:lounge) { FactoryBot.create(:lounge, email: 'validemail@example.com') }
+
+      it "does not raise an error" do
+        expect{lounge}.to_not raise_error
+      end
+    end
+  end
+
   describe '.featured' do
     let!(:lounge_1) { FactoryBot.create(:lounge, featured: true) }
     let!(:lounge_2) { FactoryBot.create(:lounge, featured: true) }
