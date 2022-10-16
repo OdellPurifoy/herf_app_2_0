@@ -96,6 +96,30 @@ RSpec.describe Lounge, type: :model do
     end
   end
 
+  describe 'Zip code validation' do
+    let(:lounge) { FactoryBot.create(:lounge, zip_code: "3463fsgfsfgs") }
+
+    it "is not a valid zip code" do
+      expect{lounge}.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Zip code should be 12345 or 12345-1234")
+    end
+
+    context "when valid 5 digit zip code is used" do
+      let(:lounge) { FactoryBot.create(:lounge, zip_code: "11211") }
+
+      it "does not raise an error" do
+        expect{lounge}.to_not raise_error
+      end
+    end
+
+    context "when valid 9 digit zip code is used" do
+      let(:lounge) { FactoryBot.create(:lounge, zip_code: "12345-1234") }
+
+      it "does not raise an error" do
+        expect{lounge}.to_not raise_error
+      end
+    end
+  end
+
   describe '.featured' do
     let!(:lounge_1) { FactoryBot.create(:lounge, featured: true) }
     let!(:lounge_2) { FactoryBot.create(:lounge, featured: true) }

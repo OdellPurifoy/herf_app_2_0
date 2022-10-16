@@ -67,6 +67,10 @@ class Lounge < ApplicationRecord
     message: 'A lounge already exists at this location.'
   }
 
+  validates_format_of :zip_code,
+                    :with => /\A\d{5}-\d{4}|\A\d{5}\z/,
+                    :message => "should be 12345 or 12345-1234"
+
   validates :logo, file_size: { less_than_or_equal_to: 5.megabytes },
                    file_content_type: { allow: ['image/jpeg', 'image/png'] }
 
