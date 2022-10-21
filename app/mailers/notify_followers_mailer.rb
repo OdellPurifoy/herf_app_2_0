@@ -1,5 +1,6 @@
-class NotifyFollowersMailer < ApplicationMailer
+# frozen_string_literal: true
 
+class NotifyFollowersMailer < ApplicationMailer
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -11,9 +12,9 @@ class NotifyFollowersMailer < ApplicationMailer
     # @greeting = "Hi"
     # attachments['default_logo_small.png'] = File.read('app/assests/images/default_logo_small.png')
 
-    mail( 
-      from: "herf@support.com",
-      to: @favoritor.email, 
+    mail(
+      from: 'herf@support.com',
+      to: @favoritor.email,
       subject: "You're invited to our new event!"
     )
   end
