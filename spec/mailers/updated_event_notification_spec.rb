@@ -2,12 +2,12 @@
 
 require 'rails_helper'
 
-RSpec.describe NotifyFollowersMailer, type: :mailer do
+RSpec.describe UpdatedEventNotificationMailer, type: :mailer do
   describe 'notify_followers' do
-    let(:mail) { NotifyFollowersMailer.notify_followers }
+    let(:mail) { UpdatedEventNotificationMailer.update_followers }
 
     it 'renders the headers' do
-      expect(mail.subject).to eq('Notify followers')
+      expect(mail.subject).to eq('Upcoming event has been updated')
       expect(mail.to).to eq(['to@example.org'])
       expect(mail.from).to eq(['from@example.com'])
     end

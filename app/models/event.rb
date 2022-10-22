@@ -41,6 +41,7 @@ class Event < ApplicationRecord
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
   after_create :notify_followers
+  after_update :update_followers
 
   private
 
@@ -61,6 +62,14 @@ class Event < ApplicationRecord
 
     self.lounge.favoritors.each do |favoritor|
       NotifyFollowersMailer.with(favoritor: favoritor, event: self).notify_followers.deliver_later
+    end
+  end
+
+  def update_followers
+    return if self.lounge.favoritors.count == 0
+
+    self.lounge.favoritors.each do |favoritor|
+      UpdatedEventNotificationMailer.with(favoritor: favoritor, event: self).update_notify_followers.deliver_later
     end
   end
 

@@ -83,4 +83,21 @@ RSpec.describe Event, type: :model do
       expect(event).to have_received(:notify_followers)
     end
   end
+
+  describe '#update_followers' do
+    let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
+    let!(:event) { FactoryBot.create(:event) }
+    let(:old_event_date) { (Date.today + 1.day) }
+    let(:new_event_date) { (Date.today + 3.days) }
+
+    before do
+      allow(event).to receive(:update_followers)   
+    end
+
+    it 'should call the Update event notification mailer with lounge followers' do
+      event.event_date = new_event_date
+      event.save!
+      expect(event).to have_received(:update_followers)
+    end
+  end
 end
