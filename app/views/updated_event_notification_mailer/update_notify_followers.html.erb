@@ -1,4 +1,4 @@
-<h1>Hi <%= @favoritor.first_name %></h1>
+<h1>Hi <%= @favoritor&.first_name %></h1>
 
 <p>  
   <%= @event.name %> hosted by <%= @event.lounge.name %> has beem updated. See details below
