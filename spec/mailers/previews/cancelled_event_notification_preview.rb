@@ -5,5 +5,4 @@ class CancelledEventNotificationPreview < ActionMailer::Preview
   def cancel_notify_followers
     CancelledEventNotificationMailer.cancel_notify_followers
   end
-
 end

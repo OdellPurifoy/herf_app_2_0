@@ -6,8 +6,15 @@ class CancelledEventNotificationMailer < ApplicationMailer
   #   en.cancelled_event_notification_mailer.cancel_notify_followers.subject
   #
   def cancel_notify_followers
-    @greeting = "Hi"
+    @favoritor = params[:favoritor]
+    @event = params[:event]
+    # @greeting = "Hi"
+    # attachments['default_logo_small.png'] = File.read('app/assests/images/default_logo_small.png')
 
-    mail to: "to@example.org"
+    mail(
+      from: 'herf@support.com',
+      to: @favoritor&.email,
+      subject: "Event cancelled"
+    )
   end
 end

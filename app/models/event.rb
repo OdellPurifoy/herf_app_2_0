@@ -42,6 +42,7 @@ class Event < ApplicationRecord
 
   after_create :notify_followers
   after_update :update_followers
+  after_destroy :cancellation_update_followers
 
   private
 
@@ -73,6 +74,14 @@ class Event < ApplicationRecord
     end
   end
 
+  def cancellation_update_followers
+    return if self.lounge.favoritors.count == 0
+
+    self.lounge.favoritors.each do |favoritor|
+      CancelledEventNotificationMailer.with(favoritor: favoritor, event: self).cancel_notify_followers.deliver_later
+    end
+  end
+  
   # TODO: Make this validation work
   # def start_time_not_earlier_than_now
   #   return if end_time.blank? || start_time.blank?

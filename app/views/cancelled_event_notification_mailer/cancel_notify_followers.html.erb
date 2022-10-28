@@ -1,5 +1,12 @@
-<h1>CancelledEventNotification#cancel_notify_followers</h1>
+<h1>Hi <%= @favoritor&.first_name %></h1>
+
+<p>  
+  <%= @event.name %> hosted by <%= @event.lounge.name %> has been cancelled. See details below
+</p>
 
 <p>
-  <%= @greeting %>, find me in app/views/cancelled_event_notification_mailer/cancel_notify_followers.html.erb
+  Time: <%= @event.start_time %>
+</p>
+<p>
+  Date: <%= @event.event_date %>
 </p>
