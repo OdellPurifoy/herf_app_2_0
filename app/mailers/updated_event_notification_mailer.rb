@@ -9,7 +9,7 @@ class UpdatedEventNotificationMailer < ApplicationMailer
 
     mail(
       from: 'herf@support.com',
-      to: @favoritor.email,
+      to: @favoritor&.email,
       subject: 'Upcoming event has been updated'
     )
   end

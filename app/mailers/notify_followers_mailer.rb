@@ -14,7 +14,7 @@ class NotifyFollowersMailer < ApplicationMailer
 
     mail(
       from: 'herf@support.com',
-      to: @favoritor.email,
+      to: @favoritor&.email,
       subject: "You're invited to our new event!"
     )
   end
