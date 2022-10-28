@@ -100,4 +100,18 @@ RSpec.describe Event, type: :model do
       expect(event).to have_received(:update_followers)
     end
   end
+
+  describe '#cancellation_update_followers' do
+    let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
+    let!(:event) { FactoryBot.create(:event) }
+
+    before do
+      allow(event).to receive(:cancellation_update_followers)   
+    end
+
+    it 'should call the Update event notification mailer with lounge followers' do
+      event.destroy!
+      expect(event).to have_received(:cancellation_update_followers)
+    end
+  end
 end
