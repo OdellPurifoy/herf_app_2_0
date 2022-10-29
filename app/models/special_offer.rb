@@ -20,5 +20,19 @@
 #  fk_rails_...  (lounge_id => lounges.id)
 #
 class SpecialOffer < ApplicationRecord
+  SPECIAL_OFFER_TYPES = ["Buy One, Get One (BOGO)", "Discount", "Brand", "Members Only", "Holiday"]
+
   belongs_to :lounge
+
+  has_one_attached :flyer
+
+  validates_presence_of :description, :type, :start_date, :end_date
+  validates :description, length: { maximum: 500 }
+  validate :end_date_not_before_start_date
+
+  private
+
+  def end_date_not_before_start_date
+    errors.add(:end_date, 'End time cannot be earlier than start time.') if end_date.before?(start_date)
+  end
 end
