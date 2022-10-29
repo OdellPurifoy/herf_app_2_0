@@ -62,12 +62,20 @@ RSpec.describe Event, type: :model do
     end
 
     context "when event_type is 'Virtual and event_url is provided" do
-      let(:event) { FactoryBot.create(:event, event_type: 'Virtual', event_url: 'www.test-event.com') }
+      let(:event_2) { FactoryBot.create(:event, event_type: 'Virtual', event_url: 'www.test-event.com') }
 
       it 'does not trigger a validation error' do
-        expect{event}.to_not raise_error
+        expect{event_2}.to_not raise_error
       end
     end
+
+    # context 'when the url is provided but it is invalid' do
+    #   let(:event_3) { FactoryBot.create(:event, event_type: 'Virtual', event_url: 'wwtest-eventcom') }
+
+    #   it 'trigger an invalid url error' do
+    #     expect{event_3}.to raise_error
+    #   end
+    # end
   end
 
   describe '#end_date_not_after_start_date' do
