@@ -54,6 +54,22 @@ RSpec.describe Event, type: :model do
     it { should validate_presence_of(:start_time) }
   end
 
+  describe 'Conditional Validations' do
+    let(:event) { FactoryBot.create(:event, event_type: 'Virtual', event_url: '') }
+
+    it 'triggers a validation error' do
+      expect{event}.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Event url can't be blank")
+    end
+
+    context "when event_type is 'Virtual and event_url is provided" do
+      let(:event) { FactoryBot.create(:event, event_type: 'Virtual', event_url: 'www.test-event.com') }
+
+      it 'does not trigger a validation error' do
+        expect{event}.to_not raise_error
+      end
+    end
+  end
+
   describe '#end_date_not_after_start_date' do
     let(:event) { FactoryBot.build(:event, event_date: (Date.today - 1.day)) }
 
