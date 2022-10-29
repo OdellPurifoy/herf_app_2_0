@@ -34,6 +34,7 @@ RSpec.describe Event, type: :model do
     it { should have_db_column(:end_time).of_type(:time) }
     it { should have_db_column(:event_date).of_type(:date) }
     it { should have_db_column(:event_type).of_type(:string) }
+    it { should have_db_column(:event_url).of_type(:string) }
     it { should have_db_column(:maximum_capacity).of_type(:integer) }
     it { should have_db_column(:name).of_type(:string) }
     it { should have_db_column(:rsvp_needed).of_type(:boolean) }
