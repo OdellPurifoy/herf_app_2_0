@@ -21,10 +21,10 @@
 #
 FactoryBot.define do
   factory :special_offer do
-    type { "" }
-    description { "MyText" }
-    start_date { "2022-10-29" }
-    end_date { "2022-10-29" }
-    lounge { nil }
+    type { ["Buy One, Get One (BOGO)", "Discount", "Brand", "Members Only", "Holiday"].sample }
+    description { "Check out our new special offer!" }
+    start_date { (Date.today + 1.day) }
+    end_date { (Date.today + 5.days) }
+    lounge
   end
 end
