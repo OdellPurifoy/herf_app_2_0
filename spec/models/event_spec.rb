@@ -8,6 +8,7 @@
 #  end_time         :time
 #  event_date       :date
 #  event_type       :string           not null
+#  event_url        :string
 #  maximum_capacity :integer
 #  name             :string           not null
 #  rsvp_needed      :boolean          default(FALSE)
@@ -33,6 +34,7 @@ RSpec.describe Event, type: :model do
     it { should have_db_column(:end_time).of_type(:time) }
     it { should have_db_column(:event_date).of_type(:date) }
     it { should have_db_column(:event_type).of_type(:string) }
+    it { should have_db_column(:event_url).of_type(:string) }
     it { should have_db_column(:maximum_capacity).of_type(:integer) }
     it { should have_db_column(:name).of_type(:string) }
     it { should have_db_column(:rsvp_needed).of_type(:boolean) }
@@ -50,6 +52,30 @@ RSpec.describe Event, type: :model do
     it { should validate_presence_of(:event_type) }
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:start_time) }
+  end
+
+  describe 'Conditional Validations' do
+    let(:event) { FactoryBot.create(:event, event_type: 'Virtual', event_url: '') }
+
+    it 'triggers a validation error' do
+      expect{event}.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Event url can't be blank, Event url is not a valid URL") 
+    end
+
+    context "when event_type is 'Virtual and event_url is provided" do
+      let(:event_2) { FactoryBot.create(:event, event_type: 'Virtual') }
+
+      it 'does not trigger a validation error' do
+        expect{event_2}.to_not raise_error
+      end
+    end
+
+    context 'when the url is provided but it is invalid' do
+      let(:event_3) { FactoryBot.create(:event, event_type: 'Virtual', event_url: 'test-event.com') }
+
+      it 'trigger an invalid url error' do
+        expect{event_3}.to raise_error
+      end
+    end
   end
 
   describe '#end_date_not_after_start_date' do

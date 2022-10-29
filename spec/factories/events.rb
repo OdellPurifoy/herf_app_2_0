@@ -6,6 +6,7 @@
 #  end_time         :time
 #  event_date       :date
 #  event_type       :string           not null
+#  event_url        :string
 #  maximum_capacity :integer
 #  name             :string           not null
 #  rsvp_needed      :boolean          default(FALSE)
@@ -24,10 +25,13 @@
 #
 #  fk_rails_...  (lounge_id => lounges.id)
 #
+require 'faker'
+
 FactoryBot.define do
   factory :event do
     name { "Whiskey Tasting 101" }
     event_type { "Whiskey" }
+    event_url { "http://www.example.com" }
     start_time { Time.now }
     end_time { Time.now + 3.hours }
     maximum_capacity { 1 }

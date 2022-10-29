@@ -8,6 +8,7 @@
 #  end_time         :time
 #  event_date       :date
 #  event_type       :string           not null
+#  event_url        :string
 #  maximum_capacity :integer
 #  name             :string           not null
 #  rsvp_needed      :boolean          default(FALSE)
@@ -38,6 +39,7 @@ class Event < ApplicationRecord
   has_one_attached :flyer
 
   validates_presence_of :end_time, :event_date, :event_type, :name, :start_time
+  validates :event_url, url: true, if: Proc.new { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
   after_create :notify_followers
