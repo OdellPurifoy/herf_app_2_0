@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @special_offer %>
+
+<div>
+  <%= link_to "Edit this special offer", edit_special_offer_path(@special_offer) %> |
+  <%= link_to "Back to special offers", special_offers_path %>
+
+  <%= button_to "Destroy this special offer", @special_offer, method: :delete %>
+</div>
