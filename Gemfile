@@ -14,6 +14,7 @@ gem "font-awesome-sass", "~> 6.1.1"
 gem 'resque', '~> 2.4'
 gem 'rubocop', require: false
 gem 'simple_form'
+gem 'validate_url', '~> 1.0', '>= 1.0.15'
 # gem 'tod', '~> 3.1'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
