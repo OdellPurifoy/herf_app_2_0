@@ -6,6 +6,7 @@
 #  end_time         :time
 #  event_date       :date
 #  event_type       :string           not null
+#  event_url        :string
 #  maximum_capacity :integer
 #  name             :string           not null
 #  rsvp_needed      :boolean          default(FALSE)

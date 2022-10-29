@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_15_232927) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_29_000119) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_232927) do
     t.string "slug"
     t.time "start_time"
     t.time "end_time"
+    t.string "event_url"
     t.index ["lounge_id"], name: "index_events_on_lounge_id"
     t.index ["slug"], name: "index_events_on_slug", unique: true
   end
