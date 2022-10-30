@@ -1,17 +1,47 @@
+<%= form_with(model: [@lounge, special_offer]) do |form| %>
+    <% if special_offer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(special_offer.errors.count, "error") %> prohibited this special offer from being saved:</h2>
 
-<%= simple_form_for(@special_offer) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+      <ul>
+        <% special_offer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <div class="form-inputs">
-    <%= f.input :type %>
-    <%= f.input :description %>
-    <%= f.input :start_date %>
-    <%= f.input :end_date %>
-    <%= f.association :lounge %>
+  <div class="control">
+    <div class="field">
+      <%= form.label :special_offer_type, class: "label pt-2" %>
+      <%= form.select :special_offer_type, SpecialOffer::SPECIAL_OFFER_TYPES, class: "input" %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="control">
+    <div class="field">
+      <%= form.label :description, class: "label" %>
+      <%= form.text_area :description, class: "input" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
+      <%= form.label :start_date, class: "label pt-2" %>
+      <%= form.date_field :start_date, class: "input" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
+      <%= form.label :end_date, class: "label pt-2" %>
+      <%= form.date_field :end_date, class: "input" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="actions">
+      <%= form.submit %>
+    </div>
   </div>
 <% end %>

@@ -63,6 +63,6 @@ class SpecialOffersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def special_offer_params
-    params.require(:special_offer).permit(:type, :description, :flyer, :start_date, :end_date, :lounge_id)
+    params.require(:special_offer).permit(:special_offer_type, :description, :flyer, :start_date, :end_date, :lounge_id)
   end
 end
