@@ -61,7 +61,6 @@ class SpecialOffersController < ApplicationController
     @lounge = Lounge.friendly.find(params[:lounge_id])
   end
 
-  # Only allow a list of trusted parameters through.
   def special_offer_params
     params.require(:special_offer).permit(:special_offer_type, :description, :flyer, :start_date, :end_date, :lounge_id)
   end

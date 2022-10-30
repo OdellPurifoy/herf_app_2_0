@@ -30,6 +30,8 @@ class SpecialOffer < ApplicationRecord
 
   validates_presence_of :description, :special_offer_type, :start_date, :end_date
   validates :description, length: { maximum: 500 }
+
+  # TODO: Make this work
   # validate :end_date_not_in_the_past
 
   private
