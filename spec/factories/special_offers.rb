@@ -19,9 +19,11 @@
 #
 #  fk_rails_...  (lounge_id => lounges.id)
 #
+require 'faker'
+
 FactoryBot.define do
   factory :special_offer do
-    type { ["Buy One, Get One (BOGO)", "Discount", "Brand", "Members Only", "Holiday"].sample }
+    type { "Buy One, Get One (BOGO)" }
     description { "Check out our new special offer!" }
     start_date { (Date.today + 1.day) }
     end_date { (Date.today + 5.days) }
