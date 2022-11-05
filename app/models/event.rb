@@ -39,7 +39,7 @@ class Event < ApplicationRecord
   has_one_attached :flyer
 
   validates_presence_of :end_time, :event_date, :event_type, :name, :start_time
-  validates :event_url, url: true, if: Proc.new { |event| event.event_type == 'Virtual' }
+  validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
   after_create_commit :notify_followers
@@ -61,25 +61,25 @@ class Event < ApplicationRecord
   end
 
   def notify_followers
-    return if self.lounge.favoritors.count == 0
+    return if lounge.favoritors.count.zero?
 
-    self.lounge.favoritors.each do |favoritor|
+    lounge.favoritors.each do |favoritor|
       NotifyFollowersMailer.with(favoritor: favoritor, event: self).notify_followers.deliver_later
     end
   end
 
   def update_followers
-    return if self.lounge.favoritors.count == 0
+    return if lounge.favoritors.count.zero?
 
-    self.lounge.favoritors.each do |favoritor|
+    lounge.favoritors.each do |favoritor|
       UpdatedEventNotificationMailer.with(favoritor: favoritor, event: self).update_notify_followers.deliver_later
     end
   end
 
   def cancellation_update_followers
-    return if self.lounge.favoritors.count == 0
+    return if lounge.favoritors.count.zero?
 
-    self.lounge.favoritors.each do |favoritor|
+    lounge.favoritors.each do |favoritor|
       CancelledEventNotificationMailer.with(favoritor: favoritor, event: self).cancel_notify_followers.deliver_later
     end
   end
