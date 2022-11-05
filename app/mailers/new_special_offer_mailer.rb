@@ -1,5 +1,6 @@
-class NewSpecialOfferMailer < ApplicationMailer
+# frozen_string_literal: true
 
+class NewSpecialOfferMailer < ApplicationMailer
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -10,7 +11,7 @@ class NewSpecialOfferMailer < ApplicationMailer
     @member = params[:member]
     @event = params[:event]
 
-    mail to: "to@example.org"
+    mail to: 'to@example.org'
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -21,6 +22,6 @@ class NewSpecialOfferMailer < ApplicationMailer
   def notify_members_only
     @member = params[:member]
 
-    mail to: "to@example.org"
+    mail to: 'to@example.org'
   end
 end
