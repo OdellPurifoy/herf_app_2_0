@@ -26,6 +26,7 @@ RSpec.describe SpecialOffer, type: :model do
   describe 'Database columns' do
     it { should have_db_column(:description).of_type(:text) }
     it { should have_db_column(:end_date).of_type(:date) }
+    it { should have_db_column(:members_only).of_type(:boolean) }
     it { should have_db_column(:start_date).of_type(:date) }
     it { should have_db_column(:special_offer_type).of_type(:string) }
     it { should have_db_index([:lounge_id]) }
