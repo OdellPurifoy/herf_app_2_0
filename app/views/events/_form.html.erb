@@ -21,7 +21,7 @@
   <div class="control">
     <div class="field">
       <%= form.label :event_date, class: "label pt-2" %>
-      <%= form.date_field :event_date, class: "input" %>
+      <%= form.date_field :event_date, min: Date.today, class: "input" %>
     </div>
   </div>
 

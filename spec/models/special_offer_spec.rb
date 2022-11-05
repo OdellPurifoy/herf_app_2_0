@@ -40,15 +40,4 @@ RSpec.describe SpecialOffer, type: :model do
     it { should validate_presence_of(:start_date) }
     it { should validate_presence_of(:special_offer_type) }
   end
-
-  # TODO: Make this work
-  # describe '#end_date_not_in_the_past' do
-  #   let!(:lounge) { FactoryBot.create(:lounge) }
-  #   let(:special_offer) { FactoryBot.build(:special_offer, end_date: (Date.today - 1.day), start_date: (Date.today), description: "blh", special_offer_type: "Brand", lounge: lounge) }
-
-  #   it 'should raise a validation error' do
-  #     special_offer.save!
-  #     expect(special_offer.errors[:end_date]).to include('End date cannot be in the past')
-  #   end
-  # end
 end

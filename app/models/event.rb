@@ -83,11 +83,4 @@ class Event < ApplicationRecord
       CancelledEventNotificationMailer.with(favoritor: favoritor, event: self).cancel_notify_followers.deliver_later
     end
   end
-  
-  # TODO: Make this validation work
-  # def start_time_not_earlier_than_now
-  #   return if end_time.blank? || start_time.blank?
-
-  #   errors.add(:start_time, 'Start time cannot be in the past.') if start_time.localtime.before?(Time.current.localtime)
-  # end
 end
