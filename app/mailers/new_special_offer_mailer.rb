@@ -6,10 +6,9 @@ class NewSpecialOfferMailer < ApplicationMailer
   #
   #   en.new_special_offer_mailer.notify_followers_and_members.subject
   #
-  def notify_followers_and_members
+  def notify_followers
     @favoritor = params[:favoritor]
-    @member = params[:member]
-    @event = params[:event]
+    @special_offer = params[:special_offer]
 
     mail to: 'to@example.org'
   end
@@ -19,8 +18,9 @@ class NewSpecialOfferMailer < ApplicationMailer
   #
   #   en.new_special_offer_mailer.notify_members_only.subject
   #
-  def notify_members_only
+  def notify_members
     @member = params[:member]
+    @special_offer = params[:special_offer]
 
     mail to: 'to@example.org'
   end
