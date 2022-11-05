@@ -5,6 +5,7 @@
 #  id                 :bigint           not null, primary key
 #  description        :text
 #  end_date           :date
+#  members_only       :boolean          default(FALSE)
 #  special_offer_type :string
 #  start_date         :date
 #  created_at         :datetime         not null
@@ -25,6 +26,7 @@ FactoryBot.define do
   factory :special_offer do
     special_offer_type { "Buy One, Get One (BOGO)" }
     description { "Check out our new special offer!" }
+    members_only { false }
     start_date { (Date.today + 1.day) }
     end_date { (Date.today + 5.days) }
     lounge
