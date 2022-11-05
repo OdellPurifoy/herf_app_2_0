@@ -58,7 +58,7 @@ RSpec.describe Event, type: :model do
     let(:event) { FactoryBot.create(:event, event_type: 'Virtual', event_url: '') }
 
     it 'triggers a validation error' do
-      expect{event}.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Event url can't be blank, Event url is not a valid URL") 
+      expect{event}.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Event url is not a valid URL") 
     end
 
     context "when event_type is 'Virtual and event_url is provided" do
