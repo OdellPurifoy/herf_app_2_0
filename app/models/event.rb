@@ -42,9 +42,9 @@ class Event < ApplicationRecord
   validates :event_url, url: true, if: Proc.new { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
-  after_create :notify_followers
-  after_update :update_followers
-  after_destroy :cancellation_update_followers
+  after_create_commit :notify_followers
+  after_update_commit :update_followers
+  after_destroy_commit :cancellation_update_followers
 
   private
 
