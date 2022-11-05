@@ -56,4 +56,18 @@ RSpec.describe SpecialOffer, type: :model do
       expect(special_offer).to have_received(:notify_followers_and_members)
     end
   end
+
+  describe '#notify_members_only' do
+    let(:lounge_2) { FactoryBot.create(:lounge, special_offers: [special_offer_2]) }
+    let(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
+
+    before do
+      allow(special_offer_2).to receive(:notify_members_only)   
+    end
+
+    it 'should call the notify_members_only callback' do
+      special_offer_2.save!
+      expect(special_offer_2).to have_received(:notify_members_only)
+    end
+  end
 end
