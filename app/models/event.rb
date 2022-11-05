@@ -42,24 +42,6 @@ class Event < ApplicationRecord
   validates :event_url, url: true, if: Proc.new { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
-  after_create :notify_followers
-  after_update :update_followers
-  after_destroy :cancellation_update_followers
-
-  private
-
-  def end_date_not_after_start_date
-    return if event_date.blank?
-
-    errors.add(:event_date, 'Event date cannot be in the past') if event_date < Date.today
-  end
-
-  def end_time_not_earlier_than_start_time
-    return if end_time.blank? || start_time.blank?
-
-    errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
-  end
-
   def notify_followers
     return if self.lounge.favoritors.count == 0
 
@@ -82,6 +64,20 @@ class Event < ApplicationRecord
     self.lounge.favoritors.each do |favoritor|
       CancelledEventNotificationMailer.with(favoritor: favoritor, event: self).cancel_notify_followers.deliver_later
     end
+  end
+
+  private
+
+  def end_date_not_after_start_date
+    return if event_date.blank?
+
+    errors.add(:event_date, 'Event date cannot be in the past') if event_date < Date.today
+  end
+
+  def end_time_not_earlier_than_start_time
+    return if end_time.blank? || start_time.blank?
+
+    errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
   end
   
   # TODO: Make this validation work
