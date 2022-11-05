@@ -43,14 +43,14 @@ class SpecialOffer < ApplicationRecord
       NewSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
     end
 
-    self.lounge.member.each do |member|
-      NewSpecialOfferMailer.with(member: member, special_offer: self).notify_members.deliver_later
+    self.lounge.memberships.each do |membership|
+      NewSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
     end
   end
 
   def notify_members_only
-    self.lounge.member.each do |member|
-      NewSpecialOfferMailer.with(member: member, special_offer: self).notify_members.deliver_later
+    self.lounge.memberships.each do |membership|
+      NewSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
     end
   end
 end

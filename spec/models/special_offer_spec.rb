@@ -42,4 +42,18 @@ RSpec.describe SpecialOffer, type: :model do
     it { should validate_presence_of(:start_date) }
     it { should validate_presence_of(:special_offer_type) }
   end
+
+  describe '#notify_followers_and_members' do
+    let(:lounge) { FactoryBot.create(:lounge, special_offers: [special_offer]) }
+    let(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
+
+    before do
+      allow(special_offer).to receive(:notify_followers_and_members)   
+    end
+
+    it 'should call the notify_follower_and_members callback' do
+      special_offer.save!
+      expect(special_offer).to have_received(:notify_followers_and_members)
+    end
+  end
 end

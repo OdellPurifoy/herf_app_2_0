@@ -26,6 +26,7 @@ FactoryBot.define do
   factory :special_offer do
     special_offer_type { "Buy One, Get One (BOGO)" }
     description { "Check out our new special offer!" }
+    members_only { false }
     start_date { (Date.today + 1.day) }
     end_date { (Date.today + 5.days) }
     lounge
