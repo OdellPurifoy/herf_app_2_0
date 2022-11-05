@@ -28,14 +28,14 @@
   <div class="control">
     <div class="field">
       <%= form.label :start_date, class: "label pt-2" %>
-      <%= form.date_field :start_date, class: "input" %>
+      <%= form.date_field :start_date, min: Date.today, class: "input" %>
     </div>
   </div>
 
   <div class="control">
     <div class="field">
       <%= form.label :end_date, class: "label pt-2" %>
-      <%= form.date_field :end_date, class: "input" %>
+      <%= form.date_field :end_date, min: Date.today, class: "input" %>
     </div>
   </div>
 
