@@ -34,6 +34,8 @@ class SpecialOffer < ApplicationRecord
 
   after_create_commit :notify_followers_and_members, if: proc { |special_offer| !special_offer.members_only? }
   after_create_commit :notify_members_only
+  after_update_commit :update_follower_and_members, if: proc { |special_offer| !special_offer.members_only? }
+  after_update_commit :update_members_only
 
   private
 
@@ -46,6 +48,15 @@ class SpecialOffer < ApplicationRecord
     notify_members
   end
 
+  def update_follower_and_members
+    update_followers
+    update_members
+  end
+
+  def update_members_only
+    notify_members
+  end
+
   def notify_members
     lounge.memberships.each do |membership|
       NewSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
@@ -55,6 +66,18 @@ class SpecialOffer < ApplicationRecord
   def notify_followers
     lounge.favoritors.each do |favoritor|
       NewSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
+    end
+  end
+
+  def update_followers
+    lounge.favoritors.each do |favoritor|
+      UpdateSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
+    end
+  end
+
+  def update_members
+    lounge.memberships.each do |membership|
+      UpdateSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
     end
   end
 end

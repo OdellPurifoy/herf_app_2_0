@@ -1,35 +1,35 @@
 # frozen_string_literal: true
 
-class NewSpecialOfferMailer < ApplicationMailer
+class UpdateSpecialOfferMailer < ApplicationMailer
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
-  #   en.new_special_offer_mailer.notify_followers_and_members.subject
+  #   en.update_special_offer_mailer.notify_followes.subject
   #
-  def notify_followers
+  def notify_followes
     @favoritor = params[:favoritor]
     @special_offer = params[:special_offer]
 
     mail(
       from: 'herf@support.com',
       to: @favoritor&.email,
-      subject: "New Special Offer!"
+      subject: "Update for our #{@special_offer.name} special offer"
     )
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
-  #   en.new_special_offer_mailer.notify_members_only.subject
+  #   en.update_special_offer_mailer.notify_members.subject
   #
   def notify_members
-    @membership = params[:membership]
+    @favoritor = params[:favoritor]
     @special_offer = params[:special_offer]
 
     mail(
       from: 'herf@support.com',
       to: @favoritor&.email,
-      subject: "New Special Offer!"
+      subject: "Update for our #{@special_offer.name} special offer"
     )
   end
 end
