@@ -10,7 +10,11 @@ class NewSpecialOfferMailer < ApplicationMailer
     @favoritor = params[:favoritor]
     @special_offer = params[:special_offer]
 
-    mail to: 'to@example.org'
+    mail(
+      from: 'herf@support.com',
+      to: @favoritor&.email,
+      subject: "New Special Offer!"
+    )
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -22,6 +26,10 @@ class NewSpecialOfferMailer < ApplicationMailer
     @membership = params[:membership]
     @special_offer = params[:special_offer]
 
-    mail to: 'to@example.org'
+    mail(
+      from: 'herf@support.com',
+      to: @favoritor&.email,
+      subject: "New Special Offer!"
+    )
   end
 end
