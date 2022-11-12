@@ -44,30 +44,62 @@ RSpec.describe SpecialOffer, type: :model do
   end
 
   describe '#notify_followers_and_members' do
-    let(:lounge) { FactoryBot.create(:lounge, special_offers: [special_offer]) }
-    let(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
-
-    before do
-      allow(special_offer).to receive(:notify_followers_and_members)   
+    context 'when the special offer is created' do
+      let(:lounge) { FactoryBot.create(:lounge, special_offers: [special_offer]) }
+      let(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
+  
+      before do
+        allow(special_offer).to receive(:notify_followers_and_members)   
+      end
+  
+      it 'should call the notify_follower_and_members callback' do
+        special_offer.save!
+        expect(special_offer).to have_received(:notify_followers_and_members)
+      end
     end
 
-    it 'should call the notify_follower_and_members callback' do
-      special_offer.save!
-      expect(special_offer).to have_received(:notify_followers_and_members)
+    context 'when the special offer is updated' do
+      let!(:lounge) { FactoryBot.create(:lounge, special_offers: [special_offer]) }
+      let!(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
+
+      before do
+        allow(special_offer).to receive(:update_follower_and_members)   
+      end
+
+      it 'should call the update_follower_and_members callback' do
+        special_offer.update!(end_date: (Date.today + 14.days))
+        expect(special_offer).to have_received(:update_follower_and_members)
+      end
     end
   end
 
   describe '#notify_members_only' do
-    let(:lounge_2) { FactoryBot.create(:lounge, special_offers: [special_offer_2]) }
-    let(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
-
-    before do
-      allow(special_offer_2).to receive(:notify_members_only)   
+    context 'when a members_only special_offer is created' do
+      let(:lounge_2) { FactoryBot.create(:lounge, special_offers: [special_offer_2]) }
+      let(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
+  
+      before do
+        allow(special_offer_2).to receive(:notify_members_only)   
+      end
+  
+      it 'should call the notify_members_only callback' do
+        special_offer_2.save!
+        expect(special_offer_2).to have_received(:notify_members_only)
+      end
     end
 
-    it 'should call the notify_members_only callback' do
-      special_offer_2.save!
-      expect(special_offer_2).to have_received(:notify_members_only)
+    context 'when a members_only special_offer is updated' do
+      let!(:lounge_2) { FactoryBot.create(:lounge, special_offers: [special_offer_2]) }
+      let!(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
+  
+      before do
+        allow(special_offer_2).to receive(:update_members_only)   
+      end
+  
+      it 'should call the update_members_only callback' do
+        special_offer_2.update!(end_date: (Date.today + 14.days))
+        expect(special_offer_2).to have_received(:update_members_only)
+      end
     end
   end
 end

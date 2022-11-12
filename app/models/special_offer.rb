@@ -35,7 +35,7 @@ class SpecialOffer < ApplicationRecord
   after_create_commit :notify_followers_and_members, if: proc { |special_offer| !special_offer.members_only? }
   after_create_commit :notify_members_only
   after_update_commit :update_follower_and_members, if: proc { |special_offer| !special_offer.members_only? }
-  after_update_commit :notify_members_only
+  after_update_commit :update_members_only
 
   private
 
