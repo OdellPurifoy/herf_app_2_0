@@ -32,10 +32,10 @@ class SpecialOffer < ApplicationRecord
   validates_presence_of :description, :special_offer_type, :start_date, :end_date
   validates :description, length: { maximum: 500 }
 
-  after_create_commit :notify_followers_and_members, if: proc { |special_offer| !special_offer.members_only? }
-  after_create_commit :notify_members_only
-  after_update_commit :update_follower_and_members, if: proc { |special_offer| !special_offer.members_only? }
-  after_update_commit :update_members_only
+  after_commit :notify_followers_and_members, on: :create, if: proc { |special_offer| !special_offer.members_only? }
+  after_commit :notify_members_only, on: :create
+  after_commit :update_follower_and_members, on: :update, if: proc { |special_offer| !special_offer.members_only? }
+  after_commit :update_members_only, on: :update
 
   private
 
