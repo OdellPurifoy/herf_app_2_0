@@ -23,12 +23,12 @@ class UpdateSpecialOfferMailer < ApplicationMailer
   #   en.update_special_offer_mailer.notify_members.subject
   #
   def notify_members
-    @favoritor = params[:favoritor]
+    @membership = params[:membership]
     @special_offer = params[:special_offer]
-
+  
     mail(
       from: 'herf@support.com',
-      to: @favoritor&.email,
+      to: @membership&.email,
       subject: "Update for our #{@special_offer.name} special offer"
     )
   end
