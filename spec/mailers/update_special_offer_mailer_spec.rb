@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe UpdateSpecialOfferMailer, type: :mailer do
-  describe "notify_followes" do
-    let(:mail) { UpdateSpecialOfferMailer.notify_followes }
+  describe "notify_followers" do
+    let(:mail) { UpdateSpecialOfferMailer.notify_followers }
 
     it "renders the headers" do
       expect(mail.subject).to eq("Notify followes")

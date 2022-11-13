@@ -4,9 +4,9 @@ class UpdateSpecialOfferMailer < ApplicationMailer
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
-  #   en.update_special_offer_mailer.notify_followes.subject
+  #   en.update_special_offer_mailer.notify_followers.subject
   #
-  def notify_followes
+  def notify_followers
     @favoritor = params[:favoritor]
     @special_offer = params[:special_offer]
 
