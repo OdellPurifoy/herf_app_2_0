@@ -32,10 +32,12 @@ class SpecialOffer < ApplicationRecord
   validates_presence_of :description, :special_offer_type, :start_date, :end_date
   validates :description, length: { maximum: 500 }
 
-  after_create_commit :notify_followers_and_members, if: proc { |special_offer| !special_offer.members_only? }
-  after_create_commit :notify_members_only
-  after_update_commit :update_follower_and_members, if: proc { |special_offer| !special_offer.members_only? }
-  after_update_commit :update_members_only
+  after_commit :notify_followers_and_members, on: :create, if: proc { |special_offer| !special_offer.members_only? }
+  after_commit :notify_members_only, on: :create
+  after_commit :update_follower_and_members, on: :update, if: proc { |special_offer| !special_offer.members_only? }
+  after_commit :update_members_only, on: :update
+  after_commit :cancel_special_offer_followers_and_members, on: :destroy, if: proc { |special_offer| !special_offer.members_only? }
+  after_commit :cancel_members_only, on: :destroy
 
   private
 
@@ -55,6 +57,15 @@ class SpecialOffer < ApplicationRecord
 
   def update_members_only
     notify_members
+  end
+
+  def cancel_special_offer_followers_and_members
+    cancel_followers
+    cancel_members
+  end
+
+  def cancel_members_only
+    cancel_members
   end
 
   def notify_members
@@ -78,6 +89,18 @@ class SpecialOffer < ApplicationRecord
   def update_members
     lounge.memberships.each do |membership|
       UpdateSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
+    end
+  end
+
+  def cancel_followers
+    lounge.favoritors.each do |favoritor|
+      CancelledSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
+    end
+  end
+
+  def cancel_members
+    lounge.memberships.each do |membership|
+      CancelledSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
     end
   end
 end

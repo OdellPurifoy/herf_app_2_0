@@ -28,7 +28,7 @@ class NewSpecialOfferMailer < ApplicationMailer
 
     mail(
       from: 'herf@support.com',
-      to: @favoritor&.email,
+      to: @membership&.email,
       subject: "New Special Offer!"
     )
   end
