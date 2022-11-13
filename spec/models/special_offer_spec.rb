@@ -43,7 +43,7 @@ RSpec.describe SpecialOffer, type: :model do
     it { should validate_presence_of(:special_offer_type) }
   end
 
-  describe '#notify_followers_and_members' do
+  describe 'followers and members notifications' do
     context 'when the special offer is created' do
       let(:lounge) { FactoryBot.create(:lounge, special_offers: [special_offer]) }
       let(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
@@ -71,9 +71,23 @@ RSpec.describe SpecialOffer, type: :model do
         expect(special_offer).to have_received(:update_follower_and_members)
       end
     end
+
+    context 'when the special offer is deleted' do
+      let!(:lounge) { FactoryBot.create(:lounge, special_offers: [special_offer]) }
+      let!(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
+
+      before do
+        allow(special_offer).to receive(:cancel_special_offer_followers_and_members)   
+      end
+
+      it 'should call the update_follower_and_members callback' do
+        special_offer.destroy!
+        expect(special_offer).to have_received(:cancel_special_offer_followers_and_members)
+      end
+    end
   end
 
-  describe '#notify_members_only' do
+  describe 'members only notifications' do
     context 'when a members_only special_offer is created' do
       let(:lounge_2) { FactoryBot.create(:lounge, special_offers: [special_offer_2]) }
       let(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
@@ -99,6 +113,22 @@ RSpec.describe SpecialOffer, type: :model do
       it 'should call the update_members_only callback' do
         special_offer_2.update!(end_date: (Date.today + 14.days))
         expect(special_offer_2).to have_received(:update_members_only)
+      end
+    end
+
+    context 'when a members only special offer is deleted' do
+      let!(:lounge_2) { FactoryBot.create(:lounge, special_offers: [special_offer_2]) }
+      let!(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
+  
+      before do
+        allow(special_offer_2).to receive(:cancel_members_only)
+        allow(special_offer_2).to receive(:cancel_special_offer_followers_and_members)   
+      end
+  
+      it 'should call the update_members_only callback' do
+        special_offer_2.destroy!
+        expect(special_offer_2).to have_received(:cancel_members_only)
+        expect(special_offer_2).to_not have_received(:cancel_special_offer_followers_and_members)
       end
     end
   end
