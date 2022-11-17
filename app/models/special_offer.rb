@@ -75,7 +75,8 @@ class SpecialOffer < ApplicationRecord
   end
 
   def notify_followers
-    lounge.favoritors.each do |favoritor|
+    # binding.irb
+    lounge&.favoritors&.each do |favoritor|
       NewSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
     end
   end
