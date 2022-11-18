@@ -75,13 +75,16 @@ class SpecialOffer < ApplicationRecord
   end
 
   def notify_followers
-    # binding.irb
-    lounge&.favoritors&.each do |favoritor|
+    return if lounge.favoritors.empty?
+
+    lounge.favoritors.each do |favoritor|
       NewSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
     end
   end
 
   def update_followers
+    return if lounge.favoritors.empty?
+
     lounge.favoritors.each do |favoritor|
       UpdateSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
     end
@@ -94,6 +97,8 @@ class SpecialOffer < ApplicationRecord
   end
 
   def cancel_followers
+    return if lounge.favoritors.empty?
+
     lounge.favoritors.each do |favoritor|
       CancelledSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
     end
