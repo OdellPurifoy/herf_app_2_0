@@ -1,10 +1,6 @@
-class CancelledEventNotificationMailer < ApplicationMailer
+# frozen_string_literal: true
 
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.cancelled_event_notification_mailer.cancel_notify_followers.subject
-  #
+class CancelledEventNotificationMailer < ApplicationMailer
   def cancel_notify_followers
     @favoritor = params[:favoritor]
     @event = params[:event]
@@ -14,7 +10,7 @@ class CancelledEventNotificationMailer < ApplicationMailer
     mail(
       from: 'herf@support.com',
       to: @favoritor&.email,
-      subject: "Event cancelled"
+      subject: 'Event cancelled'
     )
   end
 end

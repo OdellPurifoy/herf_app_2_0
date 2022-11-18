@@ -21,9 +21,6 @@ class SpecialOffersController < ApplicationController
 
     respond_to do |format|
       if @special_offer.save
-        @lounge.memberships.each do |membership|
-          NewSpecialOfferMailer.with(membership: membership, special_offer: @special_offer).notify_members.deliver_later
-        end
         format.turbo_stream { redirect_to special_offer_path(@special_offer) }
         format.html { redirect_to special_offer_url(@special_offer), notice: 'Special offer was successfully created.' }
         format.json { render :show, status: :created, location: @special_offer }
