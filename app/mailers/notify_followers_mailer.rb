@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 class NotifyFollowersMailer < ApplicationMailer
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.notify_followers_mailer.notify_followers.subject
-  #
   def notify_followers
     @favoritor = params[:favoritor]
     @event = params[:event]

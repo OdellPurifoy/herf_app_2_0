@@ -40,6 +40,13 @@
   </div>
 
   <div class="control">
+    <div class="field">
+      <%= form.label :members_only, class: "label pt-2" %>
+      <%= form.check_box :members_only %>
+    </div>
+  </div>
+
+  <div class="control">
     <div class="actions">
       <%= form.submit %>
     </div>
