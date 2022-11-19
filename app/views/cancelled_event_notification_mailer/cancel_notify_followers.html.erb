@@ -1,12 +1,13 @@
-<h1>Hi <%= @favoritor&.first_name %></h1>
+<% if @event.lounge.logo.present? %>
+  <%= image_tag(@event.lounge.logo, size: "55x55") %>
+<% else %>
+  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+<% end %>
 
-<p>  
-  <%= @event.name %> hosted by <%= @event.lounge.name %> has been cancelled. See details below
-</p>
+<h1><%= @favoritor&.first_name %></h1>
+
+<%= @event.lounge.name %> has cancelled <%= @event.name %>!
 
 <p>
-  Time: <%= @event.start_time %>
-</p>
-<p>
-  Date: <%= @event.event_date %>
+  <%= @event.description %>
 </p>
