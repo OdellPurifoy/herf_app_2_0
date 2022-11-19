@@ -10,6 +10,7 @@
 #  event_type       :string           not null
 #  event_url        :string
 #  maximum_capacity :integer
+#  members_only     :boolean          default(FALSE)
 #  name             :string           not null
 #  rsvp_needed      :boolean          default(FALSE)
 #  slug             :string
