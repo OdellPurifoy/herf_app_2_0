@@ -1,4 +1,10 @@
-<h1>Hi <%= @favoritor&.first_name %></h1>
+<% if @special_offer.lounge.logo.present? %>
+  <%= image_tag(@special_offer.lounge.logo, size: "55x55") %>
+<% else %>
+  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+<% end %>
+
+<h1>Hi <%= @membership&.first_name %></h1>
 
 <p>  
   <%= @special_offer.special_offer_type %>

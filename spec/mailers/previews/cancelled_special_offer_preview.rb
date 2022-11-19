@@ -8,6 +8,10 @@ class CancelledSpecialOfferPreview < ActionMailer::Preview
     SpecialOffer.last.lounge.favoritors.last
   end
 
+  def membership
+    SpecialOffer.last.lounge.memberships.last
+  end
+
   # Preview this email at http://localhost:3000/rails/mailers/cancelled_special_offer/notify_followers
   def notify_followers
     CancelledSpecialOfferMailer.with(favoritor: favoritor, special_offer: special_offer).notify_followers
@@ -15,6 +19,6 @@ class CancelledSpecialOfferPreview < ActionMailer::Preview
 
   # Preview this email at http://localhost:3000/rails/mailers/cancelled_special_offer/notify_members
   def notify_members
-    CancelledSpecialOfferMailer.with(favoritor: favoritor, special_offer: special_offer).notify_members
+    CancelledSpecialOfferMailer.with(membership: membership, special_offer: special_offer).notify_members
   end
 end
