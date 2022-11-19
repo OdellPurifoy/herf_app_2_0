@@ -63,12 +63,12 @@ RSpec.describe SpecialOffer, type: :model do
       let!(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
 
       before do
-        allow(special_offer).to receive(:update_follower_and_members)   
+        allow(special_offer).to receive(:update_followers_and_members)   
       end
 
-      it 'should call the update_follower_and_members callback' do
+      it 'should call the update_followers_and_members callback' do
         special_offer.update!(end_date: (Date.today + 14.days))
-        expect(special_offer).to have_received(:update_follower_and_members)
+        expect(special_offer).to have_received(:update_followers_and_members)
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe SpecialOffer, type: :model do
         allow(special_offer).to receive(:cancel_special_offer_followers_and_members)   
       end
 
-      it 'should call the update_follower_and_members callback' do
+      it 'should call the cancel_special_offer_followers_and_members callback' do
         special_offer.destroy!
         expect(special_offer).to have_received(:cancel_special_offer_followers_and_members)
       end

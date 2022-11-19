@@ -34,7 +34,7 @@ class SpecialOffer < ApplicationRecord
 
   after_commit :notify_followers_and_members, on: :create, if: proc { |special_offer| !special_offer.members_only? }
   after_commit :notify_members_only, on: :create
-  after_commit :update_follower_and_members, on: :update, if: proc { |special_offer| !special_offer.members_only? }
+  after_commit :update_followers_and_members, on: :update, if: proc { |special_offer| !special_offer.members_only? }
   after_commit :update_members_only, on: :update
   after_commit :cancel_special_offer_followers_and_members, on: :destroy, if: proc { |special_offer| !special_offer.members_only? }
   after_commit :cancel_members_only, on: :destroy
@@ -50,7 +50,7 @@ class SpecialOffer < ApplicationRecord
     notify_members
   end
 
-  def update_follower_and_members
+  def update_followers_and_members
     update_followers
     update_members
   end
