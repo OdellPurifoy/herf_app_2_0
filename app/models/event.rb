@@ -91,6 +91,7 @@ class Event < ApplicationRecord
     return if lounge.memberships.empty?
 
     lounge.memberships.each do |membership|
+      NotifyFollowersMailer.with(membership: membership, event: self).notify_members.deliver_later
     end
   end
 
@@ -122,6 +123,7 @@ class Event < ApplicationRecord
     return if lounge.memberships.empty?
 
     lounge.memberships.each do |membership|
+      CancelledEventNotificationMailer.with(membership: membership, event: self).cancel_notify_members.deliver_later
     end
   end
 end
