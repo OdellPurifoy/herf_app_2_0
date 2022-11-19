@@ -48,7 +48,7 @@ class Event < ApplicationRecord
   after_commit :update_followers_and_members, on: :update, if: proc { |event| event.members_only == false }
   after_commit :update_members, on: :update
   after_commit :cancel_event_followers_and_members, on: :destroy, if: proc { |event| event.members_only == false }
-  after_commit :cancel_members, on: :destroy
+  after_commit :cancellation_event_members, on: :destroy
 
   private
 
@@ -60,7 +60,7 @@ class Event < ApplicationRecord
 
   def end_time_not_earlier_than_start_time
     return if end_time.blank? || start_time.blank?
-
+    # binding.irb
     errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
   end
 
@@ -119,7 +119,7 @@ class Event < ApplicationRecord
     end
   end
 
-  def cancellation_update_members
+  def cancellation_event_members
     return if lounge.memberships.empty?
 
     lounge.memberships.each do |membership|

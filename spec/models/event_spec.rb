@@ -90,56 +90,113 @@ RSpec.describe Event, type: :model do
   end
 
   describe '#end_time_not_earlier_than_start_time' do
-    let(:event) { FactoryBot.build(:event, end_time: (Time.now - 1.hour)) }
+    let(:event) { FactoryBot.build(:event, end_time: (DateTime.now - 1.day), start_time: DateTime.now) }
 
     it 'should raise a validation error' do
+      # binding.irb
       event.validate
       expect(event.errors[:end_time]).to include('End time cannot be earlier than start time.')
     end
   end
 
-  describe '#notify_followers' do
-    let(:lounge) { FactoryBot.create(:lounge, events: [event]) }
-    let(:event) { FactoryBot.build(:event) }
-
-    before do
-      allow(event).to receive(:notify_followers)   
+  describe 'followers and members new event notifications' do
+    context 'when the event is created members_only is false' do
+      let(:lounge) { FactoryBot.create(:lounge, events: [event]) }
+      let(:event) { FactoryBot.build(:event, members_only: false) }
+  
+      before do
+        allow(event).to receive(:notify_followers_and_members)   
+      end
+  
+      it 'should call the notify_followers_and_members callback' do
+        event.save!
+        expect(event).to have_received(:notify_followers_and_members)
+      end
     end
 
-    it 'should call the Notification Mailer with lounge followers' do
-      event.save!
-      expect(event).to have_received(:notify_followers)
+    context 'when the event is created and members_only is true' do
+      let(:lounge) { FactoryBot.create(:lounge, events: [event]) }
+      let(:event) { FactoryBot.build(:event, members_only: true) }
+  
+      before do
+        allow(event).to receive(:notify_members)
+        allow(event).to receive(:notify_followers_and_members)   
+      end
+  
+      it 'should call the notify_members callback' do
+        event.save!
+        expect(event).to have_received(:notify_members)
+        expect(event).to_not have_received(:notify_followers_and_members)
+      end
     end
   end
 
-  describe '#update_followers' do
-    let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
-    let!(:event) { FactoryBot.create(:event) }
-    let(:old_event_date) { (Date.today + 1.day) }
-    let(:new_event_date) { (Date.today + 3.days) }
-
-    before do
-      allow(event).to receive(:update_followers)   
+  describe 'followers and members event update notifications' do
+    context 'when the event is updated' do
+      let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
+      let!(:event) { FactoryBot.create(:event, members_only: false) }
+      let(:old_event_date) { (Date.today + 1.day) }
+      let(:new_event_date) { (Date.today + 3.days) }
+  
+      before do
+        allow(event).to receive(:update_followers_and_members)   
+      end
+  
+      it 'should call the update_followers_and_members callback' do
+        event.event_date = new_event_date
+        event.save!
+        expect(event).to have_received(:update_followers_and_members)
+      end
     end
 
-    it 'should call the Update event notification mailer with lounge followers' do
-      event.event_date = new_event_date
-      event.save!
-      expect(event).to have_received(:update_followers)
+    context 'when event is updated and members_only is true' do
+      let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
+      let!(:event) { FactoryBot.create(:event, members_only: true) }
+      let(:old_event_date) { (Date.today + 1.day) }
+      let(:new_event_date) { (Date.today + 3.days) }
+  
+      before do
+        allow(event).to receive(:update_members)      
+        allow(event).to receive(:update_followers_and_members)
+      end
+  
+      it 'should call the update_followers_and_members callback' do
+        event.update!(event_date: new_event_date)
+        expect(event).to have_received(:update_members)
+        expect(event).to_not have_received(:update_followers_and_members)
+      end
     end
   end
 
-  describe '#cancellation_update_followers' do
-    let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
-    let!(:event) { FactoryBot.create(:event) }
-
-    before do
-      allow(event).to receive(:cancellation_update_followers)   
+  describe 'followers and members event cancellation notifications' do
+    context 'when an event is cancelled/destroyed' do
+      let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
+      let!(:event) { FactoryBot.create(:event, members_only: false) }
+  
+      before do
+        allow(event).to receive(:cancel_event_followers_and_members)   
+      end
+  
+      it 'should call the cancel_event_followers_and_members callback' do
+        event.destroy!
+        expect(event).to have_received(:cancel_event_followers_and_members)
+      end
     end
 
-    it 'should call the Update event notification mailer with lounge followers' do
-      event.destroy!
-      expect(event).to have_received(:cancellation_update_followers)
+    context 'when and event is cancelled/destroyed and members_only is true' do
+      let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
+      let!(:event) { FactoryBot.create(:event, members_only: true) }
+  
+      before do
+        allow(event).to receive(:cancellation_event_members)   
+        allow(event).to receive(:cancel_event_followers_and_members)   
+      end
+  
+      it 'should call the cancel_event_followers_and_members callback' do
+        event.destroy!
+        expect(event).to have_received(:cancellation_event_members)
+        expect(event).to_not have_received(:cancel_event_followers_and_members)
+      end
     end
   end
 end
