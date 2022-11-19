@@ -8,6 +8,7 @@
 #  event_type       :string           not null
 #  event_url        :string
 #  maximum_capacity :integer
+#  members_only     :boolean          default(FALSE)
 #  name             :string           not null
 #  rsvp_needed      :boolean          default(FALSE)
 #  slug             :string
@@ -32,9 +33,10 @@ FactoryBot.define do
     name { "Whiskey Tasting 101" }
     event_type { "Whiskey" }
     event_url { "http://www.example.com" }
-    start_time { Time.now }
-    end_time { Time.now + 3.hours }
+    start_time { (Date.today + 1.day).to_time }
+    end_time { (Date.today + 2.days).to_time }
     maximum_capacity { 1 }
+    members_only { false }
     rsvp_needed { false }
     event_date { (Date.today + 1.day) }
     lounge

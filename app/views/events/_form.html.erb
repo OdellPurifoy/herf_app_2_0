@@ -62,6 +62,13 @@
 
   <div class="control">
     <div class="field">
+      <%= form.label :members_only, class: "checkbox pt-2" %>
+      <%= form.check_box :members_only %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
       <%= form.label :event_url, class: "checkbox pt-2" %>
       <%= form.url_field :event_url, placeholder: "http://www.example.com" %>
     </div>

@@ -10,6 +10,7 @@
 #  event_type       :string           not null
 #  event_url        :string
 #  maximum_capacity :integer
+#  members_only     :boolean          default(FALSE)
 #  name             :string           not null
 #  rsvp_needed      :boolean          default(FALSE)
 #  slug             :string
@@ -42,9 +43,12 @@ class Event < ApplicationRecord
   validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
-  after_create_commit :notify_followers
-  after_update_commit :update_followers
-  after_destroy_commit :cancellation_update_followers
+  after_commit :notify_followers_and_members, on: :create, if: proc { |event| event.members_only == false }
+  after_commit :notify_members, on: :create
+  after_commit :update_followers_and_members, on: :update, if: proc { |event| event.members_only == false }
+  after_commit :update_members, on: :update
+  after_commit :cancel_event_followers_and_members, on: :destroy, if: proc { |event| event.members_only == false }
+  after_commit :cancellation_event_members, on: :destroy
 
   private
 
@@ -56,31 +60,70 @@ class Event < ApplicationRecord
 
   def end_time_not_earlier_than_start_time
     return if end_time.blank? || start_time.blank?
-
+    # binding.irb
     errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
   end
 
+  def notify_followers_and_members
+    notify_followers
+    notify_members
+  end
+
+  def update_followers_and_members
+    update_followers
+    update_members
+  end
+
+  def cancel_event_followers_and_members
+    cancel_followers
+    cancel_members
+  end
+
   def notify_followers
-    return if lounge.favoritors.count.zero?
+    return if lounge.favoritors.empty?
 
     lounge.favoritors.each do |favoritor|
       NotifyFollowersMailer.with(favoritor: favoritor, event: self).notify_followers.deliver_later
     end
   end
 
+  def notify_members
+    return if lounge.memberships.empty?
+
+    lounge.memberships.each do |membership|
+      NotifyFollowersMailer.with(membership: membership, event: self).notify_members.deliver_later
+    end
+  end
+
   def update_followers
-    return if lounge.favoritors.count.zero?
+    return if lounge.favoritors.empty?
 
     lounge.favoritors.each do |favoritor|
       UpdatedEventNotificationMailer.with(favoritor: favoritor, event: self).update_notify_followers.deliver_later
     end
   end
 
+  def update_members
+    return if lounge.memberships.empty?
+
+    lounge.memberships.each do |membership|
+      UpdatedEventNotificationMailer.with(membership: membership, event: self).update_notify_members.deliver_later
+    end
+  end
+
   def cancellation_update_followers
-    return if lounge.favoritors.count.zero?
+    return if lounge.favoritors.empty?
 
     lounge.favoritors.each do |favoritor|
       CancelledEventNotificationMailer.with(favoritor: favoritor, event: self).cancel_notify_followers.deliver_later
+    end
+  end
+
+  def cancellation_event_members
+    return if lounge.memberships.empty?
+
+    lounge.memberships.each do |membership|
+      CancelledEventNotificationMailer.with(membership: membership, event: self).cancel_notify_members.deliver_later
     end
   end
 end
