@@ -106,6 +106,7 @@ class Event < ApplicationRecord
     return if lounge.memberships.empty?
 
     lounge.memberships.each do |membership|
+      UpdatedEventNotificationMailer.with(membership: membership, event: self).update_notify_members.deliver_later
     end
   end
 
