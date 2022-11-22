@@ -11,9 +11,11 @@ gem 'faker', '~> 2.22'
 gem 'file_validators', '~> 3.0'
 gem 'friendly_id', '~> 5.4.0'
 gem "font-awesome-sass", "~> 6.1.1"
+gem 'phonelib', '~> 0.7.4'
 gem 'resque', '~> 2.4'
 gem 'rubocop', require: false
 gem 'simple_form'
+gem 'twilio-ruby', '~> 5.73', '>= 5.73.3'
 gem 'validate_url', '~> 1.0', '>= 1.0.15'
 # gem 'tod', '~> 3.1'
 

@@ -34,6 +34,8 @@ class User < ApplicationRecord
   has_many :events, through: :lounges
   has_many :memberships, dependent: :destroy
 
+  validates :phone, phone: true
+
   acts_as_favoritor
 
   after_create :sync_user_to_member
