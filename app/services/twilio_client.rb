@@ -9,7 +9,15 @@ class TwilioClient
 
   def send_text(user, message)
     client.messages.create(
-      to: user.phone,
+      to: user.phone_number,
+      from: phone_number,
+      body: message
+    )
+  end
+
+  def send_new_event_text(member_phone_number, message)
+    client.messages.create(
+      to: member_phone_number,
       from: phone_number,
       body: message
     )
