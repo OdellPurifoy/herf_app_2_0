@@ -8,7 +8,7 @@
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
 #  last_name              :string           not null
-#  phone                  :string
+#  phone_number           :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -34,7 +34,7 @@ class User < ApplicationRecord
   has_many :events, through: :lounges
   has_many :memberships, dependent: :destroy
 
-  validates :phone, phone: true
+  validates :phone_number, phone: true
 
   acts_as_favoritor
 

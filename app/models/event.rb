@@ -44,7 +44,7 @@ class Event < ApplicationRecord
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
   after_commit :notify_followers_and_members, on: :create, if: proc { |event| event.members_only == false }
-  after_commit :notify_members, on: :create
+  after_commit :notify_members, :text_notify_members, on: :create
   after_commit :update_followers_and_members, on: :update, if: proc { |event| event.members_only == false }
   after_commit :update_members, on: :update
   after_commit :cancel_event_followers_and_members, on: :destroy, if: proc { |event| event.members_only == false }
@@ -93,6 +93,20 @@ class Event < ApplicationRecord
     lounge.memberships.each do |membership|
       NotifyFollowersMailer.with(membership: membership, event: self).notify_members.deliver_later
     end
+  end
+
+  def text_notify_members
+    return if lounge.memberships.empty?
+
+    members_phone_number = lounge.memberships.pluck(:phone_number).compact
+
+    members_phone_number.each do |member_phone_number|
+      TwilioClient.new.send_new_event_text(member_phone_number, new_event_message)
+    end
+  end
+
+  def new_event_message
+    "You have been invited to #{self.name} hosted by #{self.lounge.name}! Here are the details: #{self.description}"
   end
 
   def update_followers
