@@ -60,7 +60,7 @@ class Event < ApplicationRecord
 
   def end_time_not_earlier_than_start_time
     return if end_time.blank? || start_time.blank?
-    # binding.irb
+
     errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
   end
 
@@ -92,10 +92,20 @@ class Event < ApplicationRecord
   def new_event_text_for_followers
     return if lounge.favoritors.empty?
 
-    favoritors_phone_numbers = lounge.favoritors.pluck(:phone_number).compact
+    text_all_favoritors(lounge.favoritors, new_event_message)
+  end
 
+  def updated_event_text_for_followers
+    return if lounge.favoritors.empty?
+
+    text_all_favoritors(lounge.favoritors, updated_event_message)
+  end
+  
+  def text_all_favoritors(favoritors, message)
+    favoritors_phone_numbers = favoritors.pluck(:phone_number).compact
+  
     favoritors_phone_numbers.each do |phone_number|
-      TwilioClient.new.send_text(phone_number, new_event_message)
+      TwilioClient.new.send_text(phone_number, message)
     end
   end
 
@@ -121,6 +131,17 @@ class Event < ApplicationRecord
     %Q(You have been invited to #{self.name}, 
       hosted by #{self.lounge.name}! 
       Here are the details: #{self.description})
+  end
+
+  def updated_event_message
+    %Q(The #{self.name} event, hosted by #{self.lounge.name} has been updated.
+      Here are the latest details:
+      Event: #{self.name}
+      Date: #{self.event_date}
+      Start Time: #{self.start_time}
+      End Time: #{self.end_time}
+      Location: #{self.lounge.address_street_1}, #{self.lounge.city}, #{self.lounge.state}, #{self.lounge.zip_code}
+      Phone: #{self.lounge.phone})
   end
 
   def update_followers
