@@ -74,6 +74,8 @@ class Event < ApplicationRecord
   def update_followers_and_members
     update_followers
     update_members
+    updated_event_text_for_followers
+    updated_event_text_for_members
   end
 
   def cancel_event_followers_and_members
@@ -120,7 +122,17 @@ class Event < ApplicationRecord
   def new_event_text_for_members
     return if lounge.memberships.empty?
 
-    members_phone_numbers = lounge.memberships.pluck(:phone_number).compact
+    text_all_members(lounge.memberships, message)
+  end
+
+  def updated_event_text_for_members
+    return if lounge.favoritors.empty?
+
+    text_all_members(lounge.memberships, updated_event_message)
+  end
+
+  def text_all_members(memberships, message)
+    members_phone_numbers = memberships.pluck(:phone_number).compact
 
     members_phone_numbers.each do |phone_number|
       TwilioClient.new.send_text(phone_number, new_event_message)
