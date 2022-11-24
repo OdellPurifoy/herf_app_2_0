@@ -44,7 +44,7 @@ class Event < ApplicationRecord
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
   after_commit :notify_followers_and_members, on: :create, if: proc { |event| event.members_only == false }
-  after_commit :notify_members, :text_notify_members, on: :create
+  after_commit :notify_members, :new_event_text_for_members, on: :create
   after_commit :update_followers_and_members, on: :update, if: proc { |event| event.members_only == false }
   after_commit :update_members, on: :update
   after_commit :cancel_event_followers_and_members, on: :destroy, if: proc { |event| event.members_only == false }
@@ -60,23 +60,29 @@ class Event < ApplicationRecord
 
   def end_time_not_earlier_than_start_time
     return if end_time.blank? || start_time.blank?
-    # binding.irb
+
     errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
   end
 
   def notify_followers_and_members
     notify_followers
     notify_members
+    new_event_text_for_followers
+    new_event_text_for_members
   end
 
   def update_followers_and_members
     update_followers
     update_members
+    updated_event_text_for_followers
+    updated_event_text_for_members
   end
 
   def cancel_event_followers_and_members
-    cancel_followers
-    cancel_members
+    cancellation_event_followers
+    cancellation_event_members
+    cancelled_event_text_for_followers
+    cancelled_event_text_for_members
   end
 
   def notify_followers
@@ -84,6 +90,32 @@ class Event < ApplicationRecord
 
     lounge.favoritors.each do |favoritor|
       NotifyFollowersMailer.with(favoritor: favoritor, event: self).notify_followers.deliver_later
+    end
+  end
+
+  def new_event_text_for_followers
+    return if lounge.favoritors.empty?
+
+    text_all_favoritors(lounge.favoritors, new_event_message)
+  end
+
+  def updated_event_text_for_followers
+    return if lounge.favoritors.empty?
+
+    text_all_favoritors(lounge.favoritors, updated_event_message)
+  end
+
+  def cancelled_event_text_for_followers
+    return if lounge.favoritors.empty?
+
+    text_all_favoritors(lounge.favoritors, cancelled_event_message)
+  end
+
+  def text_all_favoritors(favoritors, message)
+    favoritors_phone_numbers = favoritors.pluck(:phone_number).compact
+
+    favoritors_phone_numbers.each do |phone_number|
+      TwilioClient.new.send_text(phone_number, message)
     end
   end
 
@@ -95,18 +127,53 @@ class Event < ApplicationRecord
     end
   end
 
-  def text_notify_members
+  def new_event_text_for_members
     return if lounge.memberships.empty?
 
-    members_phone_number = lounge.memberships.pluck(:phone_number).compact
+    text_all_members(lounge.memberships, new_event_message)
+  end
 
-    members_phone_number.each do |member_phone_number|
-      TwilioClient.new.send_new_event_text(member_phone_number, new_event_message)
+  def updated_event_text_for_members
+    return if lounge.favoritors.empty?
+
+    text_all_members(lounge.memberships, updated_event_message)
+  end
+
+  def cancelled_event_text_for_members
+    return if lounge.memberships.empty?
+
+    text_all_members(lounge.memberships, cancelled_event_message)
+  end
+
+  def text_all_members(memberships, _message)
+    members_phone_numbers = memberships.pluck(:phone_number).compact
+
+    members_phone_numbers.each do |phone_number|
+      TwilioClient.new.send_text(phone_number, new_event_message)
     end
   end
 
   def new_event_message
-    "You have been invited to #{self.name} hosted by #{self.lounge.name}! Here are the details: #{self.description}"
+    %(You have been invited to #{name},
+      hosted by #{lounge.name}!
+      Here are the details: #{description})
+  end
+
+  def updated_event_message
+    %(The #{name} event, hosted by #{lounge.name} has been updated.
+      Here are the latest details:
+      Event: #{name}
+      Date: #{event_date}
+      Start Time: #{start_time}
+      End Time: #{end_time}
+      Location: #{lounge.address_street_1}, #{lounge.city}, #{lounge.state}, #{lounge.zip_code}
+      Phone: #{lounge.phone})
+  end
+
+  def cancelled_event_message
+    %(The #{name} event, hosted by #{lounge.name} has been cancelled.
+      Please contact #{lounge.name} at: #{lounge.phone} for additional information.
+      Thank you.)
   end
 
   def update_followers
@@ -125,7 +192,7 @@ class Event < ApplicationRecord
     end
   end
 
-  def cancellation_update_followers
+  def cancellation_event_followers
     return if lounge.favoritors.empty?
 
     lounge.favoritors.each do |favoritor|
