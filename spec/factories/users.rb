@@ -32,5 +32,6 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     username { Faker::Internet.username }
     password { Faker::Internet.password }
+    phone_number { '9008007000' }
   end
 end
