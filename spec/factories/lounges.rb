@@ -45,7 +45,7 @@ FactoryBot.define do
     address_street_2 { Faker::Address.secondary_address }
     city { Faker::Address.city }
     state { Faker::Address.state }
-    phone { Faker::PhoneNumber.cell_phone }
+    phone { '9008007000' }
     zip_code { Faker::Address.zip_code }
     user
   end

@@ -34,7 +34,7 @@ class User < ApplicationRecord
   has_many :events, through: :lounges
   has_many :memberships, dependent: :destroy
 
-  validates :phone_number, phone: true
+  validates :phone_number, phone: { possible: true }
 
   acts_as_favoritor
 
