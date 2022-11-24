@@ -7,18 +7,10 @@ class TwilioClient
     @client = Twilio::REST::Client.new account_sid, auth_token
   end
 
-  def send_text(user, message)
+  def send_text(phone_number, message)
     client.messages.create(
-      to: user.phone_number,
-      from: phone_number,
-      body: message
-    )
-  end
-
-  def send_new_event_text(member_phone_number, message)
-    client.messages.create(
-      to: member_phone_number,
-      from: phone_number,
+      to: phone_number,
+      from: twilio_phone_number,
       body: message
     )
   end
@@ -33,7 +25,7 @@ class TwilioClient
     Rails.application.credentials.twilio[:auth_token]
   end
 
-  def phone_number
+  def twilio_phone_number
     '14258420884'
   end
 end
