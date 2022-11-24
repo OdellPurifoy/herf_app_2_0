@@ -67,6 +67,8 @@ class Event < ApplicationRecord
   def notify_followers_and_members
     notify_followers
     notify_members
+    new_event_text_for_followers
+    new_event_text_for_members
   end
 
   def update_followers_and_members
@@ -84,6 +86,16 @@ class Event < ApplicationRecord
 
     lounge.favoritors.each do |favoritor|
       NotifyFollowersMailer.with(favoritor: favoritor, event: self).notify_followers.deliver_later
+    end
+  end
+
+  def new_event_text_for_followers
+    return if lounge.favoritors.empty?
+
+    favoritors_phone_numbers = lounge.favoritors.pluck(:phone_number).compact
+
+    favoritors_phone_numbers.each do |phone_number|
+      TwilioClient.new.send_text(phone_number, new_event_message)
     end
   end
 
@@ -106,7 +118,9 @@ class Event < ApplicationRecord
   end
 
   def new_event_message
-    "You have been invited to #{self.name} hosted by #{self.lounge.name}! Here are the details: #{self.description}"
+    %Q(You have been invited to #{self.name}, 
+      hosted by #{self.lounge.name}! 
+      Here are the details: #{self.description})
   end
 
   def update_followers
