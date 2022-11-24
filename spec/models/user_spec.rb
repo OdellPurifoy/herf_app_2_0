@@ -32,6 +32,7 @@ RSpec.describe User, type: :model do
     it { should have_db_column(:encrypted_password).of_type(:string) }
     it { should have_db_column(:first_name).of_type(:string) }
     it { should have_db_column(:last_name).of_type(:string) }
+    it { should have_db_column(:phone_number).of_type(:string) }
     it { should have_db_column(:username).of_type(:string) }
   end
 
