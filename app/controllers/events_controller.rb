@@ -21,7 +21,11 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        @event.notify_followers_and_members if @event.members_only == false
+        if @event.members_only?
+          @event.notify_members_only
+        else
+          @event.notify_followers_and_members
+        end
         format.turbo_stream { redirect_to event_path(@event) }
         format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }

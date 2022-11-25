@@ -43,8 +43,6 @@ class Event < ApplicationRecord
   validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
-  # after_commit :notify_followers_and_members, on: :create, if: proc { |event| event.members_only == false }
-  after_commit :notify_members, :new_event_text_for_members, on: :create
   after_commit :update_followers_and_members, on: :update, if: proc { |event| event.members_only == false }
   after_commit :update_members, on: :update
   after_commit :cancel_event_followers_and_members, on: :destroy, if: proc { |event| event.members_only == false }
@@ -54,6 +52,11 @@ class Event < ApplicationRecord
     notify_followers
     notify_members
     new_event_text_for_followers
+    new_event_text_for_members
+  end
+
+  def notify_members_only
+    notify_members
     new_event_text_for_members
   end
 
