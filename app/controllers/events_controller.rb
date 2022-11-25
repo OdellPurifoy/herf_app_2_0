@@ -21,6 +21,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        @event.notify_followers_and_members if @event.members_only == false
         format.turbo_stream { redirect_to event_path(@event) }
         format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
@@ -62,7 +63,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :end_time, :event_type, :event_url, :maximum_capacity, :rsvp_needed, :start_time, :event_date,
+    params.require(:event).permit(:name, :end_time, :event_type, :event_url, :maximum_capacity, :members_only, :rsvp_needed, :start_time, :event_date,
                                   :lounge_id, :flyer, :description)
   end
 end

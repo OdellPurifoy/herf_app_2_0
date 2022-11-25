@@ -43,12 +43,19 @@ class Event < ApplicationRecord
   validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
-  after_commit :notify_followers_and_members, on: :create, if: proc { |event| event.members_only == false }
+  # after_commit :notify_followers_and_members, on: :create, if: proc { |event| event.members_only == false }
   after_commit :notify_members, :new_event_text_for_members, on: :create
   after_commit :update_followers_and_members, on: :update, if: proc { |event| event.members_only == false }
   after_commit :update_members, on: :update
   after_commit :cancel_event_followers_and_members, on: :destroy, if: proc { |event| event.members_only == false }
   after_commit :cancellation_event_members, on: :destroy
+
+  def notify_followers_and_members
+    notify_followers
+    notify_members
+    new_event_text_for_followers
+    new_event_text_for_members
+  end
 
   private
 
@@ -62,13 +69,6 @@ class Event < ApplicationRecord
     return if end_time.blank? || start_time.blank?
 
     errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
-  end
-
-  def notify_followers_and_members
-    notify_followers
-    notify_members
-    new_event_text_for_followers
-    new_event_text_for_members
   end
 
   def update_followers_and_members
@@ -156,7 +156,13 @@ class Event < ApplicationRecord
   def new_event_message
     %(You have been invited to #{name},
       hosted by #{lounge.name}!
-      Here are the details: #{description})
+      Here are the details: 
+      Event: #{name}
+      Date: #{event_date}
+      Start Time: #{start_time}
+      End Time: #{end_time}
+      Location: #{lounge.address_street_1}, #{lounge.city}, #{lounge.state}, #{lounge.zip_code}
+      Phone: #{lounge.phone})
   end
 
   def updated_event_message
