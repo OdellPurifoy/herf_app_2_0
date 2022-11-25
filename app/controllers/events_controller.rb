@@ -55,6 +55,12 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    if @event.members_only?
+      @event.cancel_event_members_only
+    else
+      @event.cancel_event_followers_and_members
+    end
+
     @event.destroy
 
     redirect_to root_path, status: :see_other

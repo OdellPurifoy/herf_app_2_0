@@ -43,11 +43,6 @@ class Event < ApplicationRecord
   validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
-  after_commit :update_followers_and_members, on: :update, if: proc { |event| event.members_only == false }
-  after_commit :update_members, on: :update
-  after_commit :cancel_event_followers_and_members, on: :destroy, if: proc { |event| event.members_only == false }
-  after_commit :cancellation_event_members, on: :destroy
-
   def notify_followers_and_members
     notify_followers
     notify_members
@@ -72,6 +67,18 @@ class Event < ApplicationRecord
     updated_event_text_for_members
   end
 
+  def cancel_event_followers_and_members
+    cancellation_event_followers
+    cancellation_event_members
+    cancelled_event_text_for_followers
+    cancelled_event_text_for_members
+  end
+
+  def cancel_event_members_only
+    cancellation_event_members
+    cancelled_event_text_for_followers
+  end
+
   private
 
   def end_date_not_after_start_date
@@ -84,13 +91,6 @@ class Event < ApplicationRecord
     return if end_time.blank? || start_time.blank?
 
     errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
-  end
-
-  def cancel_event_followers_and_members
-    cancellation_event_followers
-    cancellation_event_members
-    cancelled_event_text_for_followers
-    cancelled_event_text_for_members
   end
 
   def notify_followers
@@ -142,7 +142,7 @@ class Event < ApplicationRecord
   end
 
   def updated_event_text_for_members
-    return if lounge.favoritors.empty?
+    return if lounge.memberships.empty?
 
     text_all_members(lounge.memberships, updated_event_message)
   end
@@ -153,11 +153,11 @@ class Event < ApplicationRecord
     text_all_members(lounge.memberships, cancelled_event_message)
   end
 
-  def text_all_members(memberships, _message)
+  def text_all_members(memberships, message)
     members_phone_numbers = memberships.pluck(:phone_number).compact
 
     members_phone_numbers.each do |phone_number|
-      TwilioClient.new.send_text(phone_number, new_event_message)
+      TwilioClient.new.send_text(phone_number, message)
     end
   end
 
