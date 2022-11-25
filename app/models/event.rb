@@ -60,6 +60,18 @@ class Event < ApplicationRecord
     new_event_text_for_members
   end
 
+  def update_followers_and_members
+    update_followers
+    update_members
+    updated_event_text_for_followers
+    updated_event_text_for_members
+  end
+
+  def update_members_only
+    update_members
+    updated_event_text_for_members
+  end
+
   private
 
   def end_date_not_after_start_date
@@ -72,13 +84,6 @@ class Event < ApplicationRecord
     return if end_time.blank? || start_time.blank?
 
     errors.add(:end_time, 'End time cannot be earlier than start time.') if end_time.before?(start_time)
-  end
-
-  def update_followers_and_members
-    update_followers
-    update_members
-    updated_event_text_for_followers
-    updated_event_text_for_members
   end
 
   def cancel_event_followers_and_members
