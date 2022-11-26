@@ -44,7 +44,7 @@ class Event < ApplicationRecord
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
   after_commit :notify_followers_and_or_members, on: :create
-  after_commit :update_followers_and_or_member, on: :update
+  after_commit :update_followers_and_or_members, on: :update
   after_commit :cancel_follower_and_or_members, on: :destroy
 
   private
@@ -59,7 +59,7 @@ class Event < ApplicationRecord
     end
   end
 
-  def update_followers_and_or_member
+  def update_followers_and_or_members
     if members_only?
       update_members
       updated_event_text_for_members
