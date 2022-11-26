@@ -48,27 +48,23 @@ class SpecialOffer < ApplicationRecord
     end
   end
 
-  def update_followers_and_members
-    update_followers
-    update_members
+  def update_followers_and_or_members
+    if members_only?
+      update_members
+      updated_special_offer_text_for_members
+    else
+      update_followers
+      updated_special_offer_text_for_followers
+    end
   end
 
-  def update_members_only
-    notify_members
-  end
-
-  def cancel_special_offer_followers_and_members
-    cancel_followers
-    cancel_members
-  end
-
-  def cancel_members_only
-    cancel_members
-  end
-
-  def notify_members
-    lounge.memberships.each do |membership|
-      NewSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
+  def cancel_follower_and_or_members
+    if members_only?
+      cancellation_special_offer_members
+      cancelled_special_offer_text_for_members
+    else
+      cancellation_special_offer_followers
+      cancelled_special_offer_text_for_followers
     end
   end
 
@@ -93,15 +89,7 @@ class SpecialOffer < ApplicationRecord
       Ends: #{end_date})
   end
 
-  def notify_followers
-    return if lounge.favoritors.empty?
-
-    lounge.favoritors.each do |favoritor|
-      NewSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
-    end
-  end
-
-  def new_event_text_for_followers
+  def new_special_offer_text_for_followers
     return if lounge.favoritors.empty?
 
     text_all_favoritors(lounge.favoritors, new_special_offer_message_for_followers)
@@ -115,11 +103,56 @@ class SpecialOffer < ApplicationRecord
     end
   end
 
+  def updated_special_offer_text_for_members
+    return if lounge.memberships.empty?
+
+    text_all_members(lounge.memberships, updated_special_offer_message)
+  end
+
+  def cancelled_special_offer_text_for_members
+    return if lounge.memberships.empty?
+
+    text_all_members(lounge.memberships, cancelled_special_offer_message)
+  end
+
+  def cancelled_special_offer_text_for_followers
+    return if lounge.favoritors.empty?
+
+    text_all_favoritors(lounge.favoritors, cancelled_special_offer_message)
+  end
+
   def new_special_offer_message_for_followers
     %(New #{special_offer_type} special offer from #{lounge.name}! 
       Here are the details: #{description}
       Begins: #{start_date}
       Ends: #{end_date})
+  end
+
+  def updated_special_offer_message
+    %(The #{special_offer_type} special offer from #{lounge.name} has been updated.
+      Here are the latest details: #{description}
+      Begins: #{start_date}
+      Ends: #{end_date})
+  end
+
+  def cancelled_special_offer_message
+    %(The #{special_offer_type} special offer, has been cancelled.
+      Please contact #{lounge.name} at: #{lounge.phone} for additional information.
+      Thank you.)
+  end
+
+  def notify_followers
+    return if lounge.favoritors.empty?
+
+    lounge.favoritors.each do |favoritor|
+      NewSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
+    end
+  end
+
+  def notify_members
+    lounge.memberships.each do |membership|
+      NewSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
+    end
   end
 
   def update_followers
@@ -136,7 +169,7 @@ class SpecialOffer < ApplicationRecord
     end
   end
 
-  def cancel_followers
+  def cancellation_special_offer_followers
     return if lounge.favoritors.empty?
 
     lounge.favoritors.each do |favoritor|
@@ -144,7 +177,7 @@ class SpecialOffer < ApplicationRecord
     end
   end
 
-  def cancel_members
+  def cancellation_special_offer_members
     lounge.memberships.each do |membership|
       CancelledSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
     end
