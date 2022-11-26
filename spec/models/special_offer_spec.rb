@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: special_offers
@@ -47,13 +49,13 @@ RSpec.describe SpecialOffer, type: :model do
     context 'when the special offer is created' do
       let(:lounge) { FactoryBot.create(:lounge, special_offers: [special_offer]) }
       let(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
-  
+
       before do
         allow(special_offer).to receive(:notify_followers_and_or_members)
         allow(special_offer).to receive(:update_followers_and_or_members)
         allow(special_offer).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should only call the notify_followers_and_or_members callback' do
         special_offer.save!
         expect(special_offer).to have_received(:notify_followers_and_or_members)
@@ -103,13 +105,13 @@ RSpec.describe SpecialOffer, type: :model do
     context 'when a members_only special_offer is created' do
       let(:lounge_2) { FactoryBot.create(:lounge, special_offers: [special_offer_2]) }
       let(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
-  
+
       before do
         allow(special_offer_2).to receive(:notify_followers_and_or_members)
         allow(special_offer_2).to receive(:update_followers_and_or_members)
         allow(special_offer_2).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should only call the notify_followers_and_or_members callback' do
         special_offer_2.save!
         expect(special_offer_2).to have_received(:notify_followers_and_or_members)
@@ -121,13 +123,13 @@ RSpec.describe SpecialOffer, type: :model do
     context 'when a members_only special_offer is updated' do
       let!(:lounge_2) { FactoryBot.create(:lounge, special_offers: [special_offer_2]) }
       let!(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
-  
+
       before do
         allow(special_offer_2).to receive(:notify_followers_and_or_members)
         allow(special_offer_2).to receive(:update_followers_and_or_members)
-        allow(special_offer_2).to receive(:cancel_follower_and_or_members) 
+        allow(special_offer_2).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should only call the update_followers_and_or_members callback' do
         special_offer_2.update!(end_date: (Date.today + 14.days))
         expect(special_offer_2).to have_received(:update_followers_and_or_members)
@@ -139,13 +141,13 @@ RSpec.describe SpecialOffer, type: :model do
     context 'when a members only special offer is deleted' do
       let!(:lounge_2) { FactoryBot.create(:lounge, special_offers: [special_offer_2]) }
       let!(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
-  
+
       before do
         allow(special_offer_2).to receive(:notify_followers_and_or_members)
         allow(special_offer_2).to receive(:update_followers_and_or_members)
         allow(special_offer_2).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should only call the cancel_follower_and_or_members callback' do
         special_offer_2.destroy!
         expect(special_offer_2).to have_received(:cancel_follower_and_or_members)
