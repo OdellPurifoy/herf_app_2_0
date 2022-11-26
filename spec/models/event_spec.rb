@@ -105,12 +105,16 @@ RSpec.describe Event, type: :model do
       let(:event) { FactoryBot.build(:event, members_only: false) }
   
       before do
-        allow(event).to receive(:notify_followers_and_members)   
+        allow(event).to receive(:notify_followers_and_or_members)
+        allow(event).to receive(:update_followers_and_or_members)
+        allow(event).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the notify_followers_and_members callback' do
+      it 'should only call the notify_followers_and_or_members callback' do
         event.save!
-        expect(event).to have_received(:notify_followers_and_members)
+        expect(event).to have_received(:notify_followers_and_or_members)
+        expect(event).to_not have_received(:update_followers_and_or_members)
+        expect(event).to_not have_received(:cancel_follower_and_or_members)
       end
     end
 
@@ -119,14 +123,16 @@ RSpec.describe Event, type: :model do
       let(:event) { FactoryBot.build(:event, members_only: true) }
   
       before do
-        allow(event).to receive(:notify_members)
-        allow(event).to receive(:notify_followers_and_members)   
+        allow(event).to receive(:notify_followers_and_or_members)
+        allow(event).to receive(:update_followers_and_or_members)
+        allow(event).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the notify_members callback' do
+      it 'should only call the notify_followers_and_or_members callback' do
         event.save!
-        expect(event).to have_received(:notify_members)
-        expect(event).to_not have_received(:notify_followers_and_members)
+        expect(event).to have_received(:notify_followers_and_or_members)
+        expect(event).to_not have_received(:update_followers_and_or_members)
+        expect(event).to_not have_received(:cancel_follower_and_or_members)
       end
     end
   end
@@ -139,13 +145,16 @@ RSpec.describe Event, type: :model do
       let(:new_event_date) { (Date.today + 3.days) }
   
       before do
-        allow(event).to receive(:update_followers_and_members)   
+        allow(event).to receive(:notify_followers_and_or_members)
+        allow(event).to receive(:update_followers_and_or_members)
+        allow(event).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the update_followers_and_members callback' do
-        event.event_date = new_event_date
-        event.save!
-        expect(event).to have_received(:update_followers_and_members)
+      it 'should only call the update_followers_and_or_members callback' do
+        event.update!(event_date: new_event_date)
+        expect(event).to have_received(:update_followers_and_or_members)
+        expect(event).to_not have_received(:notify_followers_and_or_members)
+        expect(event).to_not have_received(:cancel_follower_and_or_members)
       end
     end
 
@@ -156,14 +165,16 @@ RSpec.describe Event, type: :model do
       let(:new_event_date) { (Date.today + 3.days) }
   
       before do
-        allow(event).to receive(:update_members)      
-        allow(event).to receive(:update_followers_and_members)
+        allow(event).to receive(:notify_followers_and_or_members)
+        allow(event).to receive(:update_followers_and_or_members)
+        allow(event).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the update_followers_and_members callback' do
+      it 'should only call the update_followers_and_or_members callback' do
         event.update!(event_date: new_event_date)
-        expect(event).to have_received(:update_members)
-        expect(event).to_not have_received(:update_followers_and_members)
+        expect(event).to have_received(:update_followers_and_or_members)
+        expect(event).to_not have_received(:notify_followers_and_or_members)
+        expect(event).to_not have_received(:cancel_follower_and_or_members)
       end
     end
   end
@@ -174,12 +185,16 @@ RSpec.describe Event, type: :model do
       let!(:event) { FactoryBot.create(:event, members_only: false) }
   
       before do
-        allow(event).to receive(:cancel_event_followers_and_members)   
+        allow(event).to receive(:notify_followers_and_or_members)
+        allow(event).to receive(:update_followers_and_or_members)
+        allow(event).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the cancel_event_followers_and_members callback' do
+      it 'should only call the cancel_follower_and_or_members callback' do
         event.destroy!
-        expect(event).to have_received(:cancel_event_followers_and_members)
+        expect(event).to have_received(:cancel_follower_and_or_members)
+        expect(event).to_not have_received(:notify_followers_and_or_members)
+        expect(event).to_not have_received(:update_followers_and_or_members)
       end
     end
 
@@ -188,14 +203,16 @@ RSpec.describe Event, type: :model do
       let!(:event) { FactoryBot.create(:event, members_only: true) }
   
       before do
-        allow(event).to receive(:cancellation_event_members)   
-        allow(event).to receive(:cancel_event_followers_and_members)   
+        allow(event).to receive(:notify_followers_and_or_members)
+        allow(event).to receive(:update_followers_and_or_members)
+        allow(event).to receive(:cancel_follower_and_or_members)
       end
   
       it 'should call the cancel_event_followers_and_members callback' do
         event.destroy!
-        expect(event).to have_received(:cancellation_event_members)
-        expect(event).to_not have_received(:cancel_event_followers_and_members)
+        expect(event).to have_received(:cancel_follower_and_or_members)
+        expect(event).to_not have_received(:notify_followers_and_or_members)
+        expect(event).to_not have_received(:update_followers_and_or_members)
       end
     end
   end
