@@ -38,13 +38,14 @@ class SpecialOffer < ApplicationRecord
 
   private
 
-  def notify_followers_and_members
-    notify_followers
-    notify_members
-  end
-
-  def notify_members_only
-    notify_members
+  def notify_followers_and_or_members
+    if members_only?
+      notify_members
+      new_special_offer_text_for_members
+    else
+      notify_followers
+      new_special_offer_text_for_followers
+    end
   end
 
   def update_followers_and_members
@@ -71,12 +72,54 @@ class SpecialOffer < ApplicationRecord
     end
   end
 
+  def new_special_offer_text_for_members
+    return if lounge.memberships.empty?
+
+    text_all_members(lounge.memberships, new_special_offer_message_for_members)
+  end
+
+  def text_all_members(memberships, message)
+    members_phone_numbers = memberships.pluck(:phone_number).compact
+
+    members_phone_numbers.each do |phone_number|
+      TwilioClient.new.send_text(phone_number, message)
+    end
+  end
+
+  def new_special_offer_message_for_members
+    %(New Members Only #{special_offer_type} special offer from #{lounge.name}! 
+      Here are the details: #{description}
+      Begins: #{start_date}
+      Ends: #{end_date})
+  end
+
   def notify_followers
     return if lounge.favoritors.empty?
 
     lounge.favoritors.each do |favoritor|
       NewSpecialOfferMailer.with(favoritor: favoritor, special_offer: self).notify_followers.deliver_later
     end
+  end
+
+  def new_event_text_for_followers
+    return if lounge.favoritors.empty?
+
+    text_all_favoritors(lounge.favoritors, new_special_offer_message_for_followers)
+  end
+
+  def text_all_favoritors(favoritors, message)
+    favoritors_phone_numbers = favoritors.pluck(:phone_number).compact
+
+    favoritors_phone_numbers.each do |phone_number|
+      TwilioClient.new.send_text(phone_number, message)
+    end
+  end
+
+  def new_special_offer_message_for_followers
+    %(New #{special_offer_type} special offer from #{lounge.name}! 
+      Here are the details: #{description}
+      Begins: #{start_date}
+      Ends: #{end_date})
   end
 
   def update_followers
