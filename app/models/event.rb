@@ -101,6 +101,46 @@ class Event < ApplicationRecord
     end
   end
 
+  def notify_members
+    return if lounge.memberships.empty?
+
+    lounge.memberships.each do |membership|
+      NotifyFollowersMailer.with(membership: membership, event: self).notify_members.deliver_later
+    end
+  end
+
+  def update_followers
+    return if lounge.favoritors.empty?
+
+    lounge.favoritors.each do |favoritor|
+      UpdatedEventNotificationMailer.with(favoritor: favoritor, event: self).update_notify_followers.deliver_later
+    end
+  end
+
+  def update_members
+    return if lounge.memberships.empty?
+
+    lounge.memberships.each do |membership|
+      UpdatedEventNotificationMailer.with(membership: membership, event: self).update_notify_members.deliver_later
+    end
+  end
+
+  def cancellation_event_followers
+    return if lounge.favoritors.empty?
+
+    lounge.favoritors.each do |favoritor|
+      CancelledEventNotificationMailer.with(favoritor: favoritor, event: self).cancel_notify_followers.deliver_later
+    end
+  end
+
+  def cancellation_event_members
+    return if lounge.memberships.empty?
+
+    lounge.memberships.each do |membership|
+      CancelledEventNotificationMailer.with(membership: membership, event: self).cancel_notify_members.deliver_later
+    end
+  end
+
   def new_event_text_for_followers
     return if lounge.favoritors.empty?
 
@@ -124,14 +164,6 @@ class Event < ApplicationRecord
 
     favoritors_phone_numbers.each do |phone_number|
       TwilioClient.new.send_text(phone_number, message)
-    end
-  end
-
-  def notify_members
-    return if lounge.memberships.empty?
-
-    lounge.memberships.each do |membership|
-      NotifyFollowersMailer.with(membership: membership, event: self).notify_members.deliver_later
     end
   end
 
@@ -188,37 +220,5 @@ class Event < ApplicationRecord
     %(The #{name} event, hosted by #{lounge.name} has been cancelled.
       Please contact #{lounge.name} at: #{lounge.phone} for additional information.
       Thank you.)
-  end
-
-  def update_followers
-    return if lounge.favoritors.empty?
-
-    lounge.favoritors.each do |favoritor|
-      UpdatedEventNotificationMailer.with(favoritor: favoritor, event: self).update_notify_followers.deliver_later
-    end
-  end
-
-  def update_members
-    return if lounge.memberships.empty?
-
-    lounge.memberships.each do |membership|
-      UpdatedEventNotificationMailer.with(membership: membership, event: self).update_notify_members.deliver_later
-    end
-  end
-
-  def cancellation_event_followers
-    return if lounge.favoritors.empty?
-
-    lounge.favoritors.each do |favoritor|
-      CancelledEventNotificationMailer.with(favoritor: favoritor, event: self).cancel_notify_followers.deliver_later
-    end
-  end
-
-  def cancellation_event_members
-    return if lounge.memberships.empty?
-
-    lounge.memberships.each do |membership|
-      CancelledEventNotificationMailer.with(membership: membership, event: self).cancel_notify_members.deliver_later
-    end
   end
 end
