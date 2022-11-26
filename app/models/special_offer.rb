@@ -82,13 +82,6 @@ class SpecialOffer < ApplicationRecord
     end
   end
 
-  def new_special_offer_message_for_members
-    %(New Members Only #{special_offer_type} special offer from #{lounge.name}! 
-      Here are the details: #{description}
-      Begins: #{start_date}
-      Ends: #{end_date})
-  end
-
   def new_special_offer_text_for_followers
     return if lounge.favoritors.empty?
 
@@ -121,8 +114,15 @@ class SpecialOffer < ApplicationRecord
     text_all_favoritors(lounge.favoritors, cancelled_special_offer_message)
   end
 
+  def new_special_offer_message_for_members
+    %(New Members Only #{special_offer_type} special offer from #{lounge.name}!
+      Here are the details: #{description}
+      Begins: #{start_date}
+      Ends: #{end_date})
+  end
+
   def new_special_offer_message_for_followers
-    %(New #{special_offer_type} special offer from #{lounge.name}! 
+    %(New #{special_offer_type} special offer from #{lounge.name}!
       Here are the details: #{description}
       Begins: #{start_date}
       Ends: #{end_date})
