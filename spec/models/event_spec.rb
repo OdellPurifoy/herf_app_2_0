@@ -102,17 +102,19 @@ RSpec.describe Event, type: :model do
   describe 'followers and members new event notifications' do
     context 'when the event is created members_only is false' do
       let(:lounge) { FactoryBot.create(:lounge, events: [event]) }
-      let(:event) { FactoryBot.create(:event, members_only: false) }
+      let(:event) { FactoryBot.build(:event, members_only: false) }
   
       before do
-        allow(event).to receive(:notify_members_only)
-        allow(event).to receive(:notify_followers_and_members)   
+        allow(event).to receive(:notify_followers_and_or_members)
+        allow(event).to receive(:update_followers_and_or_member)
+        allow(event).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the notify_followers_and_members method' do
-        binding.irb
-        expect(event).to have_received(:notify_followers_and_members)
-        expect(event).to_not have_received(:notify_members_only)
+      it 'should only call the notify_followers_and_or_members callback' do
+        event.save!
+        expect(event).to have_received(:notify_followers_and_or_members)
+        expect(event).to_not have_received(:update_followers_and_or_member)
+        expect(event).to_not have_received(:cancel_follower_and_or_members)
       end
     end
 
@@ -121,14 +123,16 @@ RSpec.describe Event, type: :model do
       let(:event) { FactoryBot.build(:event, members_only: true) }
   
       before do
-        allow(event).to receive(:notify_members_only)
-        allow(event).to receive(:notify_followers_and_members)   
+        allow(event).to receive(:notify_followers_and_or_members)
+        allow(event).to receive(:update_followers_and_or_member)
+        allow(event).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the notify_members_only method' do
+      it 'should only call the notify_followers_and_or_members callback' do
         event.save!
-        expect(event).to have_received(:notify_members_only)
-        expect(event).to_not have_received(:notify_followers_and_members)
+        expect(event).to have_received(:notify_followers_and_or_members)
+        expect(event).to_not have_received(:update_followers_and_or_member)
+        expect(event).to_not have_received(:cancel_follower_and_or_members)
       end
     end
   end
