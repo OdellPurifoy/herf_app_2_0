@@ -49,12 +49,16 @@ RSpec.describe SpecialOffer, type: :model do
       let(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
   
       before do
-        allow(special_offer).to receive(:notify_followers_and_members)   
+        allow(special_offer).to receive(:notify_followers_and_or_members)
+        allow(special_offer).to receive(:update_followers_and_or_members)
+        allow(special_offer).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the notify_follower_and_members callback' do
+      it 'should only call the notify_followers_and_or_members callback' do
         special_offer.save!
-        expect(special_offer).to have_received(:notify_followers_and_members)
+        expect(special_offer).to have_received(:notify_followers_and_or_members)
+        expect(special_offer).to_not have_received(:update_followers_and_or_members)
+        expect(special_offer).to_not have_received(:cancel_follower_and_or_members)
       end
     end
 
@@ -63,12 +67,16 @@ RSpec.describe SpecialOffer, type: :model do
       let!(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
 
       before do
-        allow(special_offer).to receive(:update_followers_and_members)   
+        allow(special_offer).to receive(:notify_followers_and_or_members)
+        allow(special_offer).to receive(:update_followers_and_or_members)
+        allow(special_offer).to receive(:cancel_follower_and_or_members)
       end
 
-      it 'should call the update_followers_and_members callback' do
+      it 'should only call the update_followers_and_or_members callback' do
         special_offer.update!(end_date: (Date.today + 14.days))
-        expect(special_offer).to have_received(:update_followers_and_members)
+        expect(special_offer).to have_received(:update_followers_and_or_members)
+        expect(special_offer).to_not have_received(:notify_followers_and_or_members)
+        expect(special_offer).to_not have_received(:cancel_follower_and_or_members)
       end
     end
 
@@ -77,12 +85,16 @@ RSpec.describe SpecialOffer, type: :model do
       let!(:special_offer) { FactoryBot.build(:special_offer, members_only: false) }
 
       before do
-        allow(special_offer).to receive(:cancel_special_offer_followers_and_members)   
+        allow(special_offer).to receive(:notify_followers_and_or_members)
+        allow(special_offer).to receive(:update_followers_and_or_members)
+        allow(special_offer).to receive(:cancel_follower_and_or_members)
       end
 
-      it 'should call the cancel_special_offer_followers_and_members callback' do
+      it 'should only call the cancel_follower_and_or_members callback' do
         special_offer.destroy!
-        expect(special_offer).to have_received(:cancel_special_offer_followers_and_members)
+        expect(special_offer).to have_received(:cancel_follower_and_or_members)
+        expect(special_offer).to_not have_received(:notify_followers_and_or_members)
+        expect(special_offer).to_not have_received(:update_followers_and_or_members)
       end
     end
   end
@@ -93,12 +105,16 @@ RSpec.describe SpecialOffer, type: :model do
       let(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
   
       before do
-        allow(special_offer_2).to receive(:notify_members_only)   
+        allow(special_offer_2).to receive(:notify_followers_and_or_members)
+        allow(special_offer_2).to receive(:update_followers_and_or_members)
+        allow(special_offer_2).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the notify_members_only callback' do
+      it 'should only call the notify_followers_and_or_members callback' do
         special_offer_2.save!
-        expect(special_offer_2).to have_received(:notify_members_only)
+        expect(special_offer_2).to have_received(:notify_followers_and_or_members)
+        expect(special_offer_2).to_not have_received(:update_followers_and_or_members)
+        expect(special_offer_2).to_not have_received(:cancel_follower_and_or_members)
       end
     end
 
@@ -107,12 +123,16 @@ RSpec.describe SpecialOffer, type: :model do
       let!(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
   
       before do
-        allow(special_offer_2).to receive(:update_members_only)   
+        allow(special_offer_2).to receive(:notify_followers_and_or_members)
+        allow(special_offer_2).to receive(:update_followers_and_or_members)
+        allow(special_offer_2).to receive(:cancel_follower_and_or_members) 
       end
   
-      it 'should call the update_members_only callback' do
+      it 'should only call the update_followers_and_or_members callback' do
         special_offer_2.update!(end_date: (Date.today + 14.days))
-        expect(special_offer_2).to have_received(:update_members_only)
+        expect(special_offer_2).to have_received(:update_followers_and_or_members)
+        expect(special_offer_2).to_not have_received(:notify_followers_and_or_members)
+        expect(special_offer_2).to_not have_received(:cancel_follower_and_or_members)
       end
     end
 
@@ -121,14 +141,16 @@ RSpec.describe SpecialOffer, type: :model do
       let!(:special_offer_2) { FactoryBot.build(:special_offer, members_only: true) }
   
       before do
-        allow(special_offer_2).to receive(:cancel_members_only)
-        allow(special_offer_2).to receive(:cancel_special_offer_followers_and_members)   
+        allow(special_offer_2).to receive(:notify_followers_and_or_members)
+        allow(special_offer_2).to receive(:update_followers_and_or_members)
+        allow(special_offer_2).to receive(:cancel_follower_and_or_members)
       end
   
-      it 'should call the update_members_only callback' do
+      it 'should only call the cancel_follower_and_or_members callback' do
         special_offer_2.destroy!
-        expect(special_offer_2).to have_received(:cancel_members_only)
-        expect(special_offer_2).to_not have_received(:cancel_special_offer_followers_and_members)
+        expect(special_offer_2).to have_received(:cancel_follower_and_or_members)
+        expect(special_offer_2).to_not have_received(:notify_followers_and_or_members)
+        expect(special_offer_2).to_not have_received(:update_followers_and_or_members)
       end
     end
   end

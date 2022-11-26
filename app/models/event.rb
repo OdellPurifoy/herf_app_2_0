@@ -78,7 +78,7 @@ class Event < ApplicationRecord
       cancelled_event_text_for_followers
     end
   end
-  
+
   def end_date_not_after_start_date
     return if event_date.blank?
 
@@ -194,7 +194,7 @@ class Event < ApplicationRecord
   def new_event_message
     %(You have been invited to #{name},
       hosted by #{lounge.name}!
-      Here are the details: 
+      Here are the details:
       Event: #{name}
       Date: #{event_date}
       Start Time: #{start_time}
