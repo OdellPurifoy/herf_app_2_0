@@ -43,44 +43,42 @@ class Event < ApplicationRecord
   validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
-  def notify_followers_and_members
-    notify_followers
-    notify_members
-    new_event_text_for_followers
-    new_event_text_for_members
-  end
-
-  def notify_members_only
-    notify_members
-    new_event_text_for_members
-  end
-
-  def update_followers_and_members
-    update_followers
-    update_members
-    updated_event_text_for_followers
-    updated_event_text_for_members
-  end
-
-  def update_members_only
-    update_members
-    updated_event_text_for_members
-  end
-
-  def cancel_event_followers_and_members
-    cancellation_event_followers
-    cancellation_event_members
-    cancelled_event_text_for_followers
-    cancelled_event_text_for_members
-  end
-
-  def cancel_event_members_only
-    cancellation_event_members
-    cancelled_event_text_for_followers
-  end
+  after_commit :notify_followers_and_or_members, on: :create
+  after_commit :update_followers_and_or_member, on: :update
+  after_commit :cancel_follower_and_or_members, on: :destroy
 
   private
 
+  def notify_followers_and_or_members
+    if members_only?
+      notify_members
+      new_event_text_for_members
+    else
+      notify_followers
+      new_event_text_for_followers
+    end
+  end
+
+  def update_followers_and_or_member
+    if members_only?
+      update_members
+      updated_event_text_for_members
+    else
+      update_followers
+      updated_event_text_for_followers
+    end
+  end
+
+  def cancel_follower_and_or_members
+    if members_only?
+      cancellation_event_members
+      cancelled_event_text_for_members
+    else
+      cancellation_event_followers
+      cancelled_event_text_for_followers
+    end
+  end
+  
   def end_date_not_after_start_date
     return if event_date.blank?
 

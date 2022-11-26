@@ -102,15 +102,17 @@ RSpec.describe Event, type: :model do
   describe 'followers and members new event notifications' do
     context 'when the event is created members_only is false' do
       let(:lounge) { FactoryBot.create(:lounge, events: [event]) }
-      let(:event) { FactoryBot.build(:event, members_only: false) }
+      let(:event) { FactoryBot.create(:event, members_only: false) }
   
       before do
+        allow(event).to receive(:notify_members_only)
         allow(event).to receive(:notify_followers_and_members)   
       end
   
-      it 'should call the notify_followers_and_members callback' do
-        event.save!
+      it 'should call the notify_followers_and_members method' do
+        binding.irb
         expect(event).to have_received(:notify_followers_and_members)
+        expect(event).to_not have_received(:notify_members_only)
       end
     end
 
@@ -119,13 +121,13 @@ RSpec.describe Event, type: :model do
       let(:event) { FactoryBot.build(:event, members_only: true) }
   
       before do
-        allow(event).to receive(:notify_members)
+        allow(event).to receive(:notify_members_only)
         allow(event).to receive(:notify_followers_and_members)   
       end
   
-      it 'should call the notify_members callback' do
+      it 'should call the notify_members_only method' do
         event.save!
-        expect(event).to have_received(:notify_members)
+        expect(event).to have_received(:notify_members_only)
         expect(event).to_not have_received(:notify_followers_and_members)
       end
     end
