@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_22_202743) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_03_004031) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -149,6 +149,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_202743) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
+  create_table "rsvps", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone_number"
+    t.string "email"
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_rsvps_on_event_id"
+    t.index ["user_id"], name: "index_rsvps_on_user_id"
+  end
+
   create_table "special_offers", force: :cascade do |t|
     t.string "special_offer_type"
     t.text "description"
@@ -183,5 +196,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_22_202743) do
   add_foreign_key "events", "lounges"
   add_foreign_key "lounges", "users"
   add_foreign_key "memberships", "lounges"
+  add_foreign_key "rsvps", "events"
+  add_foreign_key "rsvps", "users"
   add_foreign_key "special_offers", "lounges"
 end

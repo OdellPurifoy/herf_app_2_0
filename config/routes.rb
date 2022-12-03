@@ -1,7 +1,6 @@
 require "resque/server"
 
 Rails.application.routes.draw do
-  resources :rsvps
   root "home#index"
   devise_for :users
   devise_scope :user do
@@ -13,6 +12,10 @@ Rails.application.routes.draw do
     resources :events, shallow: true
     resources :memberships, shallow: true
     resources :special_offers, shallow: true
+  end
+
+  resources :events do
+    resources :rsvps, shallow: true
   end
 
   resources :lounges, only: :index do
