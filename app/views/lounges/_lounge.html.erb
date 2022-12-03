@@ -62,6 +62,7 @@
         <%= link_to "View Events", lounge_events_path(lounge), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "New Event", new_lounge_event_path(lounge), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "Memberships", lounge_memberships_path(lounge), class: "button is-primary is-light card-footer-item" %>
+        <%= link_to "Special Offers", lounge_special_offers_path(lounge), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "Delete", lounge_path(lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
       <% else %>
         <%= link_to "View Events", lounge_events_path(lounge), class: "button is-primary is-light card-footer-item" %>
