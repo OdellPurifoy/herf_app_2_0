@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: rsvps
@@ -25,4 +27,8 @@
 class Rsvp < ApplicationRecord
   belongs_to :user
   belongs_to :event
+
+  validates_presence_of :first_name, :last_name, :email
+  validates :phone_number, phone: { possbile: true }
+  validates :email, uniqueness: true
 end
