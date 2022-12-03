@@ -4,4 +4,5 @@
 
 <div>
   <%= link_to "Back to Events", lounge_events_path(@event.lounge) %>
+  <%= link_to "RSVP Here", new_event_rsvp_path(@event), class: "button is-primary is-light" %>
 </div>
