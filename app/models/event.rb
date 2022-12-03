@@ -35,6 +35,7 @@ class Event < ApplicationRecord
   friendly_id :name, use: :slugged
 
   belongs_to :lounge
+  has_many :rsvps, dependent: :destroy
 
   has_rich_text :description
   has_one_attached :flyer

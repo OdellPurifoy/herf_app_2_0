@@ -46,6 +46,7 @@ RSpec.describe Event, type: :model do
 
   describe 'Model Associations' do
     it { should belong_to(:lounge) }
+    it { should have_many(:rsvps).dependent(:destroy) }
   end
 
   describe 'Validations' do
