@@ -33,5 +33,13 @@ class Rsvp < ApplicationRecord
   validates_presence_of :first_name, :last_name, :email
   validates :email, uniqueness: true
   validates :number_of_guests, numericality: true
-  validates :phone_number, phone: { possbile: true , allow_blank: true }
+  validates :phone_number, phone: { possbile: true, allow_blank: true }
+
+  before_save :covert_number_of_guests_to_int
+
+  private
+
+  def covert_number_of_guests_to_int
+    self[:number_of_guests].to_i
+  end
 end
