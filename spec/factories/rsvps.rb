@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: rsvps
@@ -31,7 +33,7 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     last_name {  Faker::Name.first_name }
     phone_number { '9008007000' }
-    email {  Faker::Internet.email }
+    email { Faker::Internet.email }
     number_of_guests { rand(10) }
     user
     event

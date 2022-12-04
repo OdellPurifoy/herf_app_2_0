@@ -73,4 +73,23 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'User can create an RSVP for an Event' do
+    let!(:event) { FactoryBot.create(:event) }
+    let!(:user) { FactoryBot.create(:user) }
+
+    it 'should successfully tie the RSVP record to the user' do
+      rsvp = Rsvp.create!(
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        phone_number: '',
+        number_of_guests: 2,
+        event_id: event.id,
+        user_id: user.id
+      )
+
+      expect(user.reload.rsvps.first).to eq rsvp
+    end
+  end
 end
