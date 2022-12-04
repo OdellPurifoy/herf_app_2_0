@@ -6,7 +6,7 @@ class NewRsvpMailer < ApplicationMailer
 
     mail(
       from: 'herf@support.com',
-      to: 'to@example.org',
+      to: @rsvp.user.email,
       subject: 'RSVP Confirmation'
     )
   end
