@@ -24,13 +24,16 @@
 #  fk_rails_...  (event_id => events.id)
 #  fk_rails_...  (user_id => users.id)
 #
+require 'faker'
+
 FactoryBot.define do
   factory :rsvp do
-    first_name { "MyString" }
-    last_name { "MyString" }
-    phone_number { "MyString" }
-    email { "MyString" }
-    user { nil }
-    event { nil }
+    first_name { Faker::Name.first_name }
+    last_name {  Faker::Name.first_name }
+    phone_number { '9008007000' }
+    email {  Faker::Internet.email }
+    number_of_guests { rand(10) }
+    user
+    event
   end
 end
