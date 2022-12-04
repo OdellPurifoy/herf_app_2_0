@@ -31,6 +31,7 @@ class Rsvp < ApplicationRecord
   belongs_to :event
 
   validates_presence_of :first_name, :last_name, :email
-  validates :phone_number, phone: { possbile: true }
   validates :email, uniqueness: true
+  validates :number_of_guests, numericality: true
+  validates :phone_number, phone: { possbile: true }
 end
