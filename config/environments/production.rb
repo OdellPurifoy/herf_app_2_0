@@ -1,5 +1,6 @@
 require "active_support/core_ext/integer/time"
 
+# deepcode ignore MissingForceSSL: <please specify a reason of ignoring this>
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 

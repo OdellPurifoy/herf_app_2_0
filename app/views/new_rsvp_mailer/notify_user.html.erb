@@ -1,0 +1,8 @@
+<h1>Hi <%= @rsvp.user.first_name %></h1>
+
+<p>
+  This email is to confirm your RSPV for <%= @rsvp.event.name %>, hosted by <%= @rsvp.event.lounge.name %>
+  Date: <%= @rsvp.event.event_date %>
+  Start Time:  <%= @rsvp.event.start_time %>
+  End Time:  <%= @rsvp.event.end_time %>
+</p>
