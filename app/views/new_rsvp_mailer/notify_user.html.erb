@@ -1,5 +1,8 @@
-<h1>NewRsvp#notify_user</h1>
+<h1>Hi <%= @rsvp.user.first_name %></h1>
 
 <p>
-  <%= @greeting %>, find me in app/views/new_rsvp_mailer/notify_user.html.erb
+  This email is to confirm your RSPV for <%= @rsvp.event.name %>, hosted by <%= @rsvp.event.lounge.name %>
+  Date: <%= @rsvp.event.event_date %>
+  Start Time:  <%= @rsvp.event.start_time %>
+  End Time:  <%= @rsvp.event.end_time %>
 </p>
