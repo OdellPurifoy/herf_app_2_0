@@ -61,14 +61,14 @@ RSpec.describe Event, type: :model do
     let(:event) { FactoryBot.create(:event, event_type: 'Virtual', event_url: '') }
 
     it 'triggers a validation error' do
-      expect{event}.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Event url is not a valid URL") 
+      expect { event }.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Event url is not a valid URL')
     end
 
     context "when event_type is 'Virtual and event_url is provided" do
       let(:event_2) { FactoryBot.create(:event, event_type: 'Virtual') }
 
       it 'does not trigger a validation error' do
-        expect{event_2}.to_not raise_error
+        expect { event_2 }.to_not raise_error
       end
     end
 
@@ -76,7 +76,7 @@ RSpec.describe Event, type: :model do
       let(:event_3) { FactoryBot.create(:event, event_type: 'Virtual', event_url: 'test-event.com') }
 
       it 'trigger an invalid url error' do
-        expect{event_3}.to raise_error
+        expect { event_3 }.to raise_error
       end
     end
   end
@@ -104,13 +104,13 @@ RSpec.describe Event, type: :model do
     context 'when the event is created members_only is false' do
       let(:lounge) { FactoryBot.create(:lounge, events: [event]) }
       let(:event) { FactoryBot.build(:event, members_only: false) }
-  
+
       before do
         allow(event).to receive(:notify_followers_and_or_members)
         allow(event).to receive(:update_followers_and_or_members)
         allow(event).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should only call the notify_followers_and_or_members callback' do
         event.save!
         expect(event).to have_received(:notify_followers_and_or_members)
@@ -122,13 +122,13 @@ RSpec.describe Event, type: :model do
     context 'when the event is created and members_only is true' do
       let(:lounge) { FactoryBot.create(:lounge, events: [event]) }
       let(:event) { FactoryBot.build(:event, members_only: true) }
-  
+
       before do
         allow(event).to receive(:notify_followers_and_or_members)
         allow(event).to receive(:update_followers_and_or_members)
         allow(event).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should only call the notify_followers_and_or_members callback' do
         event.save!
         expect(event).to have_received(:notify_followers_and_or_members)
@@ -144,13 +144,13 @@ RSpec.describe Event, type: :model do
       let!(:event) { FactoryBot.create(:event, members_only: false) }
       let(:old_event_date) { (Date.today + 1.day) }
       let(:new_event_date) { (Date.today + 3.days) }
-  
+
       before do
         allow(event).to receive(:notify_followers_and_or_members)
         allow(event).to receive(:update_followers_and_or_members)
         allow(event).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should only call the update_followers_and_or_members callback' do
         event.update!(event_date: new_event_date)
         expect(event).to have_received(:update_followers_and_or_members)
@@ -164,13 +164,13 @@ RSpec.describe Event, type: :model do
       let!(:event) { FactoryBot.create(:event, members_only: true) }
       let(:old_event_date) { (Date.today + 1.day) }
       let(:new_event_date) { (Date.today + 3.days) }
-  
+
       before do
         allow(event).to receive(:notify_followers_and_or_members)
         allow(event).to receive(:update_followers_and_or_members)
         allow(event).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should only call the update_followers_and_or_members callback' do
         event.update!(event_date: new_event_date)
         expect(event).to have_received(:update_followers_and_or_members)
@@ -180,17 +180,17 @@ RSpec.describe Event, type: :model do
     end
   end
 
-  describe 'followers and members event cancellation notifications' do
+  describe 'Followers and members event cancellation notifications' do
     context 'when an event is cancelled/destroyed' do
       let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
       let!(:event) { FactoryBot.create(:event, members_only: false) }
-  
+
       before do
         allow(event).to receive(:notify_followers_and_or_members)
         allow(event).to receive(:update_followers_and_or_members)
         allow(event).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should only call the cancel_follower_and_or_members callback' do
         event.destroy!
         expect(event).to have_received(:cancel_follower_and_or_members)
@@ -202,19 +202,38 @@ RSpec.describe Event, type: :model do
     context 'when and event is cancelled/destroyed and members_only is true' do
       let!(:lounge) { FactoryBot.create(:lounge, events: [event]) }
       let!(:event) { FactoryBot.create(:event, members_only: true) }
-  
+
       before do
         allow(event).to receive(:notify_followers_and_or_members)
         allow(event).to receive(:update_followers_and_or_members)
         allow(event).to receive(:cancel_follower_and_or_members)
       end
-  
+
       it 'should call the cancel_event_followers_and_members callback' do
         event.destroy!
         expect(event).to have_received(:cancel_follower_and_or_members)
         expect(event).to_not have_received(:notify_followers_and_or_members)
         expect(event).to_not have_received(:update_followers_and_or_members)
       end
+    end
+  end
+
+  describe 'Tying an Event to an RSVP record' do
+    let!(:event) { FactoryBot.create(:event) }
+    let!(:user) { FactoryBot.create(:user) }
+
+    it 'should successfully tie the event to the RSVP record' do
+      rsvp = Rsvp.create!(
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        number_of_guests: 3,
+        phone_number: '',
+        event_id: event.id,
+        user_id: user.id
+      )
+
+      expect(event.reload.rsvps.first).to eq rsvp
     end
   end
 end

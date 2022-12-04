@@ -74,7 +74,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'User can create an RSVP for an Event' do
+  describe 'Tying a user to an RSVP' do
     let!(:event) { FactoryBot.create(:event) }
     let!(:user) { FactoryBot.create(:user) }
 
