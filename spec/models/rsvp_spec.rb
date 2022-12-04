@@ -59,4 +59,19 @@ RSpec.describe Rsvp, type: :model do
       it { should validate_numericality_of(:number_of_guests) }
     end
   end
+
+  describe 'New RSVP mailer' do
+    context 'When a new RSVP is created' do
+      let(:rsvp) { FactoryBot.build(:rsvp) }
+
+      before do
+        allow(rsvp).to receive(:notify_user)
+      end
+
+      it 'should call the notify_user callback' do
+        rsvp.save!
+        expect(rsvp).to have_received(:notify_user)
+      end
+    end
+  end
 end

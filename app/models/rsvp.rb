@@ -35,9 +35,14 @@ class Rsvp < ApplicationRecord
   validates :number_of_guests, numericality: true
   validates :phone_number, phone: { possbile: true, allow_blank: true }
 
+  after_commit :notify_user, on: :create
   before_save :covert_number_of_guests_to_int
 
   private
+
+  def notify_user
+    NewRsvpMailer.with(rsvp: self).notify_user
+  end
 
   def covert_number_of_guests_to_int
     self[:number_of_guests].to_i
