@@ -1,18 +1,65 @@
+<%= form_with(model: [@event, rsvp]) do |form| %>
+  <% if rsvp.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rsvp.errors.count, "error") %> prohibited this RSVP from being saved:</h2>
 
-<%= simple_form_for(@rsvp) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+      <ul>
+        <% rsvp.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <div class="form-inputs">
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :phone_number %>
-    <%= f.input :email %>
-    <%= f.association :user %>
-    <%= f.association :event %>
+  <div class="control">
+    <div class="field">
+      <%= form.label :first_name, class: "label" %>
+      <%= form.text_field :first_name, class: "input", placeholder: "#{current_user.first_name}" %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="control">
+    <div class="field">
+      <%= form.label :last_name, class: "label" %>
+      <%= form.text_field :last_name, class: "input", placeholder: "#{current_user.last_name}" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
+      <%= form.label :number_of_guests, class: "label" %>
+      <%= form.number_field :number_of_guests,  in: 1..10, step: 1 %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
+      <%= form.label :email, class: "label" %>
+      <%= form.email_field :email, class: "input", placeholder: "#{current_user.email}" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="field">
+      <%= form.label :phone_number, class: "label" %>
+      <%= form.telephone_field :phone_number, class: "input", placeholder: "#{current_user.phone_number}" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="actions">
+      <%= form.submit %>
+    </div>
   </div>
 <% end %>
+
+
+
+
+
+
+
+
+
+
+

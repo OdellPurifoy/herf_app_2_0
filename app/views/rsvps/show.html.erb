@@ -4,7 +4,7 @@
 
 <div>
   <%= link_to "Edit this rsvp", edit_rsvp_path(@rsvp) %> |
-  <%= link_to "Back to rsvps", rsvps_path %>
+  <%= link_to "Back to rsvps", event_rsvps_path(@rsvp.event) %>
 
   <%= button_to "Destroy this rsvp", @rsvp, method: :delete %>
 </div>
