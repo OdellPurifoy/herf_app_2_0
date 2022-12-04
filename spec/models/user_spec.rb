@@ -40,6 +40,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:events).through(:lounges) }
     it { should have_many(:lounges).dependent(:destroy) }
     it { should have_many(:memberships).dependent(:destroy) }
+    it { should have_many(:rsvps).dependent(:destroy) }
   end
 
   describe 'Following a lounge' do
@@ -70,6 +71,25 @@ RSpec.describe User, type: :model do
       it 'Should not be following the original lounge' do
         expect(user.favorited?(lounge)).to eq false
       end
+    end
+  end
+
+  describe 'Tying a user to an RSVP' do
+    let!(:event) { FactoryBot.create(:event) }
+    let!(:user) { FactoryBot.create(:user) }
+
+    it 'should successfully tie the RSVP record to the user' do
+      rsvp = Rsvp.create!(
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        phone_number: '',
+        number_of_guests: 2,
+        event_id: event.id,
+        user_id: user.id
+      )
+
+      expect(user.reload.rsvps.first).to eq rsvp
     end
   end
 end

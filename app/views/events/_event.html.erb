@@ -34,7 +34,8 @@
       <% if user_signed_in? && current_user.id == event.lounge.user_id %>
         <%= link_to "Edit this event", edit_event_path(event), class: "button is-primary is-light card-footer-item" %>
         <%= link_to "Delete", event_path(event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
-      <% elsif user_signed_in? && event.rsvp_needed && current_user.id != event.lounge.user_id %>
+        <%= link_to "Event Details", event_path(event), class: "button is-primary is-light" %>
+      <% elsif user_signed_in? %>
         <%= link_to "RSVP Here", "#", class: "button is-primary is-light" %>
       <% end %>
     </footer>

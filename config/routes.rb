@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     resources :special_offers, shallow: true
   end
 
+  resources :events do
+    resources :rsvps, shallow: true
+  end
+
   resources :lounges, only: :index do
     member do
       post 'toggle_favorite', to: "lounges#toggle_favorite"
