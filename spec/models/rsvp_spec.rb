@@ -50,7 +50,7 @@ RSpec.describe Rsvp, type: :model do
     it { should validate_presence_of(:email) }
 
     context 'Uniqueness' do
-      subject { FactoryBot.create(:rsvp, email: 'text@example.com', phone_number: '800-330-2123') }
+      subject { FactoryBot.create(:rsvp, email: 'text@example.com', phone_number: '') }
 
       it { should validate_uniqueness_of(:email) }
     end

@@ -33,5 +33,5 @@ class Rsvp < ApplicationRecord
   validates_presence_of :first_name, :last_name, :email
   validates :email, uniqueness: true
   validates :number_of_guests, numericality: true
-  # validates :phone_number, phone: { possbile: true }
+  validates :phone_number, phone: { possbile: true , allow_blank: true }
 end
