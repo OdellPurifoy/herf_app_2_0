@@ -87,6 +87,15 @@ RSpec.describe Rsvp, type: :model do
         rsvp.save!
         expect(rsvp).to have_received(:text_user)
       end
-    end 
+
+      context 'When the RSVP has no phone_number' do
+        let(:rsvp) { FactoryBot.build(:rsvp, phone_number: '') }
+
+        it 'does not call the text_user callback' do
+          rsvp.save!
+          expect(rsvp).not_to have_received(:text_user)
+        end
+      end
+    end
   end
 end
