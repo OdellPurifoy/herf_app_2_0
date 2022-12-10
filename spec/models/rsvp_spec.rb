@@ -74,4 +74,19 @@ RSpec.describe Rsvp, type: :model do
       end
     end
   end
+
+  describe 'New RSVP text notification' do
+    context 'When a new RSVP is created' do
+      let(:rsvp) { FactoryBot.build(:rsvp, phone_number: '9178687000') }
+
+      before do
+        allow(rsvp).to receive(:text_user)
+      end
+
+      it 'shoud call the text_user callback' do
+        rsvp.save!
+        expect(rsvp).to have_received(:text_user)
+      end
+    end 
+  end
 end

@@ -39,11 +39,12 @@ class User < ApplicationRecord
 
   acts_as_favoritor
 
-  after_create :sync_user_to_member
+  #TODO - Use a callback to sync the user to a Member after create instead of a job
+  # after_create :sync_user_to_member
 
-  private
+  # private
 
-  def sync_user_to_member
-    SyncUserToMemberJob.perform_later(self)
-  end
+  # def sync_user_to_member
+  #   SyncUserToMemberJob.perform_later(self)
+  # end
 end
