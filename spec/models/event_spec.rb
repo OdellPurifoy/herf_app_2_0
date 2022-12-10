@@ -235,4 +235,18 @@ RSpec.describe Event, type: :model do
       expect(event.reload.rsvps.first).to eq rsvp
     end
   end
+
+  describe 'Updating Event RSVPs' do
+    let!(:event) { FactoryBot.create(:event, rsvps: [rsvp]) }
+    let!(:rsvp) { FactoryBot.create(:rsvp) }
+
+    before do
+      allow(event).to receive(:update_rsvps_text)
+    end
+
+    it 'calls the update_rsvps_text callback' do
+      event.update!(name: "Updated name")
+      expect(event).to have_received(:update_rsvps_text)
+    end
+  end
 end
