@@ -33,15 +33,37 @@ class Rsvp < ApplicationRecord
   validates_presence_of :first_name, :last_name, :email
   validates :email, uniqueness: true
   validates :number_of_guests, numericality: true
-  validates :phone_number, phone: { possbile: true, allow_blank: true }
 
   after_commit :notify_user, on: :create
+  after_commit :text_user, on: :create, if: proc { |rsvp| rsvp.phone_number.present? }
   before_save :covert_number_of_guests_to_int
 
   private
 
   def notify_user
+    email_notification
+  end
+
+  def text_user
+    return if phone_number.blank?
+  
+    TwilioClient.new.send_text(phone_number, rsvp_confirmation_message)
+  end
+
+  def email_notification
     NewRsvpMailer.with(rsvp: self).notify_user
+  end
+
+  def rsvp_confirmation_message
+    %(#{user.first_name}, your RSVP has been received for the
+      #{event.name} hosted by #{event.lounge.name}!
+      Here are the details:
+      Event: #{event.name}
+      Date: #{event.event_date}
+      Start Time: #{event.start_time}
+      End Time: #{event.end_time}
+      Location: #{event.lounge.address_street_1}, #{event.lounge.city}, #{event.lounge.state}, #{event.lounge.zip_code}
+      Phone: #{event.lounge.phone})
   end
 
   def covert_number_of_guests_to_int

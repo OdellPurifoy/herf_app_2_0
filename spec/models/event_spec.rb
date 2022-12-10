@@ -94,7 +94,6 @@ RSpec.describe Event, type: :model do
     let(:event) { FactoryBot.build(:event, end_time: (DateTime.now - 1.day), start_time: DateTime.now) }
 
     it 'should raise a validation error' do
-      # binding.irb
       event.validate
       expect(event.errors[:end_time]).to include('End time cannot be earlier than start time.')
     end
