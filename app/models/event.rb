@@ -46,7 +46,7 @@ class Event < ApplicationRecord
 
   after_commit :notify_followers_and_or_members, on: :create
   after_commit :update_followers_and_or_members, :update_rsvps_text, on: :update
-  after_commit :cancel_follower_and_or_members, on: :destroy
+  after_commit :cancel_follower_and_or_members, :cancel_rsvps_text, on: :destroy
 
   private
 
@@ -56,7 +56,7 @@ class Event < ApplicationRecord
     rsvps.each do |rsvp|
       next if rsvp.phone_number.blank?
 
-      TwilioClient.new.send_text(rsvp.phone_number, rsvp_confirmation_message)
+      TwilioClient.new.send_text(rsvp.phone_number, rsvp_update_message)
     end
   end
 
@@ -70,6 +70,22 @@ class Event < ApplicationRecord
       End Time: #{end_time}
       Location: #{lounge.address_street_1}, #{event.lounge.city}, #{event.lounge.state}, #{event.lounge.zip_code}
       Phone: #{lounge.phone})
+  end
+
+  def cancel_rsvps_text
+    return if rsvps.nil?
+
+    rsvps.each do |rsvp|
+      next if rsvp.phone_number.blank?
+
+      TwilioClient.new.send_text(rsvp.phone_number, rsvp_cancellation_message)
+    end
+  end
+
+  def rsvp_cancellation_message
+    %(Hi #{rsvp.user.first_name}, the
+      #{name} event, hosted by #{lounge.name} has been cancelled.
+      Please contact #{lounge.name} at #{lounge.phone} for more information.)
   end
 
   def notify_followers_and_or_members
