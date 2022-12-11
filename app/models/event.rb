@@ -50,49 +50,13 @@ class Event < ApplicationRecord
 
   private
 
-  def update_rsvps_text
-    return if rsvps.nil?
-
-    rsvps.each do |rsvp|
-      next if rsvp.phone_number.blank?
-
-      TwilioClient.new.send_text(rsvp.phone_number, rsvp_update_message)
-    end
-  end
-
-  def rsvp_update_message
-    %(#{rsvp.user.first_name}, your RSVP has been updated for the
-      #{name} event, hosted by #{lounge.name}!
-      Here are the latest details:
-      Event: #{name}
-      Date: #{event_date}
-      Start Time: #{start_time}
-      End Time: #{end_time}
-      Location: #{lounge.address_street_1}, #{event.lounge.city}, #{event.lounge.state}, #{event.lounge.zip_code}
-      Phone: #{lounge.phone})
-  end
-
-  def cancel_rsvps_text
-    return if rsvps.nil?
-
-    rsvps.each do |rsvp|
-      next if rsvp.phone_number.blank?
-
-      TwilioClient.new.send_text(rsvp.phone_number, rsvp_cancellation_message)
-    end
-  end
-
-  def rsvp_cancellation_message
-    %(Hi #{rsvp.user.first_name}, the
-      #{name} event, hosted by #{lounge.name} has been cancelled.
-      Please contact #{lounge.name} at #{lounge.phone} for more information.)
-  end
-
   def notify_followers_and_or_members
     if members_only?
       notify_members
       new_event_text_for_members
     else
+      notify_members
+      new_event_text_for_members
       notify_followers
       new_event_text_for_followers
     end
@@ -103,6 +67,8 @@ class Event < ApplicationRecord
       update_members
       updated_event_text_for_members
     else
+      update_members
+      updated_event_text_for_members
       update_followers
       updated_event_text_for_followers
     end
@@ -113,6 +79,8 @@ class Event < ApplicationRecord
       cancellation_event_members
       cancelled_event_text_for_members
     else
+      cancellation_event_members
+      cancelled_event_text_for_members
       cancellation_event_followers
       cancelled_event_text_for_followers
     end
@@ -196,6 +164,26 @@ class Event < ApplicationRecord
     text_all_favoritors(lounge.favoritors, cancelled_event_message)
   end
 
+  def update_rsvps_text
+    return if rsvps.nil?
+
+    rsvps.each do |rsvp|
+      next if rsvp.phone_number.blank?
+
+      TwilioClient.new.send_text(rsvp.phone_number, rsvp_update_message)
+    end
+  end
+
+  def cancel_rsvps_text
+    return if rsvps.nil?
+
+    rsvps.each do |rsvp|
+      next if rsvp.phone_number.blank?
+
+      TwilioClient.new.send_text(rsvp.phone_number, rsvp_cancellation_message)
+    end
+  end
+
   def text_all_favoritors(favoritors, message)
     favoritors_phone_numbers = favoritors.pluck(:phone_number).compact
 
@@ -257,5 +245,23 @@ class Event < ApplicationRecord
     %(The #{name} event, hosted by #{lounge.name} has been cancelled.
       Please contact #{lounge.name} at: #{lounge.phone} for additional information.
       Thank you.)
+  end
+
+  def rsvp_update_message
+    %(#{rsvp.user.first_name}, your RSVP has been updated for the
+      #{name} event, hosted by #{lounge.name}!
+      Here are the latest details:
+      Event: #{name}
+      Date: #{event_date}
+      Start Time: #{start_time}
+      End Time: #{end_time}
+      Location: #{lounge.address_street_1}, #{event.lounge.city}, #{event.lounge.state}, #{event.lounge.zip_code}
+      Phone: #{lounge.phone})
+  end
+
+  def rsvp_cancellation_message
+    %(Hi #{rsvp.user.first_name}, the
+      #{name} event, hosted by #{lounge.name} has been cancelled.
+      Please contact #{lounge.name} at #{lounge.phone} for more information.)
   end
 end
