@@ -5,6 +5,7 @@
 # Table name: rsvps
 #
 #  id               :bigint           not null, primary key
+#  attended         :boolean          default(FALSE)
 #  email            :string
 #  first_name       :string
 #  last_name        :string
