@@ -33,6 +33,7 @@ FactoryBot.define do
   factory :rsvp do
     first_name { Faker::Name.first_name }
     last_name {  Faker::Name.first_name }
+    attended { false }
     phone_number { '' }
     email { Faker::Internet.email }
     number_of_guests { rand(10) }
