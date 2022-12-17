@@ -50,6 +50,22 @@ class RsvpsController < ApplicationController
     flash[:notice] = 'RSVP successfully deleted.'
   end
 
+  def mark_attended
+    @rsvp = Rsvp.find(params[:id])
+    @rsvp.update!(attended: true)
+    # deepcode ignore OR: <please specify a reason of ignoring this>
+    redirect_to @rsvp
+    flash[:notice] = 'RSVP marked as attended.'
+  end
+
+  def mark_unattended
+    @rsvp = Rsvp.find(params[:id])
+    @rsvp.update!(attended: false)
+    # deepcode ignore OR: <please specify a reason of ignoring this>
+    redirect_to @rsvp
+    flash[:notice] = 'RSVP marked as unattended.'
+  end
+
   private
 
   def set_rsvp
