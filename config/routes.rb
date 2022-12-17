@@ -24,6 +24,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :rsvps do
+    member do
+      patch :mark_attended
+      patch :mark_unattended
+    end
+  end
+
   authenticate :user, -> (u) { u.admin? } do
     mount Resque::Server.new, at: '/jobs'
   end

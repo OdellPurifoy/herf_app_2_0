@@ -7,4 +7,9 @@
   <%= link_to "Back to rsvps", event_rsvps_path(@rsvp.event) %>
 
   <%= button_to "Destroy this rsvp", @rsvp, method: :delete %>
+  <% if @rsvp.attended? %>
+    <%= button_to "Mark Unattended", mark_unattended_rsvp_path(@rsvp), method: :patch %>
+  <% else %>
+    <%= button_to "Mark Attended", mark_attended_rsvp_path(@rsvp), method: :patch %>
+  <% end %>
 </div>
