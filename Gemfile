@@ -4,7 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.7.5"
 
 gem 'acts_as_favoritor'
-gem "bulma-rails", "~> 0.9.3"
 gem 'city-state', '~> 0.1.0'
 gem 'devise'
 gem 'faker', '~> 2.22'

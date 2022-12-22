@@ -77,8 +77,6 @@ GEM
     bootsnap (1.12.0)
       msgpack (~> 1.2)
     builder (3.2.4)
-    bulma-rails (0.9.3)
-      sassc (~> 2.0)
     city-state (0.1.0)
       rubyzip (>= 1.1)
     concurrent-ruby (1.1.10)
@@ -317,7 +315,6 @@ DEPENDENCIES
   acts_as_favoritor
   annotate (~> 3.2)
   bootsnap
-  bulma-rails (~> 0.9.3)
   city-state (~> 0.1.0)
   debug
   devise
