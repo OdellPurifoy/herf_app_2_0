@@ -4,13 +4,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.7.5"
 
 gem 'acts_as_favoritor'
-gem "bulma-rails", "~> 0.9.3"
+gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 gem 'city-state', '~> 0.1.0'
 gem 'devise'
 gem 'faker', '~> 2.22'
 gem 'file_validators', '~> 3.0'
 gem 'friendly_id', '~> 5.4.0'
 gem "font-awesome-sass", "~> 6.1.1"
+gem 'jquery-rails'
 gem 'phonelib', '~> 0.7.4'
 gem 'resque', '~> 2.4'
 gem 'rubocop', require: false
