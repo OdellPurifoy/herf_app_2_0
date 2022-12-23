@@ -1,70 +1,24 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <%= link_to "Herf", root_path, class: "navbar-item is-size-3" %>
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <% if user_signed_in? && current_user.lounges.count >= 1 %>
-        <%# Home link %>
-        <%= link_to "Home", root_path, class: "navbar-item has-text-weight-semibold" %>
-
-        <%# Notification %>
-        <%= link_to "Notifications", '#', class: "navbar-item has-text-weight-semibold" %>
-
-        <%# Lounges %>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link has-text-weight-semibold">
-          Lounges
-          </a>
-
-          <div class="navbar-dropdown">
-            <%= link_to "Build Lounge", new_lounge_path, class: "navbar-item" %>
-          <hr class="navbar-divider">
-            <%= link_to "My Lounges", my_lounges_path, class: "navbar-item" %>
-          </div>
-        </div>
-
-        <%# Additional Information %>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link has-text-weight-semibold">
-          More
-          </a>
-
-          <div class="navbar-dropdown">
-            <%= link_to "Subscription", '#', class: "navbar-item" %>
-          <hr class="navbar-divider">
-            <%= link_to "Report an issue", '#', class: "navbar-item" %>
-          </div>
-        </div>
-      <% else %>
-        <%# Home link %>
-        <%= link_to "Home", root_path, class: "navbar-item" %>
-
-        <%# View all lounges %>
-        <%= link_to "All Lounges", lounges_path, class: "navbar-item" %>
-      <% end %>
-      </div>
-    </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <% if user_signed_in? %>
-            <%= link_to 'Account', edit_user_registration_path, class: "button is-primary is-light" %>
-            <%= button_to("Log Out", destroy_user_session_path, class: "button is-primary is-light", method: :delete) %>          
-          <% else %>
-            <%= link_to "Sign Up", new_user_registration_path, class: "button is-primary is-light" %>
-            <%= link_to "Log In", new_user_session_path, class: "button is-primary is-light" %>
-          <% end %>
-        </div>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar w/ text</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        Navbar text with an inline element
+      </span>
     </div>
   </div>
 </nav>
