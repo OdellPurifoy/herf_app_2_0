@@ -5,6 +5,7 @@ ruby "2.7.5"
 
 gem 'acts_as_favoritor'
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
+gem "bootstrap_form", "~> 5.1"
 gem 'city-state', '~> 0.1.0'
 gem 'devise'
 gem 'faker', '~> 2.22'
