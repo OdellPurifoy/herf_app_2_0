@@ -12,43 +12,35 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+  <!-- Bootstrap Icons CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
-  <!-- =======================================================
-  * Template Name: Sailor - v4.10.0
-  * Template URL: https://bootstrapmade.com/sailor-free-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center">
-
-      <h1 class="logo me-auto"><a href="index.html">Herf</a></h1>
+      <h1 class="logo me-auto"><a href="/">Herf</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="#" class="active">Home</a></li>
-          <% if user_signed_in? %>
-            <li><a href="#">Notifications</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Log Out</a></li>
+          <% if user_signed_in? && current_user.lounges.present? %>
+            <%= link_to 'Notifications', '#' %>
+            <%= link_to 'My Lounges', my_lounges_path %>
+            <%= link_to 'Profile', edit_user_registration_path %>
+            <%= link_to "Log Out", destroy_user_session_path %>
             <li><a href="#" class="getstarted">Get Started</a></li>
-          <% elsif user_signed_in? && current_user.lounges.present? %>
-            <li><a href="#">My Lounges</a></li>
-            <li><a href="#">Notifications</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Log Out</a></li>
+          <% elsif user_signed_in?  %>
+            <%= link_to 'Notifications', '#' %>
+            <%= link_to 'Profile', edit_user_registration_path %>
+            <%= link_to "Log Out", destroy_user_session_path %>
             <li><a href="#" class="getstarted">Get Started</a></li>
           <% else %>
-            <li><a href="#">Sign Up</a></li>
-            <li><a href="#">Sign In</a></li>
+            <%= link_to "Sign Up", new_user_registration_path %>
+            <%= link_to "Log In", new_user_session_path %>            
             <li><a href="#" class="getstarted">Get Started</a></li>
           <% end %>
         </ul>
@@ -60,9 +52,7 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
-
       <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
-
       <div class="carousel-inner" role="listbox">
 
         <!-- Slide 1 -->
@@ -80,8 +70,8 @@
         <div class="carousel-item" style="background-image: url(assets/images/herf-cover.jpg)">
           <div class="carousel-container">
             <div class="container">
-              <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-              <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+              <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Herf</span></h2>
+              <p class="animate__animated animate__fadeInUp">An event notification service, built specifically for the cigar community.</p>
               <a href="#" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
             </div>
           </div>
@@ -91,8 +81,8 @@
         <div class="carousel-item" style="background-image: url(assets/images/herf-cover.jpg)">
           <div class="carousel-container">
             <div class="container">
-              <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
-              <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+              <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Herf</span></h2>
+              <p class="animate__animated animate__fadeInUp">An event notification service, built specifically for the cigar community.</p>
               <a href="#" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
             </div>
           </div>
@@ -103,11 +93,9 @@
   </section><!-- End Hero -->
 
   <main id="main">
-
     <!-- ======= About Section ======= -->
     <section id="about" class="about">
       <div class="container">
-
         <div class="row content">
           <div class="col-lg-6">
             <h2>Empowering Lounges</h2>
@@ -130,42 +118,37 @@
             </p>
           </div>
         </div>
-
       </div>
     </section><!-- End About Section -->
 
     <!-- ======= Clients Section ======= -->
     <section id="clients" class="clients section-bg">
       <div class="container">
-
         <div class="row">
-
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
+            <img src="#" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
+            <img src="#" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
+            <img src="#" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
+            <img src="#" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
+            <img src="#" class="img-fluid" alt="">
           </div>
 
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
+            <img src="#" class="img-fluid" alt="">
           </div>
-
         </div>
-
       </div>
     </section><!-- End Clients Section -->
 
@@ -220,8 +203,6 @@
 
       </div>
     </section><!-- End Services Section -->
-
-    <!-- ======= Portfolio Section ======= -->
 
   </main><!-- End #main -->
 

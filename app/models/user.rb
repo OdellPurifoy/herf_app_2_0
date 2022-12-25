@@ -35,7 +35,8 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :rsvps, dependent: :destroy
 
-  validates :phone_number, phone: { possible: true }
+  # Fix this crappy validation
+  # validates :phone_number, phone: { possible: true }
 
   acts_as_favoritor
 
