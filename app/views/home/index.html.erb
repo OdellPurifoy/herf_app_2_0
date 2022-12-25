@@ -14,12 +14,6 @@
 
   <!-- Bootstrap Icons CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
-  <!-- =======================================================
-  * Template Name: Sailor - v4.10.0
-  * Template URL: https://bootstrapmade.com/sailor-free-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -33,16 +27,16 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="#" class="active">Home</a></li>
-          <% if user_signed_in? %>
+          <% if user_signed_in? && current_user.lounges.present? %>
             <%= link_to 'Notifications', '#' %>
-            <%= link_to 'Profile', edit_user_registration_path %>
-            <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
-            <li><a href="#" class="getstarted">Get Started</a></li>
-          <% elsif user_signed_in? && current_user.lounges.present? %>
             <%= link_to 'My Lounges', my_lounges_path %>
+            <%= link_to 'Profile', edit_user_registration_path %>
+            <%= link_to "Log Out", destroy_user_session_path %>
+            <li><a href="#" class="getstarted">Get Started</a></li>
+          <% elsif user_signed_in?  %>
             <%= link_to 'Notifications', '#' %>
             <%= link_to 'Profile', edit_user_registration_path %>
-            <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+            <%= link_to "Log Out", destroy_user_session_path %>
             <li><a href="#" class="getstarted">Get Started</a></li>
           <% else %>
             <%= link_to "Sign Up", new_user_registration_path %>
