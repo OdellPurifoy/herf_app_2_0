@@ -21,7 +21,7 @@
 
 // Colors
  $default: #444444;
- $primary: #d9232d;
+ $primary: #de8855;
  $secondary: #556270;
 
 // General Colors
@@ -40,8 +40,8 @@
  $cyan: #17a2b8;
 
  /*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
+ # General
+ --------------------------------------------------------------*/
 body {
     font-family: $font-default;
     color: $default;
@@ -1811,12 +1811,12 @@ body {
   .navbar .active,
   .navbar .active:focus,
   .navbar li:hover>a {
-    color: #d9232d;
+    color: #de8855;
   }
   
   .navbar .getstarted,
   .navbar .getstarted:focus {
-    background: #d9232d;
+    background: #de8855;
     padding: 8px 25px;
     margin-left: 30px;
     border-radius: 4px;
@@ -1827,7 +1827,7 @@ body {
   .navbar .getstarted:hover,
   .navbar .getstarted:focus:hover {
     color: #fff;
-    background: #e1444d;
+    background: #a85c44;
   }
   
   .navbar .dropdown ul {
@@ -2130,7 +2130,7 @@ body {
   
   #hero .carousel-indicators li.active {
     opacity: 1;
-    background: #d9232d;
+    background: #ffc755;
   }
   
   #hero .btn-get-started {
@@ -2146,11 +2146,11 @@ body {
     color: #fff;
     -webkit-animation-delay: 0.8s;
     animation-delay: 0.8s;
-    background: #d9232d;
+    background: #a85c44;
   }
   
   #hero .btn-get-started:hover {
-    background: #df3740;
+    background: #a85c44;
   }
   
   @media (max-width: 992px) {
@@ -2366,7 +2366,7 @@ body {
   
   .services .icon-box i {
     float: left;
-    color: #d9232d;
+    color: #de8855;
     font-size: 40px;
   }
   
