@@ -1,66 +1,98 @@
-<div class="section">
-  <div class="container">
-  <div class="columns is-centered">
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo me-auto"><a href="/">Herf</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
-    <div class="column is-4">
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a href="#" class="active">Home</a></li>
+          <% if user_signed_in? && current_user.lounges.present? %>
+            <%= link_to 'Notifications', '#' %>
+            <%= link_to 'My Lounges', my_lounges_path %>
+            <%= link_to 'Profile', edit_user_registration_path %>
+            <%= link_to "Log Out", destroy_user_session_path %>
+            <li><a href="#" class="getstarted">Get Started</a></li>
+          <% elsif user_signed_in?  %>
+            <%= link_to 'Notifications', '#' %>
+            <%= link_to 'Profile', edit_user_registration_path %>
+            <%= link_to "Log Out", destroy_user_session_path %>
+            <li><a href="#" class="getstarted">Get Started</a></li>
+          <% else %>
+            <%= link_to "Sign Up", new_user_registration_path %>
+            <%= link_to "Log In", new_user_session_path %>            
+            <li><a href="#" class="getstarted">Get Started</a></li>
+          <% end %>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+    </div>
+  </header><!-- End Header -->
 
-    <h2 class="title is-3">Sign Up</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
 
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= f.error_notification %>
+              <h2 class="title is-3">Sign Up</h2>
 
-    <div class="field">
-      <div class="control">
-      <%= f.input :first_name, required: true, autofocus: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
+              <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= f.error_notification %>
+
+              <div class="field">
+                <div class="control">
+                <%= f.input :first_name, required: true, autofocus: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                <%= f.input :last_name, required: true, autofocus: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                <%= f.input :username, required: true, autofocus: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                <%= f.input :email, required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <%= f.input :password, required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" }, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <%= f.input :password_confirmation, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <%= f.input :phone_number, as: :tel, placeholder: "xxx-xxx-xxxx" %>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="control">
+                  <%= f.button :submit, "Sign up" %>
+                </div>
+              </div>
+
+              <% end %>
+                <br />
+              <%= render "devise/shared/links" %>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="field">
-      <div class="control">
-      <%= f.input :last_name, required: true, autofocus: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
-      </div>
-    </div>
 
-    <div class="field">
-      <div class="control">
-      <%= f.input :username, required: true, autofocus: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
-      </div>
-    </div>
 
-    <div class="field">
-      <div class="control">
-      <%= f.input :email, required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" } %>
-      </div>
-    </div>
-
-    <div class="field">
-      <div class="control">
-        <%= f.input :password, required: true, input_html: { class:"input" }, wrapper: false, label_html: { class:"label" }, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-      </div>
-    </div>
-
-    <div class="field">
-      <div class="control">
-        <%= f.input :password_confirmation, required: true, input_html: { class: "input" }, wrapper: false, label_html: { class: "label" } %>
-      </div>
-    </div>
-
-    <div class="field">
-      <div class="control">
-        <%= f.input :phone_number, as: :tel, placeholder: "xxx-xxx-xxxx" %>
-      </div>
-    </div>
-
-    <div class="field">
-      <div class="control">
-        <%= f.button :submit, "Sign up" %>
-      </div>
-    </div>
-
-    <% end %>
-      <br />
-      <%= render "devise/shared/links" %>
-    </div>
-    </div>
-  </div>
-</div>
