@@ -1,9 +1,0 @@
-<div id="notice" data-controller="flash">
-  <% if notice.present? %>
-    <div class="notification-primary">
-      <p><%= notice %></p>
-    </div>
-  <% end %>
-</div>
-
-<%= turbo_stream.replace "notice", partial: "shared/flash" %>
