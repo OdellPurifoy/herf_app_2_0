@@ -1,5 +1,4 @@
-
-    <!-- ======= Portfolio Details Section ======= -->
+    <!-- ======= Lounge Details Section ======= -->
     <section id="portfolio-details" class="portfolio-details">
       <div class="container">
 
@@ -9,15 +8,15 @@
             <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
 
-                <div class="swiper-slide">
+                <div class="swiper-slide mb-2">
                   <%= image_tag("herf_cover.jpg") %>
                 </div>
 
-                <div class="swiper-slide">
+                <div class="swiper-slide mb-2">
                   <%= image_tag("herf_cover.jpg") %>
                 </div>
 
-                <div class="swiper-slide">
+                <div class="swiper-slide mb-2">
                   <%= image_tag("herf_cover.jpg") %>
                 </div>
 
@@ -28,18 +27,19 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-              <h3>Project information</h3>
+              <h3><%= lounge.name %></h3>
               <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                <li><strong>Address</strong>:  <%= lounge.address_street_1 %>, <%= lounge.address_street_2 %></li>
+                <li><strong>City</strong>: <%= lounge.city %></li>
+                <li><strong>State</strong>: <%= lounge.state %></li>
+                <li><strong>Phone</strong>: (917) 223-3344</li>
+                <li><strong>Email</strong>: <%= lounge.email %></li>
               </ul>
             </div>
             <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
+              <h4>Get to know <%= lounge.name %></h4>
               <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+                <%= lounge.details %>
               </p>
             </div>
           </div>
@@ -48,28 +48,6 @@
 
       </div>
     </section><!-- End Portfolio Details Section -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
