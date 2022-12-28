@@ -1,137 +1,64 @@
-    <!-- ======= Lounge Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
-      <div class="container">
+<!-- ======= Lounge Details Section ======= -->
+<section id="portfolio-details" class="portfolio-details">
+  <div class="container">
+    <div class="row gy-4">
 
-        <div class="row gy-4">
+      <div class="col-lg-8">
+        <div class="portfolio-details-slider swiper">
+          <div class="swiper-wrapper align-items-center">
 
-          <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper">
-              <div class="swiper-wrapper align-items-center">
-
-                <div class="swiper-slide mb-2">
-                  <%= image_tag("herf_cover.jpg") %>
-                </div>
-
-                <div class="swiper-slide mb-2">
-                  <%= image_tag("herf_cover.jpg") %>
-                </div>
-
-                <div class="swiper-slide mb-2">
-                  <%= image_tag("herf_cover.jpg") %>
-                </div>
-
-              </div>
-              <div class="swiper-pagination"></div>
+            <div class="swiper-slide mb-2">
+              <%= image_tag("herf_cover.jpg") %>
             </div>
+
+            <div class="swiper-slide mb-2">
+              <%= image_tag("herf_cover.jpg") %>
+            </div>
+
+            <div class="swiper-slide mb-2">
+              <%= image_tag("herf_cover.jpg") %>
+            </div>
+
           </div>
-
-          <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3><%= lounge.name %></h3>
-              <ul>
-                <li><strong>Address</strong>:  <%= lounge.address_street_1 %>, <%= lounge.address_street_2 %></li>
-                <li><strong>City</strong>: <%= lounge.city %></li>
-                <li><strong>State</strong>: <%= lounge.state %></li>
-                <li><strong>Phone</strong>: (917) 223-3344</li>
-                <li><strong>Email</strong>: <%= lounge.email %></li>
-              </ul>
-              <% if user_signed_in? && current_user.id == lounge.user_id %>
-                <div class="d-flex justify-content-between">
-                  <%= link_to "Edit Lounge", edit_lounge_path(lounge) %>
-                  <%= link_to "New Event", new_lounge_event_path(lounge) %>
-                  <%= link_to "View Events", lounge_events_path(lounge) %>
-                </div>
-                <div class="d-flex justify-content-between">
-                  <%= link_to "Memberships", lounge_memberships_path(lounge), class: 'lounge-control' %>
-                  <%= link_to "Special Offers", lounge_special_offers_path(lounge)%>
-                  <%= link_to "Delete", lounge_path(lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-                </div>
-              <% end %>
-            </div>
-            <div class="portfolio-description">
-              <h4>Get to know <%= lounge.name %></h4>
-              <p>
-                <%= lounge.details %>
-              </p>
-            </div>
-          </div>
-
+          <div class="swiper-pagination"></div>
         </div>
-
-      </div>
-    </section><!-- End Portfolio Details Section -->
-
-
-
-<section>
-  <div class="card" id="<%= dom_id lounge %>">
-    <header class="card-header">
-      <p class="card-header-title">
-        <%= lounge.name %>
-      </p>
-    </header>
-    <div class="card-content">
-      <figure class="image is-48x48 mb-2">
-        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-      </figure><br />
-      <p><%= lounge.address_street_1 %>
-      <% if lounge.address_street_2.present? %>
-        <p class="inline-block pr3"><%= lounge.address_street_2 %></p>
-      <% end %>
-
-      <p><%= lounge.city %><p>
-
-      <p><%= lounge.state %></p>
-
-      <p><%= lounge.zip_code %></p>
-      
-      <% if lounge.phone.present? %>
-        <p><%= lounge.phone %></p>
-      <% end %>
-
-      <p><%= lounge.email %></p>
-
-      <% if lounge.weekday_opening_hour.present? %>
-        <p><%= lounge.weekday_opening_hour %></p>
-      <% end %>
-
-      <% if lounge.weekday_closing_hour.present? %>
-        <p><%= lounge.weekday_closing_hour %></p>
-      <% end %>
-
-      <% if lounge.weekend_opening_hour.present? %>
-        <p><%= lounge.weekend_opening_hour %></p>
-      <% end %>
-
-      <% if lounge.weekend_closing_hour.present? %>
-        <p><%= lounge.weekend_closing_hour %></p>
-      <% end %>
-
-      <% if current_user.id != lounge.user_id && !lounge.favorited_by?(current_user) %>
-        <%= button_to "Follow", toggle_favorite_lounge_path(lounge), method: :post %> | <%= lounge.favoritors.count %>
-      <% else%>
-        <%= button_to "Unfollow", toggle_favorite_lounge_path(lounge), method: :post %> | <%= lounge.favoritors.count %>
-      <% end %>
-
-      <div class="content">
-        <%= lounge.details %><br />
       </div>
 
-      <div class="content">
-        <%= pluralize(lounge.memberships.count, 'Member') %><br />
+      <div class="col-lg-4">
+        <div class="portfolio-info">
+          <h3><%= lounge.name %></h3>
+          <ul>
+            <li><strong>Address</strong>:  <%= lounge.address_street_1 %>, <%= lounge.address_street_2 %></li>
+            <li><strong>City</strong>: <%= lounge.city %></li>
+            <li><strong>State</strong>: <%= lounge.state %></li>
+            <li><strong>Phone</strong>: (917) 223-3344</li>
+            <li><strong>Email</strong>: <%= lounge.email %></li>
+          </ul>
+          <% if user_signed_in? && current_user.id == lounge.user_id %>
+            <div class="d-flex justify-content-between">
+              <%= link_to "Edit Lounge", edit_lounge_path(lounge) %>
+              <%= link_to "New Event", new_lounge_event_path(lounge) %>
+              <%= link_to "View Events", lounge_events_path(lounge) %>
+            </div>
+            <div class="d-flex justify-content-between">
+              <%= link_to "Memberships", lounge_memberships_path(lounge), class: 'lounge-control' %>
+              <%= link_to "Special Offers", lounge_special_offers_path(lounge)%>
+              <%= link_to "Delete", lounge_path(lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+            </div>
+          <% else %>
+            <div class="d-flex justify-content-between">
+              <%= link_to "View Events", lounge_events_path(lounge) %>
+              <%= link_to "Special Offers", lounge_special_offers_path(lounge)%>
+            </div>
+          <% end %>
+        </div>
+        <div class="portfolio-description">
+          <h4>Get to know <%= lounge.name %></h4>
+          <p>
+            <%= lounge.details %>
+          </p>
+        </div>
       </div>
     </div>
-    <footer class="card-footer">
-      <% if user_signed_in? && current_user.id == lounge.user_id %>
-        <%= link_to "Edit", edit_lounge_path(lounge), class: "button is-primary is-light card-footer-item" %>
-        <%= link_to "View Events", lounge_events_path(lounge), class: "button is-primary is-light card-footer-item" %>
-        <%= link_to "New Event", new_lounge_event_path(lounge), class: "button is-primary is-light card-footer-item" %>
-        <%= link_to "Memberships", lounge_memberships_path(lounge), class: "button is-primary is-light card-footer-item" %>
-        <%= link_to "Special Offers", lounge_special_offers_path(lounge), class: "button is-primary is-light card-footer-item" %>
-        <%= link_to "Delete", lounge_path(lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
-      <% else %>
-        <%= link_to "View Events", lounge_events_path(lounge), class: "button is-primary is-light card-footer-item" %>
-      <% end %>
-    </footer>
   </div>
-</section>
+</section><!-- End Portfolio Details Section -->
