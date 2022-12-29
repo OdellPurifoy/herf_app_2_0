@@ -55,7 +55,6 @@ class Lounge < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :special_offers, dependent: :destroy
 
-  has_rich_text :details
   has_one_attached :logo
 
   validates_presence_of :name, :address_street_1, :city, :state, :zip_code, :phone, :email
@@ -63,7 +62,7 @@ class Lounge < ApplicationRecord
   validates :email,
             format: { with: /\A^(.+)@(.+)$\z/, message: 'Email invalid' },
             uniqueness: { case_sensitive: false },
-            length: { minimum: 4, maximum: 254 }
+            length: { minimum: 4, maximum: 255 }
 
   validates :name, uniqueness: {
     scope: %i[address_street_1 city state zip_code],
