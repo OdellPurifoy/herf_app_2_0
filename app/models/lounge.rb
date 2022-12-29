@@ -8,6 +8,7 @@
 #  address_street_1       :string
 #  address_street_2       :string
 #  city                   :string
+#  details                :text
 #  email                  :string
 #  featured               :boolean          default(FALSE)
 #  name                   :string
