@@ -49,8 +49,6 @@ class Lounge < ApplicationRecord
   TIME_ZONES = ['Eastern Time', 'Central Time', 'Mountain Time', 'Pacific Time', 'Alaska Time',
                 'Hawaii-Aleutian Time'].freeze
 
-  belongs_to :user
-
   has_many :events, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :special_offers, dependent: :destroy
@@ -69,6 +67,7 @@ class Lounge < ApplicationRecord
     scope: %i[address_street_1 city state zip_code],
     message: 'A lounge already exists at this location.'
   }
+  validates :details, length: { maximum: 1000, too_long: "%{count} characters is the maximum allowed." }
 
   validates_format_of :zip_code,
                     :with => /\A\d{5}-\d{4}|\A\d{5}\z/,
