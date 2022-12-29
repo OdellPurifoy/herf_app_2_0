@@ -43,6 +43,7 @@ RSpec.describe Lounge, type: :model do
     it { should have_db_column(:address_street_1).of_type(:string) }
     it { should have_db_column(:address_street_2).of_type(:string) }
     it { should have_db_column(:city).of_type(:string) }
+    it { should have_db_column(:details).of_type(:text) }
     it { should have_db_column(:email).of_type(:string) }
     it { should have_db_column(:featured).of_type(:boolean) }
     it { should have_db_column(:name).of_type(:string) }
@@ -70,7 +71,7 @@ RSpec.describe Lounge, type: :model do
   end
 
   describe 'Validations' do
-    let!(:lest_lounge) { FactoryBot.create(:lounge) }
+    let(:lest_lounge) { FactoryBot.create(:lounge) }
 
     it { should validate_presence_of(:address_street_1) }
     it { should validate_presence_of(:city) }
