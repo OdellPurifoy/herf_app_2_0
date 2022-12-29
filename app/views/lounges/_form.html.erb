@@ -1,145 +1,127 @@
-<%= form_with model: @lounge do |form| %>
-  <% if lounge.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(lounge.errors.count, "error") %> prohibited this lounge from being saved:</h2>
+<div class="pt-5 mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="mb-3">Lounge Details</h2>
 
-        <ul>
-          <% lounge.errors.each do |error| %>
-            <li><%= error.full_message %></li>
+      <%= bootstrap_form_for(@lounge) do |form| %>
+        <% if lounge.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(lounge.errors.count, "error") %> prohibited this lounge from being saved:</h2>
+
+              <ul>
+                <% lounge.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
           <% end %>
-        </ul>
-      </div>
-    <% end %>
 
-    <div class="control">
-      <div class="field">
-        <%= form.label :name, class: "label" %>
-        <%= form.text_field :name, class: "input", placeholder: "Lounge Name" %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.text_field :name %>
+            </div>
+          </div>
 
-    <div class="control">
-      <div class="field">
-        <%= form.label :address_street_1, class: "label pt-2" %>
-        <%= form.text_field :address_street_1, class: "input" %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.text_field :address_street_1 %>
+            </div>
+          </div>
 
-    <div class="control">
-      <div class="field">
-        <%= form.label :address_street_2, class: "label pt-2" %>
-        <%= form.text_field :address_street_2, class: "input" %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.text_field :address_street_2 %>
+            </div>
+          </div>
 
-    <div class="control">
-      <div class="field">
-        <%= form.label :state, class: "label pt-2" %>
-        <%= form.select :state, CS.states(:us).invert, { prompt: "Select a state" },  { class: "input" } %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.select :state, CS.states(:us).invert, { prompt: "Select a state" } %>
+            </div>
+          </div>
 
-    <div class="control">
-      <div class="field">
-        <%= form.label :city, class: "label pt-2" %>
-        <%= form.text_field :city, class: "input"  %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.text_field :city %>
+            </div>
+          </div>
 
-    <div class="control">
-      <div class="field">
-        <%= form.label :zip_code, class: "label pt-2" %>
-        <%= form.text_field :zip_code, class: "input" %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.text_field :zip_code %>
+            </div>
+          </div>
 
-    <div class="control">
-      <div class="field">
-        <%= form.label :email, class: "label pt-2" %>
-        <%= form.email_field :email, class: "input" %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.email_field :email %>
+            </div>
+          </div>
 
-    <div class="control">
-      <div class="field">
-        <%= form.label :phone, class: "label pt-2" %>
-        <%= form.telephone_field :phone, class: "input" %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.telephone_field :phone %>
+            </div>
+          </div>
 
-    <div class="columns">
-      <div class="field column is-4">
-        <div class="control">
-          <div class="control has-icons-left">
-            <%= form.label :weekday_opening_hour, class: "label pt-2" %>
-            <span class="select">
+          <div class="field">
+            <div class="control">
               <%= form.select :weekday_opening_hour, Lounge::AM_HOURS_DISPLAY %>
-            </span>
+            </div>
           </div>
 
-          <div class="control has-icons-left">
-            <%= form.label :weekday_closing_hour, class: "label pt-2" %>
-            <span class="select">
+          <div class="field">
+            <div class="control">
               <%= form.select :weekday_closing_hour, Lounge::PM_HOURS_DISPLAY %>
-            </span>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="field column is-4">
-        <div class="control">
-          <div class="control has-icons-left">
-            <%= form.label :weekend_opening_hour, class: "label pt-2" %>
-            <span class="select">
+          <div class="field">
+            <div class="control">
               <%= form.select :weekend_opening_hour, Lounge::AM_HOURS_DISPLAY %>
-            </span>
+            </div>
           </div>
 
-          <div class="control has-icons-left">
-            <%= form.label :weekend_closing_hour, class: "label pt-2" %>
-            <span class="select">
+          <div class="field">
+            <div class="control">
               <%= form.select :weekend_closing_hour, Lounge::PM_HOURS_DISPLAY %>
-            </span>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="control pb-3">
-      <div class="field">
-        <%= form.label :time_zone, class: "label pt-2" %>
-        <%= form.select :time_zone, Lounge::TIME_ZONES, class: "input" %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.select :time_zone, Lounge::TIME_ZONES %>
+            </div>
+          </div>
 
-    <div class="field">
-      <div class="control">
-        <%= form.rich_text_area :details %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.text_area :details, placeholder: "Tell us about your lounge." %>
+            </div>
+          </div>
 
-    <div class="field">
-      <div class="control">
-        <%= form.label :outside_drinks_allowed_?, class: "label pt-2" %>
-        <%= form.check_box :outside_drinks_allowed  %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.check_box :outside_drinks_allowed  %>
+            </div>
+          </div>
 
-    <div class="field">
-      <div class="control">
-        <%= form.label :outside_cigars_allowed_?, class: "label pt-2" %>
-        <%= form.check_box :outside_cigars_allowed %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.check_box :outside_cigars_allowed %>
+            </div>
+          </div>
 
-    <div class="field">
-      <div class="control">
-        <strong>Add Logo</strong>
-        <%= form.file_field :logo %>
-      </div>
-    </div>
+          <div class="field">
+            <div class="control">
+              <%= form.file_field :logo %>
+            </div>
+          </div>
 
-  <div class="form-actions">
-    <%= form.button :submit, class: "button is-primary is-light mt-2" %>
+          <div class="field">
+            <%= form.submit "Save" %>
+          </div>
+        <% end %>
+    </div>
   </div>
-<% end %>
+</div>

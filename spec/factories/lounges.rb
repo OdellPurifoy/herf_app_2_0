@@ -8,6 +8,7 @@
 #  address_street_1       :string
 #  address_street_2       :string
 #  city                   :string
+#  details                :text
 #  email                  :string
 #  featured               :boolean          default(FALSE)
 #  name                   :string
@@ -43,6 +44,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     address_street_1 { Faker::Address.street_address }
     address_street_2 { Faker::Address.secondary_address }
+    details { Faker::Lorem.sentence(word_count: 100) }
     city { Faker::Address.city }
     state { Faker::Address.state }
     phone { '9008007000' }

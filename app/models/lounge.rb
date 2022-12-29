@@ -8,6 +8,7 @@
 #  address_street_1       :string
 #  address_street_2       :string
 #  city                   :string
+#  details                :text
 #  email                  :string
 #  featured               :boolean          default(FALSE)
 #  name                   :string
@@ -68,6 +69,7 @@ class Lounge < ApplicationRecord
     scope: %i[address_street_1 city state zip_code],
     message: 'A lounge already exists at this location.'
   }
+  validates :details, length: { maximum: 1000, too_long: "%{count} characters is the maximum allowed." }
 
   validates_format_of :zip_code,
                     :with => /\A\d{5}-\d{4}|\A\d{5}\z/,
