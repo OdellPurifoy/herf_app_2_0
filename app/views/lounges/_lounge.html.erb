@@ -1,24 +1,16 @@
 <!-- ======= Lounge Details Section ======= -->
-<section id="portfolio-details" class="portfolio-details">
+<section id="portfolio-details" class="portfolio-details" style="padding-top: 150px">
   <div class="container">
     <div class="row gy-4">
 
       <div class="col-lg-8">
         <div class="portfolio-details-slider swiper">
           <div class="swiper-wrapper align-items-center">
-
-            <div class="swiper-slide mb-2">
-              <%= image_tag("herf_cover.jpg") %>
-            </div>
-
-            <div class="swiper-slide mb-2">
-              <%= image_tag("herf_cover.jpg") %>
-            </div>
-
-            <div class="swiper-slide mb-2">
-              <%= image_tag("herf_cover.jpg") %>
-            </div>
-
+            <% lounge.images.each do |image| %>
+              <div class="swiper-slide mb-2">
+                <%= image_tag image.variant(resize_to_fit: [250, 250]) %>
+              </div>
+            <% end %>
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -53,7 +45,7 @@
           <% end %>
         </div>
         <div class="portfolio-description">
-          <h4>Get to know <%= lounge.name %></h4>
+          <h4>About <%= lounge.name %></h4>
           <p>
             <%= lounge.details %>
           </p>

@@ -56,6 +56,7 @@ class Lounge < ApplicationRecord
   has_many :special_offers, dependent: :destroy
 
   has_one_attached :logo
+  has_many_attached :images
 
   validates_presence_of :name, :address_street_1, :city, :state, :zip_code, :phone, :email
   validates :email, uniqueness: true
