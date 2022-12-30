@@ -3,6 +3,7 @@
 # Table name: memberships
 #
 #  id           :bigint           not null, primary key
+#  active       :boolean          default(TRUE)
 #  email        :string
 #  first_name   :string
 #  last_name    :string
