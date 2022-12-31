@@ -43,8 +43,9 @@ class MembershipsController < ApplicationController
   end
 
   def destroy
+    @lounge = @membership.lounge
     @membership.destroy
-    redirect_to lounge_memberships_path, status: :see_other
+    redirect_to "/lounges/#{@lounge.friendly_id}/memberships", status: :see_other
     flash[:notice] = 'Membership successfully deleted.'
   end
 
