@@ -1,46 +1,56 @@
+<div class="pt-5 mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="mb-3">New Membership</h2>
 
-<%= form_with(model: [@lounge, membership]) do |form| %>
-    <% if membership.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
+      <%= bootstrap_form_with(model: [@lounge, membership]) do |form| %>
+        <% if membership.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(membership.errors.count, "error") %> prohibited this membership from being saved:</h2>
 
-      <ul>
-        <% membership.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+          <ul>
+            <% membership.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="control">
-    <div class="field">
-      <%= form.label :first_name, class: "label" %>
-      <%= form.text_field :first_name, class: "input" %>
+      <div class="field">
+        <div class="control">
+          <%= form.text_field :first_name %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <%= form.text_field :last_name %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <%= form.email_field :email %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <%= form.telephone_field :phone_number %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <%= form.check_box :active %>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit %>
+      </div>
+      <% end %>
+
     </div>
   </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :last_name, class: "label" %>
-      <%= form.text_field :last_name, class: "input" %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :email, class: "label" %>
-      <%= form.email_field :email, class: "input" %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :phone_number, class: "label" %>
-      <%= form.telephone_field :phone_number, class: "input" %>
-    </div>
-  </div>
-
-  <div class="form-actions">
-    <%= form.button :submit %>
-  </div>
-<% end %>
+</div>

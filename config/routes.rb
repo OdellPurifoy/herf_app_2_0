@@ -31,6 +31,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :memberships do
+    member do
+      patch :activate
+      patch :deactivate
+    end
+  end
+
   authenticate :user, -> (u) { u.admin? } do
     mount Resque::Server.new, at: '/jobs'
   end

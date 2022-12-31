@@ -26,8 +26,11 @@
               <td><%= membership.email %></td>
               <td><%= membership.phone_number %></td>
               <td><%= membership.active ? 'Yes' : 'No' %></td>
-              <td><%= link_to "Deactivate", "#" %></td>
-              <td><%= link_to "Delete", "#" %></td>
+              <% if membership.active? %>
+                <td><%= link_to "Deactivate", deactivate_membership_path(membership.id) %></td>
+              <% else %>
+                <td><%= link_to "Activate", activate_membership_path(membership.id) %></td>
+              <% end %>
             </tr>
           <% end %>
         </tbody>
