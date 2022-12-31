@@ -1,14 +1,46 @@
 <p style="color: green"><%= notice %></p>
+<!-- ======= Membership Index Section ======= -->
+<section id="portfolio-details" class="portfolio-details" style="padding-top: 150px">
+  <div class="container">
+    <div class="row gy-4">
 
-<h1>Memberships</h1>
+      <h1>Memberships: <%= @memberships.count %></h1>
 
-<div id="memberships">
-  <% @memberships.each do |membership| %>
-    <%= render membership %>
-    <p>
-      <%= link_to "Show this membership", membership %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New Membership", new_lounge_membership_path(@lounge) %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Active</th>
+            <th scope="col">Activate/Deactivate</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @memberships.each do |membership| %>
+            <tr>
+              <td><%= membership.id %></td>
+              <td><%= membership.first_name %></td>
+              <td><%= membership.last_name %></td>
+              <td><%= membership.email %></td>
+              <td><%= membership.phone_number %></td>
+              <td><%= membership.active ? 'Yes' : 'No' %></td>
+              <% if membership.active? %>
+                <td><%= button_to "Deactivate", "/memberships/#{membership.id}/deactivate", method: :post, class: "btn btn-warning" %></td>
+              <% else %>
+                <td><%= button_to "Activate", "/memberships/#{membership.id}/activate", method: :post, class: "btn btn-success" %></td>
+              <% end %>
+              <td><%= button_to "Edit", "/memberships/#{membership.id}/edit", method: :get, class: "btn btn-secondary" %></td>
+              <td><%= button_to "Delete", membership_path(membership), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to "New Membership", new_lounge_membership_path(@lounge) %>
+    </div>
+  </div>
+<section>

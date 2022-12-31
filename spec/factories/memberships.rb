@@ -3,6 +3,7 @@
 # Table name: memberships
 #
 #  id           :bigint           not null, primary key
+#  active       :boolean          default(TRUE)
 #  email        :string
 #  first_name   :string
 #  last_name    :string
@@ -25,6 +26,7 @@ require 'faker'
 
 FactoryBot.define do
   factory :membership do
+    active { true }
     email { Faker::Internet.email }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
