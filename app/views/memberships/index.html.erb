@@ -15,6 +15,7 @@
             <th scope="col">Phone</th>
             <th scope="col">Active</th>
             <th scope="col">Activate/Deactivate</th>
+            <th scope="col">Edit</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
@@ -27,10 +28,12 @@
               <td><%= membership.phone_number %></td>
               <td><%= membership.active ? 'Yes' : 'No' %></td>
               <% if membership.active? %>
-                <td><%= link_to "Deactivate", deactivate_membership_path(membership.id) %></td>
+                <td><%= button_to "Deactivate", "/memberships/#{membership.id}/deactivate", method: :post %></td>
               <% else %>
-                <td><%= link_to "Activate", activate_membership_path(membership.id) %></td>
+                <td><%= button_to "Activate", "/memberships/#{membership.id}/activate", method: :post %></td>
               <% end %>
+              <td><%= button_to "Edit", "/memberships/#{membership.id}/edit", method: :get %></td>
+              <td><%= link_to "Delete", membership_path(membership), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>
             </tr>
           <% end %>
         </tbody>

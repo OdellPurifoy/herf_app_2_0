@@ -33,8 +33,8 @@ Rails.application.routes.draw do
 
   resources :memberships do
     member do
-      patch :activate
-      patch :deactivate
+      post :activate
+      post :deactivate
     end
   end
 
