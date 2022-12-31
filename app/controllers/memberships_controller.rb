@@ -5,7 +5,7 @@ class MembershipsController < ApplicationController
   before_action :set_lounge, only: %i[index new create]
 
   def index
-    @memberships = @lounge.memberships
+    @memberships = @lounge.memberships.sort_by(&:created_at)
   end
 
   def show; end
