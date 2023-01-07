@@ -35,7 +35,7 @@
                 <td><%= button_to "Activate", "/memberships/#{membership.id}/activate", method: :post, class: "btn btn-success" %></td>
               <% end %>
               <td><%= button_to "Edit", "/memberships/#{membership.id}/edit", method: :get, class: "btn btn-secondary" %></td>
-              <td><%= button_to "Delete", membership_path(membership), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %></td>
+              <td><%= link_to "Delete", membership_path(membership), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %></td>
             </tr>
           <% end %>
         </tbody>
