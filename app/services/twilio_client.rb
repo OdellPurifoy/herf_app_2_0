@@ -13,8 +13,8 @@ class TwilioClient
       from: twilio_phone_number,
       body: message
     )
-  rescue Twilio::REST::RestError => error
-    puts "Error: #{error} prevented text from being sent."
+  rescue Twilio::REST::RestError => e
+    puts "Error: #{e} prevented text from being sent."
   end
 
   private
