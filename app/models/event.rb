@@ -38,10 +38,10 @@ class Event < ApplicationRecord
   belongs_to :lounge
   has_many :rsvps, dependent: :destroy
 
-  has_rich_text :description
   has_one_attached :flyer
 
   validates_presence_of :end_time, :event_date, :event_type, :name, :start_time
+  validates :event_description, length: { maximum: 500 }
   validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
