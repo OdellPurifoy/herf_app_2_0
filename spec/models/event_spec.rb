@@ -4,20 +4,21 @@
 #
 # Table name: events
 #
-#  id               :bigint           not null, primary key
-#  end_time         :time
-#  event_date       :date
-#  event_type       :string           not null
-#  event_url        :string
-#  maximum_capacity :integer
-#  members_only     :boolean          default(FALSE)
-#  name             :string           not null
-#  rsvp_needed      :boolean          default(FALSE)
-#  slug             :string
-#  start_time       :time
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  lounge_id        :bigint           not null
+#  id                :bigint           not null, primary key
+#  end_time          :time
+#  event_date        :date
+#  event_description :text
+#  event_type        :string           not null
+#  event_url         :string
+#  maximum_capacity  :integer
+#  members_only      :boolean          default(FALSE)
+#  name              :string           not null
+#  rsvp_needed       :boolean          default(FALSE)
+#  slug              :string
+#  start_time        :time
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  lounge_id         :bigint           not null
 #
 # Indexes
 #
@@ -34,6 +35,7 @@ RSpec.describe Event, type: :model do
   describe 'Database columns' do
     it { should have_db_column(:end_time).of_type(:time) }
     it { should have_db_column(:event_date).of_type(:date) }
+    it { should have_db_column(:event_description).of_type(:text) }
     it { should have_db_column(:event_type).of_type(:string) }
     it { should have_db_column(:event_url).of_type(:string) }
     it { should have_db_column(:maximum_capacity).of_type(:integer) }

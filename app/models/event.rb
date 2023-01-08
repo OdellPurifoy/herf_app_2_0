@@ -4,20 +4,21 @@
 #
 # Table name: events
 #
-#  id               :bigint           not null, primary key
-#  end_time         :time
-#  event_date       :date
-#  event_type       :string           not null
-#  event_url        :string
-#  maximum_capacity :integer
-#  members_only     :boolean          default(FALSE)
-#  name             :string           not null
-#  rsvp_needed      :boolean          default(FALSE)
-#  slug             :string
-#  start_time       :time
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  lounge_id        :bigint           not null
+#  id                :bigint           not null, primary key
+#  end_time          :time
+#  event_date        :date
+#  event_description :text
+#  event_type        :string           not null
+#  event_url         :string
+#  maximum_capacity  :integer
+#  members_only      :boolean          default(FALSE)
+#  name              :string           not null
+#  rsvp_needed       :boolean          default(FALSE)
+#  slug              :string
+#  start_time        :time
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  lounge_id         :bigint           not null
 #
 # Indexes
 #
@@ -37,10 +38,10 @@ class Event < ApplicationRecord
   belongs_to :lounge
   has_many :rsvps, dependent: :destroy
 
-  has_rich_text :description
   has_one_attached :flyer
 
   validates_presence_of :end_time, :event_date, :event_type, :name, :start_time
+  validates :event_description, length: { maximum: 1000, too_long: "%{count} characters is the maximum allowed." }
   validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 

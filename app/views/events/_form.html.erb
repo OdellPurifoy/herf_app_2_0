@@ -1,82 +1,87 @@
-<%= form_with(model: [@lounge, event]) do |form| %>
-  <% if event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<div class="pt-5 mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="mb-3">Event Details</h2>
+        <%= bootstrap_form_with(model: [@lounge, event]) do |form| %>
+          <% if event.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-      <ul>
-        <% event.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+              <ul>
+                <% event.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+        
+          <div class="field">
+            <div class="control">
+              <%= form.text_field :name %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= form.date_field :event_date, min: Date.today %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= form.select :event_type, Event::TYPES %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= form.time_field :start_time %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= form.time_field :end_time %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= form.number_field :maximum_capacity, in: 1..100, step: 1 %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= form.text_area :event_description %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= form.file_field :flyer %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= form.check_box :members_only %>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <%= form.url_field :event_url, placeholder: "https://www.example.com" %>
+            </div>
+          </div>
+
+          <div class="control">
+            <div class="actions">
+              <%= form.submit %>
+            </div>
+          </div>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
- 
-  <div class="control">
-    <div class="field">
-      <%= form.label :event_name, class: "label" %>
-      <%= form.text_field :name, class: "input", placeholder: "Event Name" %>
     </div>
   </div>
+</div>
 
-  <div class="control">
-    <div class="field">
-      <%= form.label :event_date, class: "label pt-2" %>
-      <%= form.date_field :event_date, min: Date.today, class: "input" %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :event_type, class: "label pt-2" %>
-      <%= form.select :event_type, Event::TYPES, class: "input" %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :start_time, class: "label pt-2" %>
-      <%= form.time_field :start_time, class: "input" %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :end_time, class: "label pt-2" %>
-      <%= form.time_field :end_time, class: "input" %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :maximum_capacity, class: "label pt-2" %>
-      <%= form.number_field :maximum_capacity, in: 1..100, step: 1, class: "input" %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :description, class: "label pt-2" %>
-      <%= form.rich_text_area :description %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :members_only, class: "checkbox pt-2" %>
-      <%= form.check_box :members_only %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="field">
-      <%= form.label :event_url, class: "checkbox pt-2" %>
-      <%= form.url_field :event_url, placeholder: "http://www.example.com" %>
-    </div>
-  </div>
-
-  <div class="control">
-    <div class="actions">
-      <%= form.submit %>
-    </div>
-  </div>
-<% end %>
