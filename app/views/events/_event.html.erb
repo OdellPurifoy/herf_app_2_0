@@ -5,19 +5,19 @@
       <div class="row">
           <div class="col-lg-12">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="pic"><%= image_tag 'herf_cover.jpg', size: "100x100" %></div>
               <div class="member-info">
                 <h4><%= event.name %></h4>
                 <span><%= event.event_type %> | <%= event.event_date.strftime("%b %e, %Y") %> | <%= event.start_time %> - <%= event.end_time %></span>
                 <p><%= event.event_description %></p>
-                <div>
-                <% if user_signed_in? && current_user.id == event.lounge.user_id %>
-                  <%= link_to "Edit this event", edit_event_path(event), class: "button is-primary is-light card-footer-item" %>
-                  <%= link_to "Delete", event_path(event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
-                  <%= link_to "Event Details", event_path(event), class: "button is-primary is-light" %>
-                <% elsif user_signed_in? %>
-                  <%= link_to "RSVP Here", "#", class: "button is-primary is-light" %>
-                <% end %>
+                <div class="pt-3">
+                  <% if user_signed_in? && current_user.id == event.lounge.user_id %>
+                    <%= link_to "Edit this event", edit_event_path(event), class: "button is-primary is-light card-footer-item" %>
+                    <%= link_to "Delete", event_path(event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
+                    <%= link_to "Event Details", event_path(event), class: "button is-primary is-light" %>
+                  <% elsif user_signed_in? %>
+                    <%= link_to "RSVP Here", "#", class: "button is-primary is-light" %>
+                  <% end %>
                 </div>
               </div>
             </div>
