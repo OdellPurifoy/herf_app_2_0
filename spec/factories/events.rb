@@ -32,6 +32,7 @@ require 'faker'
 FactoryBot.define do
   factory :event do
     name { "Whiskey Tasting 101" }
+    event_description { Faker::Lorem.paragraph(sentence_count: 20) }
     event_type { "Whiskey" }
     event_url { "http://www.example.com" }
     start_time { (Date.today + 1.day).to_time }
