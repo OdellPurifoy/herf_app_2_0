@@ -4,20 +4,21 @@
 #
 # Table name: events
 #
-#  id               :bigint           not null, primary key
-#  end_time         :time
-#  event_date       :date
-#  event_type       :string           not null
-#  event_url        :string
-#  maximum_capacity :integer
-#  members_only     :boolean          default(FALSE)
-#  name             :string           not null
-#  rsvp_needed      :boolean          default(FALSE)
-#  slug             :string
-#  start_time       :time
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  lounge_id        :bigint           not null
+#  id                :bigint           not null, primary key
+#  end_time          :time
+#  event_date        :date
+#  event_description :text
+#  event_type        :string           not null
+#  event_url         :string
+#  maximum_capacity  :integer
+#  members_only      :boolean          default(FALSE)
+#  name              :string           not null
+#  rsvp_needed       :boolean          default(FALSE)
+#  slug              :string
+#  start_time        :time
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  lounge_id         :bigint           not null
 #
 # Indexes
 #
