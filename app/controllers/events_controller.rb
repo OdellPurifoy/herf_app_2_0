@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   before_action :set_lounge, only: %i[index new create]
 
   def index
-    @events = @lounge.events
+    @events = @lounge.events.order(:created_at).page(params[:page])
   end
 
   def show; end

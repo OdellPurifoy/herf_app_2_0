@@ -49,6 +49,8 @@ class Event < ApplicationRecord
   after_commit :update_followers_and_or_members, :update_rsvps_text, on: :update
   after_commit :cancel_follower_and_or_members, :cancel_rsvps_text, on: :destroy
 
+  paginates_per 10
+
   private
 
   def notify_followers_and_or_members
