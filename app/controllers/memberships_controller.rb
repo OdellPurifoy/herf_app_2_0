@@ -8,7 +8,7 @@ class MembershipsController < ApplicationController
     @memberships = if params[:search].present?
                      Membership.search(params[:search])
                    else
-                     @lounge.memberships.sort_by(&:created_at)
+                     @lounge.memberships.order(:created_at).page(params[:page])
                    end
   end
 
