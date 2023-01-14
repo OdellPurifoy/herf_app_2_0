@@ -5,7 +5,7 @@ class MembershipsController < ApplicationController
   before_action :set_lounge, only: %i[index new create]
 
   def index
-    if params[:search].present
+    if params[:search].present?
       @memberships = Membership.search(params[:search])
     else
       @memberships = @lounge.memberships.sort_by(&:created_at)
