@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: memberships
@@ -30,10 +32,6 @@ class Membership < ApplicationRecord
   validates :email, uniqueness: { scope: :lounge_id, message: 'has already been taken' }
 
   def self.search(search)
-    if search
-      self.where(email: search)
-    else
-      nil
-    end
+    where(email: search) if search
   end
 end
