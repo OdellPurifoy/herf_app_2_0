@@ -7,9 +7,9 @@
       <h1>Memberships: <%= @memberships.count %></h1>
 
       <div class="d-flex justify-content-start">
-        <%= form_tag(lounge_memberships_path, method: :get) do %>
+        <%= form_tag(lounge_memberships_path(@lounge), method: :get) do %>
           <%= text_field_tag(:search, params[:search]) %>
-          <%= submit_tag("Search") %>
+          <%= submit_tag("Search" , class: "btn btn-warning") %>
       <% end %>
       </div>
 

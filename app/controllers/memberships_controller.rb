@@ -5,7 +5,11 @@ class MembershipsController < ApplicationController
   before_action :set_lounge, only: %i[index new create]
 
   def index
-    @memberships = @lounge.memberships.sort_by(&:created_at)
+    if params[:search].present
+      @memberships = Membership.search(params[:search])
+    else
+      @memberships = @lounge.memberships.sort_by(&:created_at)
+    end
   end
 
   def show; end
@@ -76,6 +80,6 @@ class MembershipsController < ApplicationController
   end
 
   def membership_params
-    params.require(:membership).permit(:active, :first_name, :last_name, :email, :phone_number, :lounge_id)
+    params.require(:membership).permit(:active, :first_name, :last_name, :email, :phone_number, :lounge_id, :search)
   end
 end
