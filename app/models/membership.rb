@@ -32,6 +32,6 @@ class Membership < ApplicationRecord
   validates :email, uniqueness: { scope: :lounge_id, message: 'has already been taken' }
 
   def self.search(search)
-    where(email: search) if search
+    where('email = ?', search) if search
   end
 end
