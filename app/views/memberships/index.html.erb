@@ -4,13 +4,19 @@
   <div class="container">
     <div class="row gy-4">
 
-      <h1>Memberships: <%= @memberships.count %></h1>
+      <h1>Total Memberships: <%= @memberships.page(1).per(10).total_count %></h1>
 
-      <div class="d-flex justify-content-start">
-        <%= form_tag(lounge_memberships_path(@lounge), method: :get) do %>
-          <%= text_field_tag(:search, params[:search]) %>
-          <%= submit_tag("Search" , class: "btn btn-warning") %>
-      <% end %>
+      <div class="d-flex bd-highlight mb-3">
+        <div class="p-2 bd-highlight">
+          <%= form_tag(lounge_memberships_path(@lounge), method: :get) do %>
+            <%= text_field_tag(:search, params[:search], placeholder: 'Email') %>
+            <%= submit_tag("Search" , class: "btn btn-warning") %>
+          <% end %>
+        </div>
+
+        <div class="ms-auto p-2 bd-highlight">
+          <%= link_to "New Membership", new_lounge_membership_path(@lounge), class: 'btn btn-warning' %>
+        </div>
       </div>
 
       <table class="table">
@@ -47,7 +53,9 @@
           <% end %>
         </tbody>
       </table>
-      <%= link_to "New Membership", new_lounge_membership_path(@lounge) %>
     </div>
+  </div>
+    <div class="d-flex justify-content-center">
+      <%= paginate @memberships %>
   </div>
 <section>
