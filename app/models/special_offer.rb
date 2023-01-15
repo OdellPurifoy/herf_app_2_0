@@ -37,7 +37,7 @@ class SpecialOffer < ApplicationRecord
   after_commit :cancel_follower_and_or_members, on: :destroy
 
   def self.search(search)
-    where('special_offer_type = ?', search) if search
+    where('special_offer_type = ?', search.titleize) if search
   end
 
   private
