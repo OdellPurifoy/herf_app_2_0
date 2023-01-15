@@ -1,14 +1,40 @@
 <p style="color: green"><%= notice %></p>
+<!-- ======= Special Offers Index Section ======= -->
+<section id="portfolio-details" class="portfolio-details" style="padding-top: 150px">
+  <div class="container">
+    <div class="row gy-4">
 
-<h1>Special offers</h1>
+    <h1>Special offers</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Type</th>
+          <th scope="col">Description</th>
+          <th scope="col">Start Date</th>
+          <th scope="col">End Date</th>
+          <th scope="col">Members Only?</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @special_offers.each do |special_offer| %>
+          <tr>
+            <td><%= special_offer.id %></td>
+            <td><%= special_offer.special_offer_type %></td>
+            <td><%= special_offer.description %></td>
+            <td><%= special_offer.start_date %></td>
+            <td><%= special_offer.end_date %></td>
+            <td><%= special_offer.members_only ? 'Yes' : 'No' %></td>
+            <td><%= button_to "Edit", "/special_offers/#{special_offer.id}/edit", method: :get, class: "btn btn-secondary" %></td>
+            <td><%= link_to "Delete", special_offer_path(special_offer), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<div id="special_offers">
-  <% @special_offers.each do |special_offer| %>
-    <%= render special_offer %>
-    <p>
-      <%= link_to "Show this special offer", special_offer %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New special offer", new_lounge_special_offer_path(@lounge) %>
+    <%= link_to "New special offer", new_lounge_special_offer_path(@lounge) %>
+    </div>
+  </div>
+</section>
