@@ -1,9 +1,10 @@
-<h1>Editing special offer</h1>
+<div class="pt-5 mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h1 class='mb-3'>Editing special offer</h1>
 
-<%= render "form", special_offer: @special_offer %>
-
-<br>
-
-<div>
-  <%= link_to "Back to special offers", lounge_special_offers_path(@special_offer.lounge) %>
+      <%= render "form", special_offer: @special_offer %>
+      <%= link_to "Back to special offers", lounge_special_offers_path(@special_offer.lounge) %>
+    </div>
+  </div>
 </div>

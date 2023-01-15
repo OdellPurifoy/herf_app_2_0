@@ -60,7 +60,7 @@ class SpecialOffer < ApplicationRecord
       updated_special_offer_text_for_members
     else
       update_followers
-      updated_special_offer_text_for_followers
+      update_special_offer_text_for_followers
     end
   end
 
@@ -81,7 +81,7 @@ class SpecialOffer < ApplicationRecord
   end
 
   def text_all_members(memberships, message)
-    members_phone_numbers = memberships.pluck(:phone_number).compact
+    members_phone_numbers = memberships.where(active: true).pluck(:phone_number).compact
 
     members_phone_numbers.each do |phone_number|
       TwilioClient.new.send_text(phone_number, message)
@@ -106,6 +106,12 @@ class SpecialOffer < ApplicationRecord
     return if lounge.memberships.empty?
 
     text_all_members(lounge.memberships, updated_special_offer_message)
+  end
+
+  def update_special_offer_text_for_followers
+    return if lounge.favoritors.empty?
+
+    text_all_favoritors(lounge.favoritors, updated_special_offer_message)
   end
 
   def cancelled_special_offer_text_for_members
@@ -156,7 +162,7 @@ class SpecialOffer < ApplicationRecord
   end
 
   def notify_members
-    lounge.memberships.each do |membership|
+    lounge.memberships.where(active: true).each do |membership|
       NewSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
     end
   end
@@ -170,7 +176,7 @@ class SpecialOffer < ApplicationRecord
   end
 
   def update_members
-    lounge.memberships.each do |membership|
+    lounge.memberships.where(active: true).each do |membership|
       UpdateSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
     end
   end
@@ -184,7 +190,7 @@ class SpecialOffer < ApplicationRecord
   end
 
   def cancellation_special_offer_members
-    lounge.memberships.each do |membership|
+    lounge.memberships.where(active: true).each do |membership|
       CancelledSpecialOfferMailer.with(membership: membership, special_offer: self).notify_members.deliver_later
     end
   end
