@@ -1,32 +1,16 @@
 <div id="<%= dom_id special_offer %>">
   <p>
-    <strong>Type:</strong>
-    <%= special_offer.special_offer_type %>
-  </p>
-
-  <p>
     <strong>Description:</strong>
     <%= special_offer.description %>
   </p>
 
   <p>
     <strong>Start date:</strong>
-    <%= special_offer.start_date %>
+    <%= special_offer.start_date.strftime('%b %e, %Y')%>
   </p>
 
   <p>
     <strong>End date:</strong>
-    <%= special_offer.end_date %>
+    <%= special_offer.end_date.strftime('%b %e, %Y') %>
   </p>
-
-  <p>
-    <strong>Members Only?:</strong>
-    <%= special_offer.members_only %>
-  </p>
-
-  <p>
-    <strong>Lounge:</strong>
-    <%= special_offer.lounge_id %>
-  </p>
-
 </div>

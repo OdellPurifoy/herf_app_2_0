@@ -1,9 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<section id="portfolio-details" class="portfolio-details" style="padding-top: 150px">
+  <div class="pt-5 mt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h2 class='mb-3'><%= "#{@special_offer.special_offer_type} special offer from #{@special_offer.lounge.name}" %></h2>
+        <p style="color: green"><%= notice %></p>
 
-<%= render @special_offer %>
+        <%= render @special_offer %>
 
-<div>
-  <%= link_to "Edit this special offer", edit_special_offer_path(@special_offer) %> |
-  <%= link_to "Back to special offers", lounge_special_offers_path(@special_offer.lounge) %>
-  <%= link_to "Delete", special_offer_path(@special_offer), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
-</div>
+        <div>
+          <% if user_signed_in? && current_user.id == @special_offer.lounge.user_id %>
+            <%= link_to "Edit this special offer", edit_special_offer_path(@special_offer) %> |
+            <%= link_to "Back to special offers", lounge_special_offers_path(@special_offer.lounge) %>
+            <%= link_to "Delete", special_offer_path(@special_offer), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
+          <% else %>
+            <%= link_to "Back to special offers", lounge_special_offers_path(@special_offer.lounge) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
