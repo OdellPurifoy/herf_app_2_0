@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row gy-4">
 
-    <h1>Total Special offers: <%= @special_offers.count %></h1>
+    <h1>Total Special offers: <%= @special_offers.page(1).per(10).total_count %></h1>
 
     <div class="d-flex bd-highlight mb-3">
       <div class="p-2 bd-highlight">
