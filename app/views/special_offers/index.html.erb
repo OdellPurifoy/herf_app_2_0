@@ -4,7 +4,21 @@
   <div class="container">
     <div class="row gy-4">
 
-    <h1>Special offers</h1>
+    <h1>Total Special offers: <%= @special_offers.count %></h1>
+
+    <div class="d-flex bd-highlight mb-3">
+      <div class="p-2 bd-highlight">
+        <%= form_tag(lounge_special_offers_path(@lounge), method: :get) do %>
+          <%= text_field_tag(:search, params[:search], placeholder: 'Type') %>
+          <%= submit_tag("Search" , class: "btn btn-warning") %>
+        <% end %>
+      </div>
+
+      <div class="ms-auto p-2 bd-highlight">
+        <%= link_to "New special offer", new_lounge_special_offer_path(@lounge), class: 'btn btn-warning' %>
+      </div>
+    </div>
+
     <table class="table">
       <thead>
         <tr>
@@ -34,7 +48,6 @@
       </tbody>
     </table>
 
-    <%= link_to "New special offer", new_lounge_special_offer_path(@lounge) %>
     </div>
   </div>
 </section>
