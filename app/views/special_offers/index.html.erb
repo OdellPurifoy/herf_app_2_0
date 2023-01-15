@@ -47,7 +47,11 @@
         <% end %>
       </tbody>
     </table>
-
     </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <% if @special_offers.count > 1 %>
+      <%= paginate @special_offers %>
+    <% end %>
   </div>
 </section>

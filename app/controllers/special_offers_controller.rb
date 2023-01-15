@@ -8,7 +8,7 @@ class SpecialOffersController < ApplicationController
     @special_offers = if params[:search].present?
                         SpecialOffer.search(params[:search])
                       else
-                        @lounge.special_offers.order(:created_at)
+                        @lounge.special_offers.order(:created_at).page(params[:page])
                       end
   end
 
