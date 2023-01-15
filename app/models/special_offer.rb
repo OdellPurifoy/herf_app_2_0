@@ -60,7 +60,7 @@ class SpecialOffer < ApplicationRecord
       updated_special_offer_text_for_members
     else
       update_followers
-      updated_special_offer_text_for_followers
+      update_special_offer_text_for_followers
     end
   end
 
@@ -106,6 +106,12 @@ class SpecialOffer < ApplicationRecord
     return if lounge.memberships.empty?
 
     text_all_members(lounge.memberships, updated_special_offer_message)
+  end
+
+  def update_special_offer_text_for_followers
+    return if lounge.favoritors.empty?
+
+    text_all_favoritors(lounge.favoritors, updated_special_offer_message)
   end
 
   def cancelled_special_offer_text_for_members
