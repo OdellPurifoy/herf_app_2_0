@@ -36,6 +36,10 @@ class SpecialOffer < ApplicationRecord
   after_commit :update_followers_and_or_members, on: :update
   after_commit :cancel_follower_and_or_members, on: :destroy
 
+  def self.search(search)
+    where('special_offer_type = ?', search) if search
+  end
+
   private
 
   def notify_followers_and_or_members
