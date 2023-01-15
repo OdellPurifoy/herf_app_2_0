@@ -5,7 +5,11 @@ class SpecialOffersController < ApplicationController
   before_action :set_lounge, only: %i[index new create]
 
   def index
-    @special_offers = @lounge.special_offers
+    @special_offers = if params[:search].present?
+                        SpecialOffer.search(params[:search]).order(created_at: :desc).page(params[:page])
+                      else
+                        @lounge.special_offers.order(created_at: :desc).page(params[:page])
+                      end
   end
 
   def show; end
@@ -62,6 +66,7 @@ class SpecialOffersController < ApplicationController
   end
 
   def special_offer_params
-    params.require(:special_offer).permit(:special_offer_type, :description, :flyer, :members_only, :start_date, :end_date, :lounge_id)
+    params.require(:special_offer).permit(:special_offer_type, :description, :flyer, :members_only, :start_date,
+                                          :end_date, :lounge_id, :search)
   end
 end
