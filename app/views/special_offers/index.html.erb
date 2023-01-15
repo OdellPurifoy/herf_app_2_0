@@ -24,8 +24,8 @@
             <td><%= special_offer.id %></td>
             <td><%= special_offer.special_offer_type %></td>
             <td><%= special_offer.description %></td>
-            <td><%= special_offer.start_date %></td>
-            <td><%= special_offer.end_date %></td>
+            <td><%= special_offer.start_date.strftime('%b %e, %Y') %></td>
+            <td><%= special_offer.end_date.strftime('%b %e, %Y') %></td>
             <td><%= special_offer.members_only ? 'Yes' : 'No' %></td>
             <td><%= button_to "Edit", "/special_offers/#{special_offer.id}/edit", method: :get, class: "btn btn-secondary" %></td>
             <td><%= link_to "Delete", special_offer_path(special_offer), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %></td>
