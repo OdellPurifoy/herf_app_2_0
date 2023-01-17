@@ -129,22 +129,22 @@ class SpecialOffer < ApplicationRecord
   def new_special_offer_message_for_members
     %(New Members Only #{special_offer_type} special offer from #{lounge.name}!
       Here are the details: #{description}
-      Begins: #{start_date}
-      Ends: #{end_date})
+      Begins: #{start_date.strftime('%b %e, %Y')}
+      Ends: #{end_date.strftime('%b %e, %Y')})
   end
 
   def new_special_offer_message_for_followers
     %(New #{special_offer_type} special offer from #{lounge.name}!
       Here are the details: #{description}
-      Begins: #{start_date}
-      Ends: #{end_date})
+      Begins: #{start_date.strftime('%b %e, %Y')}
+      Ends: #{end_date.strftime('%b %e, %Y')})
   end
 
   def updated_special_offer_message
     %(The #{special_offer_type} special offer from #{lounge.name} has been updated.
       Here are the latest details: #{description}
-      Begins: #{start_date}
-      Ends: #{end_date})
+      Begins: #{start_date.strftime('%b %e, %Y')}
+      Ends: #{end_date.strftime('%b %e, %Y')})
   end
 
   def cancelled_special_offer_message
