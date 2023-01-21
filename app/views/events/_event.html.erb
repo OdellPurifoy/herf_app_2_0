@@ -8,7 +8,7 @@
               <div class="pic"><%= image_tag 'herf_cover.jpg', size: "100x100" %></div>
               <div class="member-info">
                 <h4><%= event.name %></h4>
-                <span><%= event.event_type %> | <%= event.event_date.strftime("%b %e, %Y") %> | <%= event.start_time %> - <%= event.end_time %></span>
+                <span><%= event.event_type %> | <%= event.event_date.strftime("%b %e, %Y") %> | <%= event.start_time.strftime('%l:%M %P') %> - <%= event.end_time.strftime('%l:%M %P') %></span>
                 <p><%= event.event_description %></p>
                 <div class="pt-3">
                   <% if user_signed_in? && current_user.id == event.lounge.user_id %>
