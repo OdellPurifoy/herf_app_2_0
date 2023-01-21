@@ -81,4 +81,6 @@ class Lounge < ApplicationRecord
   scope :featured, -> { where(featured: true) }
 
   acts_as_favoritable
+
+  paginates_per 10
 end
