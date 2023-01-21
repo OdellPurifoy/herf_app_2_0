@@ -5,7 +5,7 @@ class LoungesController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @lounges = Lounge.all
+    @lounges = Lounge.all.order(:created_at).page(params[:page])
   end
 
   def show; end

@@ -1,133 +1,125 @@
-<div class="pt-5 mt-5">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <h2 class="mb-3">Lounge Details</h2>
+<%= bootstrap_form_for(@lounge) do |form| %>
+  <% if lounge.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(lounge.errors.count, "error") %> prohibited this lounge from being saved:</h2>
 
-      <%= bootstrap_form_for(@lounge) do |form| %>
-        <% if lounge.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(lounge.errors.count, "error") %> prohibited this lounge from being saved:</h2>
-
-              <ul>
-                <% lounge.errors.each do |error| %>
-                  <li><%= error.full_message %></li>
-                <% end %>
-              </ul>
-            </div>
+        <ul>
+          <% lounge.errors.each do |error| %>
+            <li><%= error.full_message %></li>
           <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-          <div class="field">
-            <div class="control">
-              <%= form.text_field :name %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.text_field :address_street_1 %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.text_field :address_street_2 %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.select :state, CS.states(:us).invert, { prompt: "Select a state" } %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.text_field :city %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.text_field :zip_code %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.email_field :email %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.telephone_field :phone %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.select :weekday_opening_hour, Lounge::AM_HOURS_DISPLAY %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.select :weekday_closing_hour, Lounge::PM_HOURS_DISPLAY %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.select :weekend_opening_hour, Lounge::AM_HOURS_DISPLAY %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.select :weekend_closing_hour, Lounge::PM_HOURS_DISPLAY %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.select :time_zone, Lounge::TIME_ZONES %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.text_area :details, placeholder: "Tell us about your lounge." %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.check_box :outside_drinks_allowed  %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.check_box :outside_cigars_allowed %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.file_field :logo %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.file_field :images, multiple: true, direct_upload: true %>
-            </div>
-          </div>
-
-          <div class="field">
-            <%= form.submit "Save" %>
-          </div>
-        <% end %>
+    <div class="field">
+      <div class="control">
+        <%= form.text_field :name %>
+      </div>
     </div>
-  </div>
-</div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.text_field :address_street_1 %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.text_field :address_street_2 %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.select :state, CS.states(:us).invert, { prompt: "Select a state" } %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.text_field :city %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.text_field :zip_code %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.email_field :email %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.telephone_field :phone %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.select :weekday_opening_hour, Lounge::AM_HOURS_DISPLAY %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.select :weekday_closing_hour, Lounge::PM_HOURS_DISPLAY %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.select :weekend_opening_hour, Lounge::AM_HOURS_DISPLAY %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.select :weekend_closing_hour, Lounge::PM_HOURS_DISPLAY %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.select :time_zone, Lounge::TIME_ZONES %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.text_area :details, placeholder: "Tell us about your lounge." %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.check_box :outside_drinks_allowed  %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.check_box :outside_cigars_allowed %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.file_field :logo %>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <%= form.file_field :images, multiple: true, direct_upload: true %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= form.submit "Save" %>
+    </div>
+  <% end %>

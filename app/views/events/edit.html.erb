@@ -1,9 +1,11 @@
-<h1 class="is-size-3 pb-3">Editing <%= @event.name%></h1>
+<div class="pt-5 mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h2 class="mb-3">Editing <%= @event.name%></h2>
 
-<%= render "form", event: @event %>
-
-<br>
-
-<div>
-  <%= link_to "Back to events", lounge_events_path(@event.lounge) %>
+      <%= render "form", event: @event %>
+      <%= link_to "Back to events", lounge_events_path(@event.lounge) %>
+    </div>
+  </div>
 </div>
+

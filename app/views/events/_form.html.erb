@@ -1,87 +1,80 @@
-<div class="pt-5 mt-5">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <h2 class="mb-3">Event Details</h2>
-        <%= bootstrap_form_with(model: [@lounge, event]) do |form| %>
-          <% if event.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+<%= bootstrap_form_with(model: [@lounge, event]) do |form| %>
+  <% if event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
-              <ul>
-                <% event.errors.each do |error| %>
-                  <li><%= error.full_message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-        
-          <div class="field">
-            <div class="control">
-              <%= form.text_field :name %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.date_field :event_date, min: Date.today %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.select :event_type, Event::TYPES %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.time_field :start_time %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.time_field :end_time %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.number_field :maximum_capacity, in: 1..100, step: 1 %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.text_area :event_description %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.file_field :flyer %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.check_box :members_only %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= form.url_field :event_url, placeholder: "https://www.example.com" %>
-            </div>
-          </div>
-
-          <div class="control">
-            <div class="actions">
-              <%= form.submit %>
-            </div>
-          </div>
+      <ul>
+        <% event.errors.each do |error| %>
+          <li><%= error.full_message %></li>
         <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class="control">
+      <%= form.text_field :name %>
     </div>
   </div>
-</div>
+
+  <div class="field">
+    <div class="control">
+      <%= form.date_field :event_date, min: Date.today %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= form.select :event_type, Event::TYPES %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= form.time_field :start_time %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= form.time_field :end_time %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= form.number_field :maximum_capacity, in: 1..100, step: 1 %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= form.text_area :event_description %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= form.file_field :flyer %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= form.check_box :members_only %>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= form.url_field :event_url, placeholder: "https://www.example.com" %>
+    </div>
+  </div>
+
+  <div class="control">
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  </div>
+<% end %>
 

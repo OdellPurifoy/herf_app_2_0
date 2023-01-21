@@ -1,14 +1,19 @@
-<p style="color: green"><%= notice %></p>
+<div class="pt-5 mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <p style="color: green"><%= notice %></p>
 
-<h1>Lounges</h1>
+      <h1>Lounges</h1>
 
-<div id="lounges">
-  <% @lounges.each do |lounge| %>
-    <%= render lounge %>
-    <p>
-      <%= link_to "Show this lounge", lounge %>
-    </p>
-  <% end %>
+      <div id="lounges">
+        <% @lounges.each do |lounge| %>
+          <%= render lounge %>
+          <p>
+            <%= link_to "Show this lounge", lounge %>
+          </p>
+        <% end %>
+      </div>
+        <%= paginate @lounges %>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New lounge", new_lounge_path %>
