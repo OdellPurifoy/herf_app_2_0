@@ -1,9 +1,9 @@
-<div class="columns">
-  <div class="column is-half is-offset-one-quarter">
-    <%= render "form", event: @event %>
+<div class="pt-5 mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <%= render "form", event: @event %>
 
-    <div>
-        <%= link_to "Back to Events", lounge_events_path(@lounge) %>
+      <%= link_to "Back to Events", lounge_events_path(@lounge) %>
     </div>
   </div>
 </div>
