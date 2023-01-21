@@ -1,12 +1,16 @@
-<div class="pt-5 mt-5">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <p style="color: green"><%= notice %></p>
-      <%= render @membership %>
+<section id="portfolio-details" class="portfolio-details" style="padding-top: 220px">
+  <div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <p style="color: green"><%= notice %></p>
+        <h2 class="mb-3"><%= "Member: #{@membership.first_name} #{@membership.last_name}" %></h2>
 
-      <%= link_to "Edit this membership", edit_membership_path(@membership) %> |
-      <%= link_to "Back to memberships", lounge_memberships_path(@membership.lounge) %> |
-      <%= link_to "Delete", membership_path(@membership), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
+        <%= render @membership %>
+
+        <%= link_to "Edit this membership", edit_membership_path(@membership) %> |
+        <%= link_to "Back to memberships", lounge_memberships_path(@membership.lounge) %> |
+        <%= link_to "Delete", membership_path(@membership), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "button is-primary is-light card-footer-item" %>
+      </div>
     </div>
   </div>
-</div>
+</section>
