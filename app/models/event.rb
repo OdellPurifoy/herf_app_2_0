@@ -52,6 +52,16 @@ class Event < ApplicationRecord
   paginates_per 10
 
   private
+  
+  def add_to_calendar
+    cal = AddToCalendar::URLs.new(
+      start_datetime: Time.new(e.event_date.year, e.event_date.month, e.event_date.day),
+      title: "#{e.name}", 
+      timezone: 'America/New_York',
+      location: "#{lounge.address_street_1}, #{lounge.city}, #{lounge.state}, #{lounge.zip_code}",
+      description: "#{e.event_description}"
+    )
+  end
 
   def notify_followers_and_or_members
     if members_only?
@@ -226,9 +236,9 @@ class Event < ApplicationRecord
       hosted by #{lounge.name}!
       Here are the details:
       Event: #{name}
-      Date: #{event_date}
-      Start Time: #{start_time}
-      End Time: #{end_time}
+      Date: #{event_date.strftime('%b %e, %Y')}
+      Start Time: #{start_time.strftime('%l:%M %P')}
+      End Time: #{end_time.strftime('%l:%M %P')}
       Location: #{lounge.address_street_1}, #{lounge.city}, #{lounge.state}, #{lounge.zip_code}
       Phone: #{lounge.phone})
   end
@@ -237,9 +247,9 @@ class Event < ApplicationRecord
     %(The #{name} event, hosted by #{lounge.name} has been updated.
       Here are the latest details:
       Event: #{name}
-      Date: #{event_date}
-      Start Time: #{start_time}
-      End Time: #{end_time}
+      Date: #{event_date.strftime('%b %e, %Y')}
+      Start Time: #{start_time.strftime('%l:%M %P')}
+      End Time: #{end_time.strftime('%l:%M %P')}
       Location: #{lounge.address_street_1}, #{lounge.city}, #{lounge.state}, #{lounge.zip_code}
       Phone: #{lounge.phone})
   end
@@ -255,9 +265,9 @@ class Event < ApplicationRecord
       #{name} event, hosted by #{lounge.name}!
       Here are the latest details:
       Event: #{name}
-      Date: #{event_date}
-      Start Time: #{start_time}
-      End Time: #{end_time}
+      Date: #{event_date.strftime('%b %e, %Y')}
+      Start Time: #{start_time.strftime('%l:%M %P')}
+      End Time: #{end_time.strftime('%l:%M %P')}
       Location: #{lounge.address_street_1}, #{event.lounge.city}, #{event.lounge.state}, #{event.lounge.zip_code}
       Phone: #{lounge.phone})
   end
