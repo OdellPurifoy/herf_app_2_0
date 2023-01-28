@@ -121,7 +121,7 @@ class Event < ApplicationRecord
     return if lounge.favoritors.empty?
 
     lounge.favoritors.each do |favoritor|
-      UpdatedEventNotificationMailer.with(favoritor: favoritor, event: self).update_notify_followers.deliver_later
+      UpdatedEventNotificationMailer.with(favoritor: favoritor, event: self, calendar_url: CalendarUrlSerivce.new(self).calendar.google_url).update_notify_followers.deliver_later
     end
   end
 
@@ -226,9 +226,9 @@ class Event < ApplicationRecord
       hosted by #{lounge.name}!
       Here are the details:
       Event: #{name}
-      Date: #{event_date}
-      Start Time: #{start_time}
-      End Time: #{end_time}
+      Date: #{event_date.strftime('%b %e, %Y')}
+      Start Time: #{start_time.strftime('%l:%M %P')}
+      End Time: #{end_time.strftime('%l:%M %P')}
       Location: #{lounge.address_street_1}, #{lounge.city}, #{lounge.state}, #{lounge.zip_code}
       Phone: #{lounge.phone})
   end
@@ -237,9 +237,9 @@ class Event < ApplicationRecord
     %(The #{name} event, hosted by #{lounge.name} has been updated.
       Here are the latest details:
       Event: #{name}
-      Date: #{event_date}
-      Start Time: #{start_time}
-      End Time: #{end_time}
+      Date: #{event_date.strftime('%b %e, %Y')}
+      Start Time: #{start_time.strftime('%l:%M %P')}
+      End Time: #{end_time.strftime('%l:%M %P')}
       Location: #{lounge.address_street_1}, #{lounge.city}, #{lounge.state}, #{lounge.zip_code}
       Phone: #{lounge.phone})
   end
@@ -255,9 +255,9 @@ class Event < ApplicationRecord
       #{name} event, hosted by #{lounge.name}!
       Here are the latest details:
       Event: #{name}
-      Date: #{event_date}
-      Start Time: #{start_time}
-      End Time: #{end_time}
+      Date: #{event_date.strftime('%b %e, %Y')}
+      Start Time: #{start_time.strftime('%l:%M %P')}
+      End Time: #{end_time.strftime('%l:%M %P')}
       Location: #{lounge.address_street_1}, #{event.lounge.city}, #{event.lounge.state}, #{event.lounge.zip_code}
       Phone: #{lounge.phone})
   end

@@ -9,5 +9,7 @@
 <%= @event.lounge.name %> has updated <%= @event.name %> !
 
 <p>
- <%= @event.description %>
+ <%= @event.event_description %>
 </p>
+
+<a href="<%= @calendar_url %>">Add to Google Calendar</a>
