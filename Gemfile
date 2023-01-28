@@ -4,7 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.7.5"
 
 gem 'acts_as_favoritor'
-gem 'add_to_calendar'
 gem 'bootstrap', '~> 5.2', '>= 5.2.3'
 gem "bootstrap_form", "~> 5.1"
 gem 'city-state', '~> 0.1.0'
