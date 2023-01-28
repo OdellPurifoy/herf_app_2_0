@@ -3,7 +3,7 @@
 # Preview all emails at http://localhost:3000/rails/mailers/updated_event_notification/update_notify_followers
 class UpdatedEventNotificationPreview < ActionMailer::Preview
   def cancel_notify_members
-    CancelledEventNotificationMailer.with(membership: membership, event: Event.last).cancel_notify_members
+    CancelledEventNotificationMailer.with(membership: membership, event: event).cancel_notify_members
   end
 
   def update_notify_followers

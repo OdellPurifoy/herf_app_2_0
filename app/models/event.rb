@@ -121,7 +121,7 @@ class Event < ApplicationRecord
     return if lounge.favoritors.empty?
 
     lounge.favoritors.each do |favoritor|
-      UpdatedEventNotificationMailer.with(favoritor: favoritor, event: self).update_notify_followers.deliver_later
+      UpdatedEventNotificationMailer.with(favoritor: favoritor, event: self, calendar_url: CalendarUrlSerivce.new(self).calendar.google_url).update_notify_followers.deliver_later
     end
   end
 
