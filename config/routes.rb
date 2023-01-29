@@ -1,13 +1,15 @@
-require "resque/server"
+# frozen_string_literal: true
+
+require 'resque/server'
 
 Rails.application.routes.draw do
-  root "home#index"
+  root 'home#index'
   devise_for :users
   devise_scope :user do
     # Redirects signing out users back to sign-in
-    get "users", to: "devise/sessions#new"
+    get 'users', to: 'devise/sessions#new'
   end
-  
+
   resources :lounges do
     resources :events, shallow: true
     resources :memberships, shallow: true
@@ -20,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :lounges, only: :index do
     member do
-      post 'toggle_favorite', to: "lounges#toggle_favorite"
+      post 'toggle_favorite', to: 'lounges#toggle_favorite'
     end
   end
 
@@ -38,9 +40,11 @@ Rails.application.routes.draw do
     end
   end
 
-  authenticate :user, -> (u) { u.admin? } do
+  authenticate :user, ->(u) { u.admin? } do
     mount Resque::Server.new, at: '/jobs'
   end
 
-  get 'my_lounges', to: "lounges#my_lounges"
+  get 'my_lounges', to: 'lounges#my_lounges'
+  get 'checkout', to: 'checkouts#show'
+  get 'checkout/success', to: 'checkouts#success'
 end
