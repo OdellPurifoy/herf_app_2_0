@@ -1,0 +1,11 @@
+<section id="portfolio-details" class="portfolio-details" style="padding-top: 220px">
+  <div>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h1>Checkout!</h1>
+
+        <%= render partial: 'pay/stripe/checkout_button', locals: { session: @checkout_session, title: 'Checkout' } %>
+      </div>
+    </div>
+  </div>
+</section>

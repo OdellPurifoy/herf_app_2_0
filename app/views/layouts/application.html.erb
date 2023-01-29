@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://js.stripe.com/v3"></script>
   </head>
 
   <body>
@@ -26,17 +27,17 @@
             <%= link_to 'Notifications', '#' %>
             <%= link_to 'Profile', edit_user_registration_path %>
             <%= link_to "Log Out", destroy_user_session_path %>
-            <li><a href="#" class="getstarted">Get Started</a></li>
+            <%= link_to "Manage Subscription", checkout_path, class: 'getstarted' %>
           <% elsif user_signed_in?  %>
             <%= link_to 'Create Lounge', new_lounge_path %>
             <%= link_to 'Notifications', '#' %>
             <%= link_to 'Profile', edit_user_registration_path %>
             <%= link_to "Log Out", destroy_user_session_path %>
-            <li><a href="#" class="getstarted">Get Started</a></li>
+            <%= link_to "Subscribe", checkout_path, class: 'getstarted' %>
           <% else %>
             <%= link_to "Sign Up", new_user_registration_path %>
             <%= link_to "Log In", new_user_session_path %>            
-            <li><a href="#" class="getstarted">Get Started</a></li>
+            <%= link_to "Subscribe", checkout_path, class: 'getstarted' %>
           <% end %>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
