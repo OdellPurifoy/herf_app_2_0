@@ -16,5 +16,8 @@ class CheckoutsController < ApplicationController
                         )
   end
 
-  def success; end
+  def success
+    @session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    @line_items = Stripe::Checkout::Session.list_line_items(params[:session_id])
+  end
 end
