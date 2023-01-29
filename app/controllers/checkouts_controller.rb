@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class CheckoutsController < ApplicationController
-  def show; end
+  before_action :authenticate_user!
+
+  def show
+    current_user.set_payment_processor
+  end
 
   def success; end
 end
