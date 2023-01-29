@@ -6,6 +6,8 @@
 #
 #  id                     :bigint           not null, primary key
 #  admin                  :boolean          default(FALSE)
+#  city                   :string
+#  country                :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
