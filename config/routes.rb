@@ -47,4 +47,5 @@ Rails.application.routes.draw do
   get 'my_lounges', to: 'lounges#my_lounges'
   get 'checkout', to: 'checkouts#show'
   get 'checkout/success', to: 'checkouts#success'
+  get 'billing', to: 'billing#show'
 end
