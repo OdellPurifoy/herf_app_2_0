@@ -25,18 +25,20 @@ Rails.application.routes.draw do
       post 'toggle_favorite', to: 'lounges#toggle_favorite'
     end
   end
+  
+  resources :memberships do
+    member do
+      post :activate
+      post :deactivate
+    end
+  end
+
+  resources :price_listings, only: :index
 
   resources :rsvps do
     member do
       patch :mark_attended
       patch :mark_unattended
-    end
-  end
-
-  resources :memberships do
-    member do
-      post :activate
-      post :deactivate
     end
   end
 

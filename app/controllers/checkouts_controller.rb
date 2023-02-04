@@ -10,7 +10,7 @@ class CheckoutsController < ApplicationController
     @checkout_session = current_user
                         .payment_processor
                         .checkout(
-                          mode: 'payment',
+                          mode: 'subscription',
                           line_items: 'price_1MVPexJ7HwUPnCdqrojvu2lZ',
                           success_url: checkout_success_url
                         )
