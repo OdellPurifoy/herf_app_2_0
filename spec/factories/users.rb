@@ -40,5 +40,8 @@ FactoryBot.define do
     username { Faker::Internet.username }
     password { Faker::Internet.password }
     phone_number { '9008007000' }
+    subscription_status { 'Active' }
+    subscription_start_date { DateTime.now }
+    subscription_end_date { DateTime.now + 30.days }
   end
 end
