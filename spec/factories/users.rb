@@ -4,21 +4,24 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
-#  admin                  :boolean          default(FALSE)
-#  city                   :string
-#  country                :string
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  first_name             :string           not null
-#  last_name              :string           not null
-#  phone_number           :string
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  username               :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id                      :bigint           not null, primary key
+#  admin                   :boolean          default(FALSE)
+#  city                    :string
+#  country                 :string
+#  email                   :string           default(""), not null
+#  encrypted_password      :string           default(""), not null
+#  first_name              :string           not null
+#  last_name               :string           not null
+#  phone_number            :string
+#  remember_created_at     :datetime
+#  reset_password_sent_at  :datetime
+#  reset_password_token    :string
+#  subscription_end_date   :datetime
+#  subscription_start_date :datetime
+#  subscription_status     :string
+#  username                :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #
 # Indexes
 #
@@ -37,5 +40,8 @@ FactoryBot.define do
     username { Faker::Internet.username }
     password { Faker::Internet.password }
     phone_number { '9008007000' }
+    subscription_status { 'Active' }
+    subscription_start_date { DateTime.now }
+    subscription_end_date { DateTime.now + 30.days }
   end
 end
