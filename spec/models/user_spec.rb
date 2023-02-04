@@ -40,6 +40,9 @@ RSpec.describe User, type: :model do
     it { should have_db_column(:first_name).of_type(:string) }
     it { should have_db_column(:last_name).of_type(:string) }
     it { should have_db_column(:phone_number).of_type(:string) }
+    it { should have_db_column(:subscription_status).of_type(:string) }
+    it { should have_db_column(:subscription_start_date).of_type(:datetime) }
+    it { should have_db_column(:subscription_end_date).of_type(:datetime) }
     it { should have_db_column(:username).of_type(:string) }
   end
 
