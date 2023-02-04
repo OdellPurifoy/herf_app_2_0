@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module SubcriptionConern
-  extends ActiveSupport::Concern
+module SubscriptionConcern
+  extend ActiveSupport::Concern
 
   included do
     def check_subscription_status
