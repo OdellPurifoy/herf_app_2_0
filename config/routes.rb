@@ -43,4 +43,5 @@ Rails.application.routes.draw do
   end
 
   get 'my_lounges', to: "lounges#my_lounges"
+  get 'pricing', to: "price_listings#pricing"
 end
