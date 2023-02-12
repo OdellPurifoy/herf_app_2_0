@@ -1,4 +1,5 @@
+# frozen_string_literal: true
+
 class PriceListingsController < ApplicationController
-  def pricing
-  end
+  def pricing; end
 end
