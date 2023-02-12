@@ -21,39 +21,73 @@
           <div class="row">
             <div class="d-flex justify-content-center">
 
-            <div class="col-lg-6 col-md-12">
-              <div class="box">
-                <h3>Email</h3>
-                <h4><sup>$</sup>25<span> / month</span></h4>
-                <ul>
-                  <li>Aida dere</li>
-                  <li>Nec feugiat nisl</li>
-                  <li>Nulla at volutpat dola</li>
-                  <li class="na">Pharetra massa</li>
-                  <li class="na">Massa ultricies mi</li>
-                </ul>
-                <div class="btn-wrap">
-                  <a href="#" class="btn-buy">Subscribe</a>
-                </div>
-              </div>
-            </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="box">
+                  <h3>Email</h3>
+                  <h4><sup>$</sup>25<span> / month</span></h4>
+                  <ul>
+                    <li>Aida dere</li>
+                    <li>Nec feugiat nisl</li>
+                    <li>Nulla at volutpat dola</li>
+                    <li class="na">Pharetra massa</li>
+                    <li class="na">Massa ultricies mi</li>
+                  </ul>
+                  <div class="btn-wrap">
+                    <div class="d-flex justify-content-center">
+                      <% if user_signed_in? %>
+                        <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
+                          <input type="hidden" name="price_id" value="price_1MZkF3J7HwUPnCdq7G6vIEca" />
+                          <input type="submit" value="Monthly" class="btn-buy" />
+                        <% end %>
 
-            <div class="col-lg-6 col-md-12">
-              <div class="box">
-                <h3>Email & Text</h3>
-                <h4><sup>$</sup>32<span> / month</span></h4>
-                <ul>
-                  <li>Aida dere</li>
-                  <li>Nec feugiat nisl</li>
-                  <li>Nulla at volutpat dola</li>
-                  <li>Pharetra massa</li>
-                  <li class="na">Massa ultricies mi</li>
-                </ul>
-                <div class="btn-wrap">
-                  <a href="#" class="btn-buy">Subscribe</a>
+                        <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
+                          <input type="hidden" name="price_id" value="price_1Ma6pHJ7HwUPnCdqRAjxe9bI" />
+                          <input type="submit" value="Yearly" class="btn-buy pl-5" />
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <div class="d-flex justify-content-center">
+                        <%= link_to "Monthly", new_user_registration_path, class: "btn-buy" %>
+                        <%= link_to "Yearly", new_user_registration_path, class: "btn-buy" %>
+                      </div>
+                    <% end %>
+                  </div>
                 </div>
               </div>
-            </div>
+
+              <div class="col-lg-6 col-md-12">
+                <div class="box">
+                  <h3>Email & Text</h3>
+                  <h4><sup>$</sup>32<span> / month</span></h4>
+                  <ul>
+                    <li>Aida dere</li>
+                    <li>Nec feugiat nisl</li>
+                    <li>Nulla at volutpat dola</li>
+                    <li>Pharetra massa</li>
+                    <li class="na">Massa ultricies mi</li>
+                  </ul>
+                  <div class="btn-wrap">
+                    <div class="d-flex justify-content-center">
+                      <% if user_signed_in? %>
+                        <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
+                          <input type="hidden" name="price_id" value="price_1MZkF3J7HwUPnCdq7G6vIEca" />
+                          <input type="submit" value="Monthly" class="btn-buy" />
+                        <% end %>
+
+                        <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
+                          <input type="hidden" name="price_id" value="price_1Ma6pHJ7HwUPnCdqRAjxe9bI" />
+                          <input type="submit" value="Yearly" class="btn-buy pl-5" />
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <div class="d-flex justify-content-center">
+                        <%= link_to "Monthly", new_user_registration_path, class: "btn-buy" %>
+                        <%= link_to "Yearly", new_user_registration_path, class: "btn-buy" %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
           </div>
         </div>
       </div>
