@@ -4,24 +4,22 @@
 #
 # Table name: users
 #
-#  id                      :bigint           not null, primary key
-#  admin                   :boolean          default(FALSE)
-#  city                    :string
-#  country                 :string
-#  email                   :string           default(""), not null
-#  encrypted_password      :string           default(""), not null
-#  first_name              :string           not null
-#  last_name               :string           not null
-#  phone_number            :string
-#  remember_created_at     :datetime
-#  reset_password_sent_at  :datetime
-#  reset_password_token    :string
-#  subscription_end_date   :datetime
-#  subscription_start_date :datetime
-#  subscription_status     :string
-#  username                :string
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
+#  id                     :bigint           not null, primary key
+#  admin                  :boolean          default(FALSE)
+#  city                   :string
+#  country                :string
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  first_name             :string           not null
+#  last_name              :string           not null
+#  phone_number           :string
+#  remember_created_at    :datetime
+#  reset_password_sent_at :datetime
+#  reset_password_token   :string
+#  username               :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  customer_id            :string
 #
 # Indexes
 #
@@ -42,6 +40,7 @@ class User < ApplicationRecord
   has_many :events, through: :lounges
   has_many :memberships, dependent: :destroy
   has_many :rsvps, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy #TODO - add callback to check Stripe API to ensure subsription is destroyed.
 
   pay_customer stripe_attributes: :stripe_attributes
 

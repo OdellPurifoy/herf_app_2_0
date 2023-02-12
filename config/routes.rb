@@ -42,12 +42,16 @@ Rails.application.routes.draw do
     end
   end
 
-  authenticate :user, ->(u) { u.admin? } do
+  resources :subscriptions
+
+  namespace :purchase do
+    resources :checkouts
+  end
+
+  authenticate :user, -> (u) { u.admin? } do
     mount Resque::Server.new, at: '/jobs'
   end
 
-  get 'my_lounges', to: 'lounges#my_lounges'
-  get 'checkout', to: 'checkouts#show'
-  get 'checkout/success', to: 'checkouts#success'
-  get 'billing', to: 'billing#show'
+  get 'my_lounges', to: "lounges#my_lounges"
+  get 'pricing', to: "price_listings#pricing"
 end
