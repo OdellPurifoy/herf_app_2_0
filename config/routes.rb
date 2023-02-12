@@ -38,6 +38,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :subscriptions
+
+  namespace :purchase do
+    resources :checkouts
+  end
+
   authenticate :user, -> (u) { u.admin? } do
     mount Resque::Server.new, at: '/jobs'
   end
