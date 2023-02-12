@@ -39,6 +39,7 @@ class User < ApplicationRecord
   has_many :events, through: :lounges
   has_many :memberships, dependent: :destroy
   has_many :rsvps, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy #TODO - add callback to check Stripe API to ensure subsription is destroyed.
 
   # Fix this crappy validation
   # validates :phone_number, phone: { possible: true }
