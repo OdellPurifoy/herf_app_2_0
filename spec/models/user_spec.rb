@@ -31,11 +31,16 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'Database columns' do
     it { should have_db_column(:admin).of_type(:boolean) }
+    it { should have_db_column(:city).of_type(:string) }
+    it { should have_db_column(:country).of_type(:string) }
     it { should have_db_column(:email).of_type(:string) }
     it { should have_db_column(:encrypted_password).of_type(:string) }
     it { should have_db_column(:first_name).of_type(:string) }
     it { should have_db_column(:last_name).of_type(:string) }
     it { should have_db_column(:phone_number).of_type(:string) }
+    it { should have_db_column(:subscription_status).of_type(:string) }
+    it { should have_db_column(:subscription_start_date).of_type(:datetime) }
+    it { should have_db_column(:subscription_end_date).of_type(:datetime) }
     it { should have_db_column(:username).of_type(:string) }
   end
 

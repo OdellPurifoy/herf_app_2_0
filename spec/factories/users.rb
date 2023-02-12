@@ -20,6 +20,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  customer_id            :string
+
 #
 # Indexes
 #
@@ -32,9 +33,14 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     first_name { Faker::Name.first_name }
+    city { Faker::Address.city } #=> "Imogeneborough"
+    country { 'United States' }
     last_name { Faker::Name.last_name }
     username { Faker::Internet.username }
     password { Faker::Internet.password }
     phone_number { '9008007000' }
+    subscription_status { 'Active' }
+    subscription_start_date { DateTime.now }
+    subscription_end_date { DateTime.now + 30.days }
   end
 end

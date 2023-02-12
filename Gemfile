@@ -14,6 +14,7 @@ gem 'friendly_id', '~> 5.4.0'
 gem "font-awesome-sass", "~> 6.1.1"
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'pay', '~> 6.3', '>= 6.3.1'
 gem 'phonelib', '~> 0.7.4'
 gem 'resque', '~> 2.4'
 gem 'rubocop', require: false

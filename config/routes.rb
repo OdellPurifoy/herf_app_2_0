@@ -1,13 +1,15 @@
-require "resque/server"
+# frozen_string_literal: true
+
+require 'resque/server'
 
 Rails.application.routes.draw do
-  root "home#index"
+  root 'home#index'
   devise_for :users
   devise_scope :user do
     # Redirects signing out users back to sign-in
-    get "users", to: "devise/sessions#new"
+    get 'users', to: 'devise/sessions#new'
   end
-  
+
   resources :lounges do
     resources :events, shallow: true
     resources :memberships, shallow: true
@@ -20,21 +22,23 @@ Rails.application.routes.draw do
 
   resources :lounges, only: :index do
     member do
-      post 'toggle_favorite', to: "lounges#toggle_favorite"
+      post 'toggle_favorite', to: 'lounges#toggle_favorite'
     end
   end
+  
+  resources :memberships do
+    member do
+      post :activate
+      post :deactivate
+    end
+  end
+
+  resources :price_listings, only: :index
 
   resources :rsvps do
     member do
       patch :mark_attended
       patch :mark_unattended
-    end
-  end
-
-  resources :memberships do
-    member do
-      post :activate
-      post :deactivate
     end
   end
 

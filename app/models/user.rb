@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -25,11 +27,12 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  include SubscriptionConcern
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, 
+  devise :database_authenticatable,
          :registerable,
-         :recoverable, 
+         :recoverable,
          :rememberable,
          :validatable
 
@@ -39,17 +42,20 @@ class User < ApplicationRecord
   has_many :rsvps, dependent: :destroy
   has_many :subscriptions, dependent: :destroy #TODO - add callback to check Stripe API to ensure subsription is destroyed.
 
-  # Fix this crappy validation
-  # validates :phone_number, phone: { possible: true }
+  pay_customer stripe_attributes: :stripe_attributes
 
   acts_as_favoritor
 
-  #TODO - Use a callback to sync the user to a Member after create instead of a job
-  # after_create :sync_user_to_member
-
-  # private
-
-  # def sync_user_to_member
-  #   SyncUserToMemberJob.perform_later(self)
-  # end
+  def stripe_attributes(pay_customer)
+    {
+      address: {
+        city: pay_customer.owner.city,
+        country: pay_customer.owner.country # Might have to add a country field to the user sign up form to capture this data
+      },
+      metadata: {
+        pay_customer_id: pay_customer.id,
+        user_id: id # or pay_customer.owner_id
+      }
+    }
+  end
 end
