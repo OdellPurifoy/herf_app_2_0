@@ -25,5 +25,10 @@ module Purchase
 
       redirect_to session.url, allow_other_host: true
     end
+
+    def success
+      session = Stripe::Checkout::Session.retrieve(params[:session_id])
+      @customer = Stripe::Customer.retrieve(session.customer)
+    end
   end
 end

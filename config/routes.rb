@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       post 'toggle_favorite', to: 'lounges#toggle_favorite'
     end
   end
-  
+
   resources :memberships do
     member do
       post :activate
@@ -48,10 +48,11 @@ Rails.application.routes.draw do
     resources :checkouts
   end
 
-  authenticate :user, -> (u) { u.admin? } do
+  authenticate :user, ->(u) { u.admin? } do
     mount Resque::Server.new, at: '/jobs'
   end
 
-  get 'my_lounges', to: "lounges#my_lounges"
-  get 'pricing', to: "price_listings#pricing"
+  get 'my_lounges', to: 'lounges#my_lounges'
+  get 'pricing', to: 'price_listings#pricing'
+  get 'success', to: 'purchase/checkouts#success'
 end
