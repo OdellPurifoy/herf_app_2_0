@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   end
 
   resources :subscriptions
+  resources :webhooks, only: :create
 
   namespace :purchase do
     resources :checkouts
