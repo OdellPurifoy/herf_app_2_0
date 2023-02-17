@@ -6,8 +6,7 @@ class SubscriptionMailer < ApplicationMailer
   #   en.subscription_mailer.payment_failed.subject
   #
   def payment_failed
-    @greeting = "Hi"
-
-    mail to: "to@example.org"
+    @user = params[:user]
+    mail to: @user.email, subject: 'Payment attempt failed'
   end
 end

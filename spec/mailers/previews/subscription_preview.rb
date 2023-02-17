@@ -1,9 +1,7 @@
-# Preview all emails at http://localhost:3000/rails/mailers/subscription
+# frozen_string_literal: true
+
 class SubscriptionPreview < ActionMailer::Preview
-
-  # Preview this email at http://localhost:3000/rails/mailers/subscription/payment_failed
   def payment_failed
-    SubscriptionMailer.payment_failed
+    SubscriptionMailer.with(user: User.last).payment_failed
   end
-
 end
