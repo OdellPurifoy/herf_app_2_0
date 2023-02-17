@@ -44,7 +44,7 @@ class WebhooksController < ApplicationController
       customer_id: stripe_subscription.customer, 
       current_period_start: Time.at(stripe_subscription.current_period_start).to_datetime, 
       current_period_end: Time.at(stripe_subscription.current_period_end).to_datetime,
-      plan: stripe_subscription.plan.id,
+      plan_id: stripe_subscription.plan.id,
       plan_interval: stripe_subscription.plan.interval,
       status: stripe_subscription.status,
       subscription_id: stripe_subscription.id,
