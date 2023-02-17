@@ -23,7 +23,28 @@ class WebhooksController < ApplicationController
       fullfill_order(event.data.object)
     when 'checkout.session.async_payment_succeeded'
     when 'invoice.payment_succeeded'
+      return unless event.data.object.subscription.present?
+
+      stripe_subscription_id = Stripe::Subscription.retrieve(event.data.object.subscription)
+
+      subscription = Subscription.find_by(subscription_id: stripe_subscription_id)
+
+      subscription.update(
+        current_period_start: Time.at(stripe_subscription.current_period_start).to_datetime,
+        current_period_end: Time.at(stripe_subscription.current_period_end).to_datetime,
+        plan_id: stripe_subscription.plan.id,
+        interval: stripe_subscription.plan.interval,
+        status: stripe_subscription.status
+
+      )
     when 'invoice.payment_failed'
+      # Payment failed or payment expired the subscription becomes past due
+      # Notify customer via email and send the to customer portal
+
+      user = User.find_by(customer_id: event.data.object.customer)
+      if user.exists?
+        SubscriptionMailer.with(user: user).payment_failed.deliver_now
+      end
     when 'customer.subscription.updated'
     else
       puts "Unhandled event type: #{event.type}"
