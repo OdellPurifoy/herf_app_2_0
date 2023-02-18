@@ -41,12 +41,10 @@ FactoryBot.define do
     first_name { Faker::Name.first_name }
     city { Faker::Address.city } #=> "Imogeneborough"
     country { 'United States' }
+    customer_id { '' }
     last_name { Faker::Name.last_name }
     username { Faker::Internet.username }
     password { Faker::Internet.password }
     phone_number { '9008007000' }
-    subscription_status { 'Active' }
-    subscription_start_date { DateTime.now }
-    subscription_end_date { DateTime.now + 30.days }
   end
 end
