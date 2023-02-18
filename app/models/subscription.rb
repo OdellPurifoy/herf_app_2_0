@@ -26,4 +26,7 @@
 #
 class Subscription < ApplicationRecord
   belongs_to :user
+
+  validates_presence_of :current_period_start, :current_period_end, :plan_interval, :status, :customer_id, :plan_id,
+                        :subscription_id
 end
