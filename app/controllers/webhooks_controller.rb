@@ -34,9 +34,8 @@ class WebhooksController < ApplicationController
         current_period_start: Time.at(stripe_subscription.current_period_start).to_datetime,
         current_period_end: Time.at(stripe_subscription.current_period_end).to_datetime,
         plan_id: stripe_subscription.plan.id,
-        interval: stripe_subscription.plan.interval,
+        plan_interval: stripe_subscription.plan.interval,
         status: stripe_subscription.status
-
       )
     when 'invoice.payment_failed'
       # Payment failed or payment expired the subscription becomes past due
