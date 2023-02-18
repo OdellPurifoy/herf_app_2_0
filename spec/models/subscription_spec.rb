@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: subscriptions
@@ -25,5 +27,16 @@
 require 'rails_helper'
 
 RSpec.describe Subscription, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Database columns' do
+    it { should have_db_column(:current_period_start).of_type(:datetime) }
+    it { should have_db_column(:current_period_end).of_type(:datetime) }
+    it { should have_db_column(:customer_id).of_type(:string) }
+    it { should have_db_column(:plan_id).of_type(:string) }
+    it { should have_db_column(:plan_interval).of_type(:string) }
+    it { should have_db_column(:status).of_type(:string) }
+    it { should have_db_column(:subscription_id).of_type(:string) }
+    it { should have_db_column(:created_at).of_type(:datetime) }
+    it { should have_db_column(:updated_at).of_type(:datetime) }
+    it { should have_db_index([:user_id]) }
+  end
 end
