@@ -44,17 +44,18 @@ Rails.application.routes.draw do
 
   resources :subscriptions
   resources :webhooks, only: :create
-  resources :billing, only: :create
+  # resources :billing, only: :create
 
   namespace :purchase do
     resources :checkouts
   end
 
-  authenticate :user, ->(u) { u.admin? } do
-    mount Resque::Server.new, at: '/jobs'
-  end
-
   get 'my_lounges', to: 'lounges#my_lounges'
   get 'pricing', to: 'price_listings#pricing'
   get 'success', to: 'purchase/checkouts#success'
+  get 'billing', to: 'billing#show'
+
+  authenticate :user, ->(u) { u.admin? } do
+    mount Resque::Server.new, at: '/jobs'
+  end
 end

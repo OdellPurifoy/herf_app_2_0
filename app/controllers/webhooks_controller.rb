@@ -23,8 +23,8 @@ class WebhooksController < ApplicationController
       fullfill_order(event.data.object)
     when 'checkout.session.async_payment_succeeded'
     when 'invoice.payment_succeeded'
-      # binding.irb
       return unless event.data.object.subscription.present?
+      # binding.irb
 
       stripe_subscription = Stripe::Subscription.retrieve(event.data.object.subscription)
 
@@ -69,7 +69,7 @@ class WebhooksController < ApplicationController
       plan_interval: stripe_subscription.plan.interval,
       status: stripe_subscription.status,
       subscription_id: stripe_subscription.id,
-      user: user
+      user_id: user.id
     )
   end
 end
