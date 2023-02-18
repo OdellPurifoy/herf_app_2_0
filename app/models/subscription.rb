@@ -7,6 +7,7 @@
 #  id                   :bigint           not null, primary key
 #  current_period_end   :datetime
 #  current_period_start :datetime
+#  interval             :string
 #  plan_interval        :string
 #  status               :string
 #  created_at           :datetime         not null
