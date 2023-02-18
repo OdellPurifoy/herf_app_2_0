@@ -18,18 +18,58 @@ class WebhooksController < ApplicationController
 
     case event.type
     when 'checkout.session.completed'
-      client_reference_id = event.data.object.client_reference_id.to_i
-      return if !User.exists?(client_reference_id)
-      
-      @user = User.find(client_reference_id)
+      return if !User.exists?(event.data.object.client_reference_id)
+
+      fullfill_order(event.data.object)
     when 'checkout.session.async_payment_succeeded'
     when 'invoice.payment_succeeded'
+      return unless event.data.object.subscription.present?
+      # binding.irb
+
+      stripe_subscription = Stripe::Subscription.retrieve(event.data.object.subscription)
+
+      subscription = Subscription.find_by(subscription_id: stripe_subscription)
+
+      subscription.update(
+        current_period_start: Time.at(stripe_subscription.current_period_start).to_datetime,
+        current_period_end: Time.at(stripe_subscription.current_period_end).to_datetime,
+        plan_id: stripe_subscription.plan.id,
+        plan_interval: stripe_subscription.plan.interval,
+        status: stripe_subscription.status
+      )
     when 'invoice.payment_failed'
+      # Payment failed or payment expired the subscription becomes past due
+      # Notify customer via email and send the to customer portal
+
+      user = User.find_by(customer_id: event.data.object.customer)
+      if user.exists?
+        SubscriptionMailer.with(user: user).payment_failed.deliver_now
+      end
     when 'customer.subscription.updated'
     else
       puts "Unhandled event type: #{event.type}"
     end
 
     render json: { message: 'success'}
+  end
+
+  private 
+
+  def fullfill_order(checkout_session)
+    user = User.find(checkout_session.client_reference_id)
+    user.update(customer_id: checkout_session.customer)
+
+    stripe_subscription = Stripe::Subscription.retrieve(checkout_session.subscription)
+
+    Subscription.create!(
+      customer_id: stripe_subscription.customer, 
+      current_period_start: Time.at(stripe_subscription.current_period_start).to_datetime, 
+      current_period_end: Time.at(stripe_subscription.current_period_end).to_datetime,
+      plan_id: stripe_subscription.plan.id,
+      plan_interval: stripe_subscription.plan.interval,
+      status: stripe_subscription.status,
+      subscription_id: stripe_subscription.id,
+      user_id: user.id
+    )
   end
 end

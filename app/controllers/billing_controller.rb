@@ -4,7 +4,11 @@ class BillingController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @portal_session = current_user.payment_processor.billing_portal
-    redirect_to @portal_session.url, allow_other_host: true
+    session = Stripe::BillingPortal::Session.create({
+      customer: current_user.customer_id,
+      return_url: root_url
+    })
+
+    redirect_to session.url, allow_other_host: true
   end
 end

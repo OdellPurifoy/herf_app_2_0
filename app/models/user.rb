@@ -27,7 +27,6 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  include SubscriptionConcern
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable,
@@ -40,22 +39,14 @@ class User < ApplicationRecord
   has_many :events, through: :lounges
   has_many :memberships, dependent: :destroy
   has_many :rsvps, dependent: :destroy
-  has_many :subscriptions, dependent: :destroy #TODO - add callback to check Stripe API to ensure subsription is destroyed.
+  has_many :subscriptions, dependent: :destroy 
+  #TODO - add callback to check Stripe API to ensure subsription is destroyed.
 
-  pay_customer stripe_attributes: :stripe_attributes
+  # pay_customer
 
   acts_as_favoritor
 
-  def stripe_attributes(pay_customer)
-    {
-      address: {
-        city: pay_customer.owner.city,
-        country: pay_customer.owner.country # Might have to add a country field to the user sign up form to capture this data
-      },
-      metadata: {
-        pay_customer_id: pay_customer.id,
-        user_id: id # or pay_customer.owner_id
-      }
-    }
+  def subscribed?
+    subscriptions.where(status: 'active').any?
   end
 end

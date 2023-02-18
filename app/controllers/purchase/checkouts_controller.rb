@@ -14,7 +14,7 @@ module Purchase
         cancel_url: pricing_url,
         payment_method_types: ['card'],
         mode: 'subscription',
-        customer_email: current_user.email,
+        # customer_email: current_user.email,
         line_items: [
           {
             quantity: 1,
