@@ -39,4 +39,18 @@ RSpec.describe Subscription, type: :model do
     it { should have_db_column(:updated_at).of_type(:datetime) }
     it { should have_db_index([:user_id]) }
   end
+
+  describe 'Model Associations' do
+    it { should belong_to(:user) }
+  end
+
+  describe 'Validations' do
+    it { should validate_presence_of(:current_period_start) }
+    it { should validate_presence_of(:current_period_end) }
+    it { should validate_presence_of(:customer_id) }
+    it { should validate_presence_of(:plan_id) }
+    it { should validate_presence_of(:plan_interval) }
+    it { should validate_presence_of(:status) }
+    it { should validate_presence_of(:subscription_id) }
+  end
 end
