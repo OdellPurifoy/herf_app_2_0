@@ -26,11 +26,13 @@
 #
 FactoryBot.define do
   factory :subscription do
-    plan_id { 'MyString' }
-    customer_id { 'MyString' }
+    customer_id { "cus_#{SecureRandom.hex(14)}" }
+    current_period_start { '2023-06-12 16:34:06' }
+    current_period_end { '2023-07-12 16:34:06' }
+    plan_id { "price_#{SecureRandom.hex(24)}" }
+    plan_interval { ['month', 'year'].sample }
+    status { 'Active' }
+    subscription_id { "sub_#{SecureRandom.hex(24)}" }
     user
-    status { 'MyString' }
-    current_period_start { '2023-02-12 16:34:06' }
-    current_period_end { '2023-02-12 16:34:06' }
   end
 end
