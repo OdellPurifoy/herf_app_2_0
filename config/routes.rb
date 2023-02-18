@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
   resources :subscriptions
   resources :webhooks, only: :create
+  resources :billing, only: :create
 
   namespace :purchase do
     resources :checkouts

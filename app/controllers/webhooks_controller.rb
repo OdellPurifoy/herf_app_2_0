@@ -23,11 +23,12 @@ class WebhooksController < ApplicationController
       fullfill_order(event.data.object)
     when 'checkout.session.async_payment_succeeded'
     when 'invoice.payment_succeeded'
+      # binding.irb
       return unless event.data.object.subscription.present?
 
-      stripe_subscription_id = Stripe::Subscription.retrieve(event.data.object.subscription)
+      stripe_subscription = Stripe::Subscription.retrieve(event.data.object.subscription)
 
-      subscription = Subscription.find_by(subscription_id: stripe_subscription_id)
+      subscription = Subscription.find_by(subscription_id: stripe_subscription)
 
       subscription.update(
         current_period_start: Time.at(stripe_subscription.current_period_start).to_datetime,

@@ -46,16 +46,20 @@ class User < ApplicationRecord
 
   acts_as_favoritor
 
-  def stripe_attributes(pay_customer)
-    {
-      address: {
-        city: pay_customer.owner.city,
-        country: pay_customer.owner.country # Might have to add a country field to the user sign up form to capture this data
-      },
-      metadata: {
-        pay_customer_id: pay_customer.id,
-        user_id: id # or pay_customer.owner_id
-      }
-    }
+  # def stripe_attributes(pay_customer)
+  #   {
+  #     address: {
+  #       city: pay_customer.owner.city,
+  #       country: pay_customer.owner.country # Might have to add a country field to the user sign up form to capture this data
+  #     },
+  #     metadata: {
+  #       pay_customer_id: pay_customer.id,
+  #       user_id: id # or pay_customer.owner_id
+  #     }
+  #   }
+  # end
+
+  def subscribed?
+    subscriptions.where(status: 'active').any?
   end
 end
