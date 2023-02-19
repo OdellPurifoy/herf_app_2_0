@@ -33,8 +33,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :price_listings, only: :index
-
   resources :rsvps do
     member do
       patch :mark_attended
@@ -44,7 +42,6 @@ Rails.application.routes.draw do
 
   resources :subscriptions
   resources :webhooks, only: :create
-  # resources :billing, only: :create
 
   namespace :purchase do
     resources :checkouts
