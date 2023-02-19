@@ -16,12 +16,16 @@ class SpecialOffersController < ApplicationController
 
   def new
     @special_offer = @lounge.special_offers.build
+    authorize @special_offer
   end
 
   def edit; end
 
   def create
     @special_offer = @lounge.special_offers.build(special_offer_params)
+
+    # Pundit check
+    authorize @special_offer
 
     respond_to do |format|
       if @special_offer.save
@@ -37,9 +41,14 @@ class SpecialOffersController < ApplicationController
 
   def update
     respond_to do |format|
+      # Pundit check
+      authorize @special_offer
+
       if @special_offer.update(special_offer_params)
         format.turbo_stream { redirect_to [@lounge, @special_offer] }
-        format.html { redirect_to special_offer_url(@special_offer), notice: 'Special offer was successfully updated.' }
+        format.html do
+          redirect_to special_offer_url(@special_offer), notice: 'Special offer was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @special_offer }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -49,6 +58,9 @@ class SpecialOffersController < ApplicationController
   end
 
   def destroy
+    # Pundit check
+    authorize @special_offer
+
     @special_offer.destroy
 
     redirect_to root_path, status: :see_other
