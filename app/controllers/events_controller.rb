@@ -12,12 +12,16 @@ class EventsController < ApplicationController
 
   def new
     @event = @lounge.events.build
+    authorize @event
   end
 
   def edit; end
 
   def create
     @event = @lounge.events.build(event_params)
+
+    # Pundit check
+    authorize @event
 
     respond_to do |format|
       if @event.save
@@ -33,6 +37,9 @@ class EventsController < ApplicationController
 
   def update
     respond_to do |format|
+      # Pundit check
+      authorize @event
+
       if @event.update(event_params)
         format.turbo_stream { redirect_to [@lounge, @event] }
         format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully updated.' }
@@ -45,6 +52,9 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    # Pundit check
+    authorize @event
+
     @event.destroy
 
     redirect_to root_path, status: :see_other
