@@ -17,7 +17,6 @@ class EventPolicy < ApplicationPolicy
   end
 
   def update?
-    # binding.irb
     @user.admin? || @user.id == @event.lounge.user_id
   end
 
