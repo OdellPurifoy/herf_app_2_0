@@ -17,10 +17,11 @@ class EventPolicy < ApplicationPolicy
   end
 
   def update?
-    @user.admin? || @user.id == event.lounge.user_id
+    # binding.irb
+    @user.admin? || @user.id == @event.lounge.user_id
   end
 
   def destroy?
-    @user.admin? || @user.id == event.lounge.user_id
+    @user.admin? || @user.id == @event.lounge.user_id
   end
 end
