@@ -12,12 +12,16 @@ class LoungesController < ApplicationController
 
   def new
     @lounge = current_user.lounges.build
+    authorize @lounge
   end
-
+  
   def edit; end
-
+  
   def create
     @lounge = current_user.lounges.build(lounge_params)
+
+    # Pundit check 
+    authorize @lounge
 
     respond_to do |format|
       if @lounge.save
@@ -34,6 +38,9 @@ class LoungesController < ApplicationController
 
   def update
     respond_to do |format|
+      # Pundit check
+      authorize @lounge
+
       if @lounge.update(lounge_params)
         format.turbo_stream { redirect_to lounge_url(@lounge) }
         flash[:notice] = 'Lounge successfully updated.'
@@ -47,6 +54,8 @@ class LoungesController < ApplicationController
   end
 
   def destroy
+    # Pundit check
+    authorize @lounge
     @lounge.destroy
 
     redirect_to root_path, status: :see_other
