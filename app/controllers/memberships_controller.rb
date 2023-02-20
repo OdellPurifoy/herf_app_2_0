@@ -16,12 +16,16 @@ class MembershipsController < ApplicationController
 
   def new
     @membership = @lounge.memberships.build
+    authorize @membership
   end
 
   def edit; end
 
   def create
     @membership = @lounge.memberships.build(membership_params)
+
+    # Pundit check
+    authorize @membership
 
     respond_to do |format|
       if @membership.save
@@ -36,6 +40,9 @@ class MembershipsController < ApplicationController
 
   def update
     respond_to do |format|
+      # Pundit check
+      authorize @membership
+
       if @membership.update(membership_params)
         format.html { redirect_to membership_url(@membership), notice: 'Membership was successfully updated.' }
         format.json { render :show, status: :ok, location: @membership }
@@ -48,6 +55,10 @@ class MembershipsController < ApplicationController
 
   def destroy
     @lounge = @membership.lounge
+
+    # Pundit check
+    authorize @membership
+
     @membership.destroy
     redirect_to "/lounges/#{@lounge.friendly_id}/memberships", status: :see_other
     flash[:notice] = 'Membership successfully deleted.'
