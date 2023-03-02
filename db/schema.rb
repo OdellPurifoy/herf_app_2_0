@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_18_004539) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_02_204647) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -141,15 +141,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_004539) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.string "recipient_type", null: false
-    t.bigint "recipient_id", null: false
-    t.string "type", null: false
-    t.jsonb "params"
-    t.datetime "read_at"
+    t.text "body", null: false
+    t.boolean "read", default: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["read_at"], name: "index_notifications_on_read_at"
-    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -305,6 +302,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_004539) do
   add_foreign_key "events", "lounges"
   add_foreign_key "lounges", "users"
   add_foreign_key "memberships", "lounges"
+  add_foreign_key "notifications", "users"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_charges", "pay_subscriptions", column: "subscription_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"

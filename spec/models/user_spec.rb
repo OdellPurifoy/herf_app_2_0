@@ -46,6 +46,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:events).through(:lounges) }
     it { should have_many(:lounges).dependent(:destroy) }
     it { should have_many(:memberships).dependent(:destroy) }
+    it { should have_many(:notifications).dependent(:destroy) }
     it { should have_many(:rsvps).dependent(:destroy) }
     it { should have_many(:subscriptions).dependent(:destroy) }
   end

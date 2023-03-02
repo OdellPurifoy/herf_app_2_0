@@ -4,6 +4,7 @@ require 'resque/server'
 
 Rails.application.routes.draw do
   root 'home#index'
+
   devise_for :users
   devise_scope :user do
     # Redirects signing out users back to sign-in
@@ -32,6 +33,8 @@ Rails.application.routes.draw do
       post :deactivate
     end
   end
+
+  resources :notifications
 
   resources :rsvps do
     member do
