@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -19,4 +21,6 @@
 #
 class Notification < ApplicationRecord
   belongs_to :user
+
+  validates_presence_of :body
 end
