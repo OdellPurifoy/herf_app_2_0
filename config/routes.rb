@@ -3,6 +3,7 @@
 require 'resque/server'
 
 Rails.application.routes.draw do
+  resources :notifications
   root 'home#index'
   devise_for :users
   devise_scope :user do
