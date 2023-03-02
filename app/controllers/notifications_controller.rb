@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NotificationsController < ApplicationController
-  before_action :authenticate_user
+  before_action :authenticate_user!
   before_action :set_notification, only: %i[show edit update destroy]
 
   def index
