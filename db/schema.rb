@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_18_004539) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_02_204410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -138,18 +138,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_004539) do
     t.boolean "active", default: true
     t.index ["lounge_id"], name: "index_memberships_on_lounge_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
-  end
-
-  create_table "notifications", force: :cascade do |t|
-    t.string "recipient_type", null: false
-    t.bigint "recipient_id", null: false
-    t.string "type", null: false
-    t.jsonb "params"
-    t.datetime "read_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["read_at"], name: "index_notifications_on_read_at"
-    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
   create_table "pay_charges", force: :cascade do |t|
