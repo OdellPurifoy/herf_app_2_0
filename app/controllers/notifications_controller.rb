@@ -49,6 +49,18 @@ class NotificationsController < ApplicationController
     flash[:notice] = 'Notification offer successfully deleted.'
   end
 
+  def read
+    @notification = Notification.find(params[:id])
+    @notification.update!(read: true)
+    redirect_to notifications_path(@notification)
+  end
+
+  def unread
+    @notification = Notification.find(params[:id])
+    @notification.update!(read: false)
+    redirect_to notifications_path(@notification)
+  end
+
   private
 
   def set_notification

@@ -34,7 +34,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :notifications
+  resources :notifications do
+    member do
+      post :read
+      post :unread
+    end
+  end
 
   resources :rsvps do
     member do

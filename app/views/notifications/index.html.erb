@@ -11,7 +11,7 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Message</th>
-            <th scope="col">Read</th>
+            <th scope="col">Status</th>
             <th scope="col">Mark As Read/Unread</th>
             <th scope="col">Delete</th>
           </tr>
@@ -21,11 +21,11 @@
             <tr>
               <td><%= notification.id %></td>
               <td><%= notification.body %></td>
-              <td><%= notification.read ? 'Yes' : 'No' %></td>
+              <td><%= notification.read ? 'Read' : 'Unread' %></td>
               <% if notification.read? %>
-                <td><%= button_to "Unread", "#", method: :post, class: "btn btn-warning" %></td>
+                <td><%= button_to "Unread", "/notifications/#{notification.id}/unread", method: :post, class: "btn btn-warning" %></td>
               <% else %>
-                <td><%= button_to "Read", "#", method: :post, class: "btn btn-success" %></td>
+                <td><%= button_to "Read", "/notifications/#{notification.id}/read", method: :post, class: "btn btn-success" %></td>
               <% end %>
               <td><%= link_to "Delete", notification_path(notification), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %></td>
             </tr>
