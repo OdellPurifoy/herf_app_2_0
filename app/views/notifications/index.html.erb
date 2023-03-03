@@ -4,7 +4,8 @@
   <div class="container">
     <div class="row gy-4">
 
-      <h1>Total Notifications: <%= @current_user_notifications.count %></h1>
+      <h2>Total Notifications: <%= @current_user_notifications.count %></h2>
+      <h5>Unread Notifications: <%= @current_user_notifications.unread.count %></h5>
 
       <table class="table">
         <thead>

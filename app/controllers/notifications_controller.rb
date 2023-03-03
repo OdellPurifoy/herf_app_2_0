@@ -45,7 +45,7 @@ class NotificationsController < ApplicationController
   def destroy
     @notification.destroy
 
-    redirect_to root_path, status: :see_other
+    redirect_to notifications_path, status: :see_other
     flash[:notice] = 'Notification offer successfully deleted.'
   end
 
