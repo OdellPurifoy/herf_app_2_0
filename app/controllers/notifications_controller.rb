@@ -5,19 +5,19 @@ class NotificationsController < ApplicationController
   before_action :set_notification, only: %i[show edit update destroy]
 
   def index
-    @notifications = current_user.notifications
+    @current_user_notifications = current_user.notifications
   end
 
   def show; end
 
   def new
-    @notification = current_user.notifications.build
+    @notification = Notification.new
   end
 
   def edit; end
 
   def create
-    @notification = current_user.notifications.build(notification_params)
+    @notification = Notification.new(notification_params)
 
     respond_to do |format|
       if @notification.save

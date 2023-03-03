@@ -1,14 +1,18 @@
 <p style="color: green"><%= notice %></p>
+<!-- ======= Special Offers Index Section ======= -->
+<section id="portfolio-details" class="portfolio-details" style="padding-top: 150px">
 
-<h1>Notifications</h1>
+  <h1><%= current_user.username %> Notifications</h1>
 
-<div id="notifications">
-  <% @notifications.each do |notification| %>
-    <%= render notification %>
-    <p>
-      <%= link_to "Show this notification", notification %>
-    </p>
-  <% end %>
-</div>
+  <div id="notifications">
+    <% @current_user_notifications.each do |notification| %>
+      <%= render notification %>
+      <p>
+        <%= link_to "Show this notification", notification %>
+      </p>
+    <% end %>
+  </div>
 
-<%= link_to "New notification", new_notification_path %>
+  <%= link_to "New notification", new_notification_path %>
+
+</section>
