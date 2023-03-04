@@ -55,10 +55,12 @@ Rails.application.routes.draw do
     resources :checkouts
   end
 
+  resources :billing, only: :create
+
   get 'my_lounges', to: 'lounges#my_lounges'
   get 'pricing', to: 'price_listings#pricing'
   get 'success', to: 'purchase/checkouts#success'
-  get 'billing', to: 'billing#show'
+  # get 'billing', to: 'billing#show'
 
   authenticate :user, ->(u) { u.admin? } do
     mount Resque::Server.new, at: '/jobs'
