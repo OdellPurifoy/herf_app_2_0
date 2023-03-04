@@ -217,7 +217,7 @@ class Event < ApplicationRecord
     members_phone_numbers = memberships.where(active: true).pluck(:phone_number).compact
 
     members_phone_numbers.each do |phone_number|
-      TwilioClient.new.send_text(phone_number, message)
+      TwilioClient.new.send_text(phone_number, message, self)
     end
   end
 

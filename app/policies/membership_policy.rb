@@ -9,11 +9,11 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.admin? || @user.subscribed?
+    @user.admin? || @user.subscribed? || @user.id == @membership.lounge.user_id
   end
 
   def create?
-    @user.admin? || @user.subscribed?
+    @user.admin? || @user.subscribed? || @user.id == @membership.lounge.user_id
   end
 
   def update?
