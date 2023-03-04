@@ -22,19 +22,22 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="/" class="active">Home</a></li>
-          <% if user_signed_in? && !current_user.lounges.present? && current_user.subscribed? %>
+          <% if user_signed_in? && current_user.lounges.present? && current_user.subscribed? %>
             <%= link_to 'My Lounge', my_lounges_path %>
-            <%= link_to 'Notifications', '#' %>
+            <%= link_to 'Notifications', notifications_path %>
             <%= link_to 'Profile', edit_user_registration_path %>
             <%= link_to 'Log Out', destroy_user_session_path %>
             <%= link_to 'Manage Subscription', billing_path, data: { turbo: false }, class: 'getstarted' %>
-          <% elsif user_signed_in? && current_user.lounges.empty? && !current_user.subscribed? %>
+          <% elsif user_signed_in? && current_user.subscribed? && current_user.lounges.empty? %>
+            <%= link_to 'Create Lounge', my_lounges_path %>
+            <%= link_to 'Notifications', notifications_path %>
+            <%= link_to 'Profile', edit_user_registration_path %>
+            <%= link_to 'Log Out', destroy_user_session_path %>
+            <%= link_to 'Manage Subscription', billing_path, data: { turbo: false }, class: 'getstarted' %>
+          <% elsif user_signed_in?  && !current_user.subscribed? %>
             <%= link_to 'Profile', edit_user_registration_path %>
             <%= link_to 'Log Out', destroy_user_session_path %>
             <%= link_to 'Pricing', pricing_path, data: { turbo: false }, class: 'getstarted' %>
-          <% elsif user_signed_in?  %>
-            <%= link_to 'Profile', edit_user_registration_path %>
-            <%= link_to 'Log Out', destroy_user_session_path %>
           <% else %>
             <%= link_to 'Log In', new_user_session_path %>
             <%= link_to 'Sign Up', new_user_registration_path %>
