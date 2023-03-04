@@ -3,7 +3,7 @@
 class BillingController < ApplicationController
   before_action :authenticate_user!
 
-  def create
+  def show
     session = Stripe::BillingPortal::Session.create({
       customer: current_user.customer_id,
       return_url: root_url
