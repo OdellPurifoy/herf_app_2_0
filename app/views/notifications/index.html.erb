@@ -1,14 +1,38 @@
 <p style="color: green"><%= notice %></p>
+<!-- ======= Membership Index Section ======= -->
+<section id="portfolio-details" class="portfolio-details" style="padding-top: 150px">
+  <div class="container">
+    <div class="row gy-4">
 
-<h1>Notifications</h1>
+      <h2>Total Notifications: <%= @current_user_notifications.count %></h2>
+      <h5>Unread Notifications: <%= @current_user_notifications.unread.count %></h5>
 
-<div id="notifications">
-  <% @notifications.each do |notification| %>
-    <%= render notification %>
-    <p>
-      <%= link_to "Show this notification", notification %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New notification", new_notification_path %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Message</th>
+            <th scope="col">Status</th>
+            <th scope="col">Mark As Read/Unread</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @current_user_notifications.each do |notification| %>
+            <tr>
+              <td><%= notification.id %></td>
+              <td><%= notification.body %></td>
+              <td><%= notification.read ? 'Read' : 'Unread' %></td>
+              <% if notification.read? %>
+                <td><%= button_to "Unread", "/notifications/#{notification.id}/unread", method: :post, class: "btn btn-warning" %></td>
+              <% else %>
+                <td><%= button_to "Read", "/notifications/#{notification.id}/read", method: :post, class: "btn btn-success" %></td>
+              <% end %>
+              <td><%= link_to "Delete", notification_path(notification), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

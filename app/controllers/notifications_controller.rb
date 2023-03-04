@@ -5,19 +5,19 @@ class NotificationsController < ApplicationController
   before_action :set_notification, only: %i[show edit update destroy]
 
   def index
-    @notifications = current_user.notifications
+    @current_user_notifications = current_user.notifications
   end
 
   def show; end
 
   def new
-    @notification = current_user.notifications.build
+    @notification = Notification.new
   end
 
   def edit; end
 
   def create
-    @notification = current_user.notifications.build(notification_params)
+    @notification = Notification.new(notification_params)
 
     respond_to do |format|
       if @notification.save
@@ -45,8 +45,20 @@ class NotificationsController < ApplicationController
   def destroy
     @notification.destroy
 
-    redirect_to root_path, status: :see_other
+    redirect_to notifications_path, status: :see_other
     flash[:notice] = 'Notification offer successfully deleted.'
+  end
+
+  def read
+    @notification = Notification.find(params[:id])
+    @notification.update!(read: true)
+    redirect_to notifications_path(@notification)
+  end
+
+  def unread
+    @notification = Notification.find(params[:id])
+    @notification.update!(read: false)
+    redirect_to notifications_path(@notification)
   end
 
   private
