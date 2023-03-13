@@ -1,0 +1,16 @@
+- question: What version of Ruby on Rails is this for?
+  answer: This course is written with Rails 7.0.3 using Ruby 3.0.3. I'll update the source code and book periodically as Rails and Ruby update. Screencasts will be updated for significant breaking changes in Rails where necessary.
+- question: I lost, deleted, or never got my welcome email. What do I do now?
+  answer: Reconfirm your [account](https://hellorails.io/auth/verification/new) or [email me](https://hellorails.io/contact/new) with the email you used to buy the course and I'll hook you up.
+- question: What format are the videos? How do I watch them? Can I download them as well?
+  answer: After buying the course you will be emailed access to a personalized dashboard for your chosen version of the Hello Rails course. There you can watch the videos and download any materials. Each video is stream-able and downloadable.
+- question: Will this course make me a pro Ruby on Rails developer?
+  answer: Not even the slightest, but as with anything, practice makes perfect. My intent is to guide you through building an app from start to finish and explain the "how" and "why" along the way. In doing so, you should be able to take the knowledge gained and construct your own applications. Ultimately, to get better, always be building 🙌.
+- question: What if this course isn't what I was hoping?
+  answer: That happens and I get it. I want you to be satisfied. If you didn't learn from the course or assumed it was something else, email me or contact me [here](https://hellorails.io/contact/new) within 30 days to get a refund.
+- question: Do you offer student discounts?
+  answer: Absolutely. I was once a student and understand everything gets pricey so I'm happy to help. [Contact me](https://hellorails.io/contact/new) with some current proof that you're an active student before purchasing the course and I'll hook you up.
+- question: Why should I buy this when other tutorials are free (ahem..RailsTutorial)?
+  answer: There are no doubt a lot of sweet tutorials out there. My approach with Hello Rails is to be very thorough by explaining core concepts and their reasoning. Ultimately, my goal is to provide realistic use cases makers/developers deal with day-to-day. This course is more modern on the design and development front and also touches on things like billing, user roles/permissions, and integrating other frameworks/gems. The Starter course gives you the basic knowledge of the Ruby on Rails by building a Reddit clone from start to finish. The Master course goes one step further addressing things like payments, search, user roles/permissions, and much more.
+- question: I have another question!
+  answer: Sure thing, contact me herf@gmail.com.
