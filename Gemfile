@@ -80,6 +80,7 @@ end
 
 group :development do
   gem 'annotate', '~> 3.2'
+  gem 'letter_opener', '~> 1.8', '>= 1.8.1'
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
