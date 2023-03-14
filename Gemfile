@@ -14,6 +14,7 @@ gem 'friendly_id', '~> 5.4.0'
 gem "font-awesome-sass", "~> 6.1.1"
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'letter_opener', '~> 1.8', '>= 1.8.1'
 gem 'pay', '~> 6.3', '>= 6.3.1'
 gem 'pundit', '~> 2.3'
 gem 'phonelib', '~> 0.7.4'
