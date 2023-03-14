@@ -24,13 +24,13 @@
           <li><a href="/" class="active">Home</a></li>
           <% if user_signed_in? && current_user.lounges.present? && current_user.subscribed? %>
             <%= link_to 'My Lounge', my_lounges_path %>
-            <%= link_to 'Notifications', notifications_path %>
+            <%= link_to 'Notifications', notifications_path %> (<%= current_user.notifications.unread.count %>)
             <%= link_to 'Profile', edit_user_registration_path %>
             <%= link_to 'Log Out', destroy_user_session_path %>
             <%= link_to 'Manage Subscription', billing_path, data: { turbo: false }, class: 'getstarted' %>
           <% elsif user_signed_in? && current_user.subscribed? && current_user.lounges.empty? %>
             <%= link_to 'Create Lounge', my_lounges_path %>
-            <%= link_to 'Notifications', notifications_path %>
+            <%= link_to 'Notifications', notifications_path %> (<%= current_user.notifications.unread.count %>)
             <%= link_to 'Profile', edit_user_registration_path %>
             <%= link_to 'Log Out', destroy_user_session_path %>
             <%= link_to 'Manage Subscription', billing_path, data: { turbo: false }, class: 'getstarted' %>
