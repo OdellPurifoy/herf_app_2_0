@@ -33,6 +33,8 @@ class Membership < ApplicationRecord
 
   paginates_per 10
 
+  scope :active, -> { where(active: true) }
+
   def self.search(search)
     where('email = ?', search) if search
   end

@@ -83,6 +83,20 @@ RSpec.describe Event, type: :model do
     end
   end
 
+  describe '.send_reminder_text' do
+    let!(:lounge) { FactoryBot.create(:lounge, events: [event_1, event_2]) }
+    let!(:event_1) { FactoryBot.create(:event,  event_date: Date.today + 1.day) }
+    let!(:event_2) { FactoryBot.create(:event,  event_date: Date.today + 2.days) }
+
+    before do
+      allow(Event).to receive(:send_reminder_text).and_return(event_1)
+    end
+
+    it 'returns the event occuring 1 days from now' do
+      expect(Event.send_reminder_text).to eq(event_1)
+    end
+  end
+
   describe '#end_date_not_after_start_date' do
     let(:event) { FactoryBot.build(:event, event_date: (Date.today - 1.day)) }
 

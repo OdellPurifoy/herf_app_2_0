@@ -51,6 +51,27 @@ class Event < ApplicationRecord
 
   paginates_per 10
 
+  def self.send_reminder_text
+    events_within_24_hours = where(event_date: Date.today + 1.day)
+    return if events_within_24_hours.empty?
+    
+    events_within_24_hours.each do |event|
+      reminder_message = %(
+        Reminder, the #{event.name} event hosted by #{event.lounge.name} is tomorrow.
+        Here are the details:
+        Event: #{event.name}
+        Date: #{event.event_date.strftime('%b %e, %Y')}
+        Start Time: #{event.start_time.strftime('%l:%M %P')}
+        End Time: #{event.end_time.strftime('%l:%M %P')}
+        Location: #{event.lounge.address_street_1}, #{event.lounge.city}, #{event.lounge.state}, #{event.lounge.zip_code}
+        Phone: #{event.lounge.phone}
+      )
+      event.lounge.memberships.active.each do |membership|
+        TwilioClient.new.send_text(membership&.phone_number, reminder_message, event)
+      end 
+    end    
+  end
+
   private
 
   def notify_followers_and_or_members
@@ -110,9 +131,9 @@ class Event < ApplicationRecord
   end
 
   def notify_members
-    return if lounge.memberships.empty?
+    return if lounge.memberships.active.empty?
 
-    lounge.memberships.where(active: true).each do |membership|
+    lounge.memberships.active.each do |membership|
       NotifyFollowersMailer.with(membership: membership, event: self).notify_members.deliver_later
     end
   end
@@ -126,9 +147,9 @@ class Event < ApplicationRecord
   end
 
   def update_members
-    return if lounge.memberships.empty?
+    return if lounge.memberships.active.empty?
 
-    lounge.memberships.where(active: true).each do |membership|
+    lounge.memberships.active.each do |membership|
       UpdatedEventNotificationMailer.with(membership: membership, event: self).update_notify_members.deliver_later
     end
   end
@@ -142,9 +163,9 @@ class Event < ApplicationRecord
   end
 
   def cancellation_event_members
-    return if lounge.memberships.empty?
+    return if lounge.memberships.active.empty?
 
-    lounge.memberships.where(active: true).each do |membership|
+    lounge.memberships.active.each do |membership|
       CancelledEventNotificationMailer.with(membership: membership, event: self).cancel_notify_members.deliver_later
     end
   end
@@ -196,25 +217,25 @@ class Event < ApplicationRecord
   end
 
   def new_event_text_for_members
-    return if lounge.memberships.empty?
+    return if lounge.memberships.active.empty?
 
-    text_all_members(lounge.memberships, new_event_message)
+    text_all_members(lounge.memberships.active, new_event_message)
   end
 
   def updated_event_text_for_members
-    return if lounge.memberships.empty?
+    return if lounge.memberships.active.empty?
 
-    text_all_members(lounge.memberships, updated_event_message)
+    text_all_members(lounge.memberships.active, updated_event_message)
   end
 
   def cancelled_event_text_for_members
-    return if lounge.memberships.empty?
+    return if lounge.memberships.active.empty?
 
-    text_all_members(lounge.memberships, cancelled_event_message)
+    text_all_members(lounge.memberships.active, cancelled_event_message)
   end
 
   def text_all_members(memberships, message)
-    members_phone_numbers = memberships.where(active: true).pluck(:phone_number).compact
+    members_phone_numbers = memberships.active.pluck(:phone_number).compact
 
     members_phone_numbers.each do |phone_number|
       TwilioClient.new.send_text(phone_number, message, self)
