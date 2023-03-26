@@ -52,7 +52,14 @@ class Event < ApplicationRecord
   paginates_per 10
 
   def self.send_reminder_text
-    where(event_date: Date.today + 1.day)
+    events_within_24_hours = where(event_date: Date.today + 1.day)
+    return if events_within_24_hours.empty?
+
+    events_within_24_hours.each do |event|
+      event.lounge.memberships.each do |membership|
+        TwilioClient.new.send_text(membership&.phone_number, reminder_mesaage)
+      end 
+    end    
   end
 
   private
