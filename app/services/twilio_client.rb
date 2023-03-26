@@ -8,27 +8,27 @@ class TwilioClient
   end
 
   def send_text(phone_number, message, event)
-    begin
-      send_attemps ||= 1
+    send_attemps ||= 1
 
-      client.messages.create(
-        to: phone_number,
-        from: twilio_phone_number,
-        body: message
-      )
-    rescue => e
-      puts "Error: #{e} prevented text from being sent."
+    client.messages.create(
+      to: phone_number,
+      from: twilio_phone_number,
+      body: message
+    )
+  rescue StandardError => e
+    puts "Error: #{e} prevented text from being sent."
 
-      if (send_attemps += 1) > 2
-        puts 'retrying...'
-        retry
-      end
-
-      puts '----------------------'
-      puts 'Retry attempts exceeded. Creating Notification.'
-
-      Notification.create!(body: "Phone number #{phone_number} could not be contacted. Please verify the number and contact the member manually.", user_id: event.lounge.user_id)
+    if (send_attemps += 1) > 2
+      puts 'retrying...'
+      retry
     end
+
+    puts '----------------------'
+    puts 'Retry attempts exceeded. Creating Notification.'
+
+    Notification.create!(
+      body: "Phone number #{phone_number} could not be contacted. Please verify the number and contact the member manually.", user_id: event.lounge.user_id
+    )
   end
 
   private
