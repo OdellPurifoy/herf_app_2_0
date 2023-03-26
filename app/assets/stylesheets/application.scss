@@ -47,6 +47,16 @@ body {
     color: $default;
   }
 
+  .btn-warning {
+   background: $primary;
+   color: white;
+   border-radius: 4px;
+   &:hover {
+    color: #fff;
+    background: darken($primary, 8);
+    }
+  }
+
   a {
     text-decoration: none;
     color: $primary;
