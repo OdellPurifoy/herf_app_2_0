@@ -41,7 +41,7 @@ class Event < ApplicationRecord
   has_one_attached :flyer
 
   validates_presence_of :end_time, :event_date, :event_type, :name, :start_time
-  validates :event_description, length: { maximum: 1000, too_long: "%{count} characters is the maximum allowed." }
+  validates :event_description, length: { maximum: 1000, too_long: '%<count>s characters is the maximum allowed.' }
   validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
@@ -54,7 +54,7 @@ class Event < ApplicationRecord
   def self.send_reminder_text
     events_within_24_hours = where(event_date: Date.today + 1.day)
     return if events_within_24_hours.empty?
-    
+
     events_within_24_hours.each do |event|
       reminder_message = %(
         Reminder, the #{event.name} event hosted by #{event.lounge.name} is tomorrow.
@@ -68,8 +68,8 @@ class Event < ApplicationRecord
       )
       event.lounge.memberships.active.each do |membership|
         TwilioClient.new.send_text(membership&.phone_number, reminder_message, event)
-      end 
-    end    
+      end
+    end
   end
 
   def self.send_reminder_email
@@ -87,36 +87,30 @@ class Event < ApplicationRecord
   private
 
   def notify_followers_and_or_members
+    notify_members
+    new_event_text_for_members
     if members_only?
-      notify_members
-      new_event_text_for_members
     else
-      notify_members
-      new_event_text_for_members
       notify_followers
       new_event_text_for_followers
     end
   end
 
   def update_followers_and_or_members
+    update_members
+    updated_event_text_for_members
     if members_only?
-      update_members
-      updated_event_text_for_members
     else
-      update_members
-      updated_event_text_for_members
       update_followers
       updated_event_text_for_followers
     end
   end
 
   def cancel_follower_and_or_members
+    cancellation_event_members
+    cancelled_event_text_for_members
     if members_only?
-      cancellation_event_members
-      cancelled_event_text_for_members
     else
-      cancellation_event_members
-      cancelled_event_text_for_members
       cancellation_event_followers
       cancelled_event_text_for_followers
     end
