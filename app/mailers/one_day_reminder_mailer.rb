@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OneDayReminderMailer < ApplicationMailer
   def remind_members
     @membership = params[:membership]

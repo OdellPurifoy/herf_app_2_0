@@ -87,30 +87,36 @@ class Event < ApplicationRecord
   private
 
   def notify_followers_and_or_members
-    notify_members
-    new_event_text_for_members
     if members_only?
+      notify_members
+      new_event_text_for_members
     else
+      notify_members
+      new_event_text_for_members
       notify_followers
       new_event_text_for_followers
     end
   end
 
   def update_followers_and_or_members
-    update_members
-    updated_event_text_for_members
     if members_only?
+      update_members
+      updated_event_text_for_members
     else
+      update_members
+      updated_event_text_for_members
       update_followers
       updated_event_text_for_followers
     end
   end
 
   def cancel_follower_and_or_members
-    cancellation_event_members
-    cancelled_event_text_for_members
     if members_only?
+      cancellation_event_members
+      cancelled_event_text_for_members
     else
+      cancellation_event_members
+      cancelled_event_text_for_members
       cancellation_event_followers
       cancelled_event_text_for_followers
     end
