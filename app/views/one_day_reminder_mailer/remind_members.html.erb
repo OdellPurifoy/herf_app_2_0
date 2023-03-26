@@ -1,0 +1,23 @@
+<% if @event.lounge.logo.present? %>
+  <%= image_tag(@event.lounge.logo, size: "55x55") %>
+<% else %>
+  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+<% end %>
+
+<h1>Reminder</h1>
+<h2>Hi, <%= @membership&.first_name %></h2>
+
+<p>The <%= @event.name %>, hosted by <%= @event.lounge.name %> is tomorrow.</p>
+
+<p>Here are the details:</p>
+<p>
+  Event: <%= @event.name %> <br />
+  Date: <%= @event.event_date.strftime('%b %e, %Y') %> <br />
+  Description:  <%= @event.event_description %> <br />
+  Start Time: <%= @event.start_time.strftime('%l:%M %P') %> <br />
+  End Time: <%= @event.end_time.strftime('%l:%M %P') %> <br />
+  Location: <%= @event.lounge.address_street_1 %>, <%= @event.lounge.city %>, <%= @event.lounge.state %>, <%= @event.lounge.zip_code %> <br />
+  Phone: <%= @event.lounge.phone %>
+</p>
+
+<p>See you there!</p>
