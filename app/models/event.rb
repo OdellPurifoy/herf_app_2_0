@@ -51,6 +51,10 @@ class Event < ApplicationRecord
 
   paginates_per 10
 
+  def self.send_reminder_text
+    where(event_date: Date.today + 1.day)
+  end
+
   private
 
   def notify_followers_and_or_members
