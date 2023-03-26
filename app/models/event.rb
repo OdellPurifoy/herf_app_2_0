@@ -54,10 +54,20 @@ class Event < ApplicationRecord
   def self.send_reminder_text
     events_within_24_hours = where(event_date: Date.today + 1.day)
     return if events_within_24_hours.empty?
-
+    
     events_within_24_hours.each do |event|
+      reminder_message = %(
+        Reminder, the #{event.name} event hosted by #{event.lounge.name} is tomorrow.
+        Here are the details:
+        Event: #{event.name}
+        Date: #{event.event_date.strftime('%b %e, %Y')}
+        Start Time: #{event.start_time.strftime('%l:%M %P')}
+        End Time: #{event.end_time.strftime('%l:%M %P')}
+        Location: #{event.lounge.address_street_1}, #{event.lounge.city}, #{event.lounge.state}, #{event.lounge.zip_code}
+        Phone: #{event.lounge.phone}
+      )
       event.lounge.memberships.each do |membership|
-        TwilioClient.new.send_text(membership&.phone_number, reminder_mesaage)
+        TwilioClient.new.send_text(membership&.phone_number, reminder_message, event)
       end 
     end    
   end
