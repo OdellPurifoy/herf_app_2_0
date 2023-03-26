@@ -11,11 +11,13 @@
 
 <p>Here are the details:</p>
 <p>
-  Event: <%= @event.name %>
-  Date: <%= @event.event_date.strftime('%b %e, %Y') %>
-  description:  <%= @event.description %>
-  Start Time: <%= @event.start_time.strftime('%l:%M %P') %>
-  End Time: <%= @event.end_time.strftime('%l:%M %P') %>
-  Location: <%= @event.lounge.address_street_1 %>, <%= @event.lounge.city %>, <%= @event.lounge.state %>, <%= @event.lounge.zip_code %>
+  Event: <%= @event.name %> <br />
+  Date: <%= @event.event_date.strftime('%b %e, %Y') %> <br />
+  Description:  <%= @event.event_description %> <br />
+  Start Time: <%= @event.start_time.strftime('%l:%M %P') %> <br />
+  End Time: <%= @event.end_time.strftime('%l:%M %P') %> <br />
+  Location: <%= @event.lounge.address_street_1 %>, <%= @event.lounge.city %>, <%= @event.lounge.state %>, <%= @event.lounge.zip_code %> <br />
   Phone: <%= @event.lounge.phone %>
 </p>
+
+<p>See you there!</p>

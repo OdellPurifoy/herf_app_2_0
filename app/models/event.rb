@@ -72,6 +72,18 @@ class Event < ApplicationRecord
     end    
   end
 
+  def self.send_reminder_email
+    events_within_24_hours = where(event_date: Date.today + 1.day)
+    return if events_within_24_hours.empty?
+
+    events_within_24_hours.each do |event|
+      event.lounge.memberships.active.each do |membership|
+        OneDayReminderMailer.with(membership: membership, event: event).remind_members
+        puts 'Email sent'
+      end
+    end
+  end
+
   private
 
   def notify_followers_and_or_members
