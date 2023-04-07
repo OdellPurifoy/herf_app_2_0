@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: herf_app_2_0_production
   username: herf_app_2_0
   password: <%= ENV["HERF_APP_2_0_DATABASE_PASSWORD"] %>
