@@ -16,6 +16,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  user_cell_phone        :string
 #  username               :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -38,7 +39,7 @@ RSpec.describe User, type: :model do
     it { should have_db_column(:encrypted_password).of_type(:string) }
     it { should have_db_column(:first_name).of_type(:string) }
     it { should have_db_column(:last_name).of_type(:string) }
-    it { should have_db_column(:phone_number).of_type(:string) }
+    it { should have_db_column(:user_cell_phone).of_type(:string) }
     it { should have_db_column(:username).of_type(:string) }
   end
 

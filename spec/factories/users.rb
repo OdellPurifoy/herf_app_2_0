@@ -16,6 +16,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  user_cell_phone        :string
 #  username               :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -46,5 +47,6 @@ FactoryBot.define do
     username { Faker::Internet.username }
     password { Faker::Internet.password }
     phone_number { '9008007000' }
+    user_cell_phone { '9008007000' }
   end
 end
