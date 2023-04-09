@@ -9,18 +9,22 @@ class MembershipPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.admin? || @user.subscribed? || @user.id == @membership.lounge.user_id
+    true
+    # @user.admin? || @user.subscribed? || @user.id == @membership.lounge.user_id
   end
 
   def create?
-    @user.admin? || @user.subscribed? || @user.id == @membership.lounge.user_id
+    true
+    # @user.admin? || @user.subscribed? || @user.id == @membership.lounge.user_id
   end
 
   def update?
-    @user.admin? || @user.id == @membership.lounge.user_id
+    true
+    # @user.admin? || @user.id == @membership.lounge.user_id
   end
 
   def destroy?
-    @user.admin? || @user.id == @membership.lounge.user_id
+    true
+    # @user.admin? || @user.id == @membership.lounge.user_id
   end
 end

@@ -9,18 +9,22 @@ class EventPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.admin? || @user.subscribed? || @user.id == @event.lounge.user_id
+    true
+    # @user.admin? || @user.subscribed? || @user.id == @event.lounge.user_id
   end
 
   def create?
-    @user.admin? || @user.subscribed? || @user.id == @event.lounge.user_id
+    true
+    # @user.admin? || @user.subscribed? || @user.id == @event.lounge.user_id
   end
 
   def update?
-    @user.admin? || @user.id == @event.lounge.user_id
+    true
+    # @user.admin? || @user.id == @event.lounge.user_id
   end
 
   def destroy?
-    @user.admin? || @user.id == @event.lounge.user_id
+    true
+    # @user.admin? || @user.id == @event.lounge.user_id
   end
 end
