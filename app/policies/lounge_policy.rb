@@ -9,18 +9,22 @@ class LoungePolicy < ApplicationPolicy
   end
 
   def new?
-    @user.admin? || @user.subscribed?
+    true
+    # @user.admin? || @user.subscribed?
   end
 
   def create?
-    @user.admin? || @user.subscribed?
+    true
+    # @user.admin? || @user.subscribed?
   end
 
   def update?
-    @user.admin? || @user.id == lounge.user_id
+    true
+    # @user.admin? || @user.id == lounge.user_id
   end
 
   def destroy?
-    @user.admin? || @user.id == lounge.user_id
+    true
+    # @user.admin? || @user.id == lounge.user_id
   end
 end
