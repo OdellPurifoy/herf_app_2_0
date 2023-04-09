@@ -12,7 +12,7 @@ class LoungesController < ApplicationController
 
   def new
     @lounge = current_user.lounges.build
-    authorize @lounge
+    # authorize @lounge
   end
   
   def edit; end
@@ -21,7 +21,7 @@ class LoungesController < ApplicationController
     @lounge = current_user.lounges.build(lounge_params)
 
     # Pundit check 
-    authorize @lounge
+    # authorize @lounge
 
     respond_to do |format|
       if @lounge.save

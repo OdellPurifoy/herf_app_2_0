@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HerfApp20</title>
+    <title>Herf</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -22,14 +22,14 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a href="/" class="active">Home</a></li>
-          <% if user_signed_in? && current_user.lounges.present? && current_user.subscribed? %>
+          <% if user_signed_in? && current_user.lounges.present? && !current_user.subscribed? %>
             <%= link_to 'My Lounge', my_lounges_path %>
             <%= link_to 'Notifications', notifications_path %> (<%= current_user.notifications.unread.count %>)
             <%= link_to 'Profile', edit_user_registration_path %>
             <%= link_to 'Log Out', destroy_user_session_path %>
             <%= link_to 'Manage Subscription', billing_path, data: { turbo: false }, class: 'getstarted' %>
-          <% elsif user_signed_in? && current_user.subscribed? && current_user.lounges.empty? %>
-            <%= link_to 'Create Lounge', my_lounges_path %>
+          <% elsif user_signed_in? && !current_user.subscribed? && current_user.lounges.empty? %>
+            <%= link_to 'Create Lounge', new_lounge_path %>
             <%= link_to 'Notifications', notifications_path %> (<%= current_user.notifications.unread.count %>)
             <%= link_to 'Profile', edit_user_registration_path %>
             <%= link_to 'Log Out', destroy_user_session_path %>
