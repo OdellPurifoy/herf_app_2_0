@@ -117,8 +117,10 @@
     <div class="field">
       <div class="control">
         <% if lounge.display_image.present? %>
-          <%= image_tag lounge.display_image  %>
-          <%= link_to "Remove display image", lounge_display_image_path(@lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }%>
+         <div id="<%= dom_id(lounge, :display_image) %>">
+            <%= image_tag lounge.display_image  %>
+            <%= link_to "Remove display image", lounge_display_image_path(@lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }%>
+          </div>
         <% end %>
         <%= form.file_field :display_image %>
       </div>
