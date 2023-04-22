@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :lounges do
+    resources :images, only: [:delete]
     resources :events, shallow: true
     resources :memberships, shallow: true
     resources :special_offers, shallow: true

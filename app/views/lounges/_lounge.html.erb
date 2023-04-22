@@ -9,7 +9,7 @@
           <% if lounge.images.present? %>
             <% lounge.images.each do |image| %>
               <div class="swiper-slide mb-2">
-                <%= image_tag image.variant(resize_to_fit: [225, 225]) %>
+                <%= image_tag(image) %>
               </div>
             <% end %>
           <% else %>
@@ -23,7 +23,7 @@
       <div class="col-lg-4">
         <div class="portfolio-info">
           <div class="d-flex justify-content-start">
-            <%= image_tag lounge.logo.variant(resize_to_fit: [60, 60]) %>
+            <%= image_tag(lounge.logo) %>
           </div>
           <div class="d-flex justify-content-start pt-3">
             <h3><%= lounge.name %></h3>
