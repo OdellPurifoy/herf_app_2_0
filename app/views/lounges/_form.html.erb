@@ -111,7 +111,7 @@
       <div class="control">
         <% if lounge.logo.present? %>
           <div id="<%= dom_id(lounge, :logo) %>">
-            <%= image_tag lounge.logo %>
+            <%= image_tag lounge.logo, size: "300x300"%>
             <%= link_to "Remove logo", lounge_logo_path(@lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
           </div>
         <% end %>
@@ -123,7 +123,7 @@
       <div class="control">
         <% if lounge.display_image.present? %>
          <div id="<%= dom_id(lounge, :display_image) %>">
-            <%= image_tag lounge.display_image  %>
+            <%= image_tag lounge.display_image, size: "300x300"  %>
             <%= link_to "Remove display image", lounge_display_image_path(@lounge), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
           </div>
         <% end %>

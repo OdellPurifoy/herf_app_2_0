@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :events do
+    resources :flyers, only: [:destroy]
     resources :rsvps, shallow: true
   end
 

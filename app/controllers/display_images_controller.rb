@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class DisplayImagesController < ApplicationController
-  include ActionView::RecordIdentifier
-
   before_action :authenticate_user!
   before_action :set_lounge
 
