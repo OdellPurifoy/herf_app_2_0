@@ -109,13 +109,15 @@
 
     <div class="field">
       <div class="control">
+        <%= image_tag lounge.logo if lounge.logo.present? %>
         <%= form.file_field :logo %>
       </div>
     </div>
 
     <div class="field">
       <div class="control">
-        <%= form.file_field :images, multiple: true, direct_upload: true %>
+        <%= image_tag lounge.display_image if lounge.display_image.present? %>
+        <%= form.file_field :display_image %>
       </div>
     </div>
 
