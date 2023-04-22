@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   resources :lounges do
     resources :display_images, only: [:destroy]
+    resources :logos, only: [:destroy]
     resources :events, shallow: true
     resources :memberships, shallow: true
     resources :special_offers, shallow: true
