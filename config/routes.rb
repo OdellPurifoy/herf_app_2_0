@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   end
 
   resources :events do
-    resources :flyers, only: [:destroy]
+    resources :event_flyers, only: [:destroy]
     resources :rsvps, shallow: true
   end
 
@@ -49,6 +49,10 @@ Rails.application.routes.draw do
       patch :mark_attended
       patch :mark_unattended
     end
+  end
+
+  resources :special_offers do
+    resources :special_offer_flyers, only: [:destroy]
   end
 
   resources :subscriptions

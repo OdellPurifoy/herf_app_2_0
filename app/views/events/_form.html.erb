@@ -58,7 +58,7 @@
       <% if event.flyer.present? %>
         <div id="<%= dom_id(event, :flyer) %>">
           <%= image_tag event.flyer, size: "300x300" %>
-            <%= link_to "Remove flyer", event_flyer_path(@event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+            <%= link_to "Remove flyer", event_event_flyer_path(@event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
           </div>
         <% end %>
       <%= form.file_field :flyer %>

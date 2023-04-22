@@ -22,7 +22,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">ID</th>
+          <th scope="col">Flyer</th>
           <th scope="col">Type</th>
           <th scope="col">Description</th>
           <th scope="col">Start Date</th>
@@ -35,7 +35,7 @@
       <tbody>
         <% @special_offers.each do |special_offer| %>
           <tr>
-            <td><%= special_offer.id %></td>
+            <td><%= special_offer.flyer.present? ? image_tag(special_offer.flyer, size: '30x30') : 'No Flyer' %></td>
             <td><%= special_offer.special_offer_type %></td>
             <td><%= special_offer.description %></td>
             <td><%= special_offer.start_date.strftime('%b %e, %Y') %></td>

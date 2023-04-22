@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <h2 class='mb-3'><%= "#{@special_offer.special_offer_type} special offer from #{@special_offer.lounge.name}" %></h2>
+        <div class="pic"><%= image_tag @special_offer.flyer, size: "100x100" if @special_offer.flyer.present? %></div>
         <p style="color: green"><%= notice %></p>
 
         <%= render @special_offer %>
