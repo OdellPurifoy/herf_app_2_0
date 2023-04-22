@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include ActionView::RecordIdentifier
   include Pundit::Authorization
-
+  
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_stripe_key

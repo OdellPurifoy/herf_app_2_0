@@ -5,7 +5,7 @@
       <div class="row">
           <div class="col-lg-12">
             <div class="member d-flex align-items-start">
-              <div class="pic"><%= image_tag 'herf_cover.jpg', size: "100x100" %></div>
+              <div class="pic"><%= image_tag event.flyer, size: "100x100" if event.flyer.present? %></div>
               <div class="member-info">
                 <h4><%= event.name %></h4>
                 <span><%= event.event_type %> | <%= event.event_date.strftime("%b %e, %Y") %> | <%= event.start_time.strftime('%l:%M %P') %> - <%= event.end_time.strftime('%l:%M %P') %></span>

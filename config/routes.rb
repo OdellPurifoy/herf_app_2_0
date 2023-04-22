@@ -13,12 +13,14 @@ Rails.application.routes.draw do
 
   resources :lounges do
     resources :display_images, only: [:destroy]
+    resources :logos, only: [:destroy]
     resources :events, shallow: true
     resources :memberships, shallow: true
     resources :special_offers, shallow: true
   end
 
   resources :events do
+    resources :event_flyers, only: [:destroy]
     resources :rsvps, shallow: true
   end
 
@@ -47,6 +49,10 @@ Rails.application.routes.draw do
       patch :mark_attended
       patch :mark_unattended
     end
+  end
+
+  resources :special_offers do
+    resources :special_offer_flyers, only: [:destroy]
   end
 
   resources :subscriptions

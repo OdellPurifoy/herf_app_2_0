@@ -37,6 +37,18 @@
 
 <div class="field">
   <div class="control">
+    <% if special_offer.flyer.present? %>
+      <div id="<%= dom_id(special_offer, :flyer) %>">
+        <%= image_tag special_offer.flyer, size: "300x300" %>
+          <%= link_to "Remove flyer", special_offer_special_offer_flyer_path(@special_offer), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+        </div>
+      <% end %>
+    <%= form.file_field :flyer %>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
     <%= form.check_box :members_only %>
   </div>
 </div>
