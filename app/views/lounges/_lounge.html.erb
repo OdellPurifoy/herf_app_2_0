@@ -6,12 +6,10 @@
       <div class="col-lg-8">
         <div class="portfolio-details-slider swiper">
           <div class="swiper-wrapper align-items-center">
-          <% if lounge.images.present? %>
-            <% lounge.images.each do |image| %>
-              <div class="swiper-slide mb-2">
-                <%= image_tag image.variant(resize_to_fit: [225, 225]) %>
-              </div>
-            <% end %>
+          <% if lounge.display_image.present? %>
+            <div class="swiper-slide mb-2">
+              <%= image_tag(lounge.display_image) %>
+            </div>
           <% else %>
             <h3><i class="bi bi-camera">No images available</i></h3>
           <% end %>
@@ -23,7 +21,7 @@
       <div class="col-lg-4">
         <div class="portfolio-info">
           <div class="d-flex justify-content-start">
-            <%= image_tag lounge.logo.variant(resize_to_fit: [60, 60]) %>
+            <%= image_tag(lounge.logo) %>
           </div>
           <div class="d-flex justify-content-start pt-3">
             <h3><%= lounge.name %></h3>
@@ -60,4 +58,4 @@
       </div>
     </div>
   </div>
-</section><!-- End Portfolio Details Section -->
+</section>

@@ -56,7 +56,7 @@ class Lounge < ApplicationRecord
   has_many :special_offers, dependent: :destroy
 
   has_one_attached :logo
-  has_many_attached :images
+  has_one_attached :display_image
 
   validates_presence_of :name, :address_street_1, :city, :state, :zip_code, :phone, :email
   validates :email, uniqueness: true
@@ -77,6 +77,10 @@ class Lounge < ApplicationRecord
 
   validates :logo, file_size: { less_than_or_equal_to: 5.megabytes },
                    file_content_type: { allow: ['image/jpeg', 'image/png'] }
+
+  validates :display_image, file_size: { less_than_or_equal_to: 5.megabytes },
+                   file_content_type: { allow: ['image/jpeg', 'image/png', 'image/jpg'] }
+
 
   scope :featured, -> { where(featured: true) }
 
