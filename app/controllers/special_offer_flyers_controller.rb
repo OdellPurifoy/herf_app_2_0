@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SpecialOfferFlyersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_special_offer
@@ -7,7 +9,7 @@ class SpecialOfferFlyersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to edit_special_offer_path(@special_offer) }
-      format.turbo_stream { render turbo_stream: turbo_stream.remove(dom_id(@special_offer, :flyer))}
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(dom_id(@special_offer, :flyer)) }
     end
   end
 
