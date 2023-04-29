@@ -33,3 +33,4 @@
 # Ignore auto generated history directory
 .history
 .dccache
+/config/credentials/production.key
