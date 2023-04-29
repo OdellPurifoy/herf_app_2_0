@@ -3801,3 +3801,25 @@ body {
   #footer .credits a:hover {
     color: white;
   }
+
+  #pricing-input {
+    background-color: $primary;
+    color: white;
+    padding: 8px 25px;
+    border-radius: 4px;
+    font-weight: 400;
+    border: none;
+    margin-left: 2px;
+    &:hover {
+      color: white;
+      background: darken(#a85c44, 8);
+    }
+  }
+
+  #price-amount {
+    color: #a85c44;
+  }
+
+  #pricing-home-link {
+    color: $primary;
+  }
