@@ -2,7 +2,7 @@
 
 class HomeController < ApplicationController
   def index
-    @featured_lounges = Lounge.featured
-    @lounges = Lounge.all
+    # @featured_lounges = Lounge.featured
+    # @lounges = Lounge.all
   end
 end
