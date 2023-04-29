@@ -7,7 +7,7 @@
         <div class="d-flex justify-content-between align-items-center">
           <h2>Pricing</h2>
           <ol>
-          <li><a href="/" class="active">Home</a></li>
+          <li><a href="/" id="pricing-home-link">Home</a></li>
             <li>Pricing</li>
           </ol>
         </div>
@@ -24,31 +24,30 @@
               <div class="col-lg-6 col-md-12">
                 <div class="box">
                   <h3>Email</h3>
-                  <h4><sup>$</sup>25<span> / month</span></h4>
+                  <h4 id="price-amount"><sup>$</sup>25<span> / month</span></h4>
                   <ul>
-                    <li>Aida dere</li>
-                    <li>Nec feugiat nisl</li>
-                    <li>Nulla at volutpat dola</li>
-                    <li class="na">Pharetra massa</li>
-                    <li class="na">Massa ultricies mi</li>
+                    <li>Automated email event notifications</li>
+                    <li>Automated email special offer notifications</li>
+                    <li class="na">Automated text notifications for events</li>
+                    <li class="na">Automated text notifications for special offers</li>
                   </ul>
                   <div class="btn-wrap">
                     <div class="d-flex justify-content-center">
                       <% if user_signed_in? %>
                         <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
                           <input type="hidden" name="price_id" value="price_1MZkF3J7HwUPnCdq7G6vIEca" />
-                          <input type="submit" value="Monthly" class="btn-buy" />
+                          <input type="submit" value="Monthly" id="pricing-input" />
                         <% end %>
 
                         <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
                           <input type="hidden" name="price_id" value="price_1Ma6pHJ7HwUPnCdqRAjxe9bI" />
-                          <input type="submit" value="Yearly" class="btn-buy pl-5" />
+                          <input type="submit" value="Yearly" id="pricing-input" />
                         <% end %>
                       </div>
                     <% else %>
                       <div class="d-flex justify-content-center">
-                        <%= link_to "Monthly", new_user_registration_path, class: "btn-buy" %>
-                        <%= link_to "Yearly", new_user_registration_path, class: "btn-buy" %>
+                        <%= link_to "Monthly", new_user_registration_path, id: "pricing-input" %>
+                        <%= link_to "Yearly", new_user_registration_path, id: "pricing-input" %>
                       </div>
                     <% end %>
                   </div>
@@ -58,31 +57,30 @@
               <div class="col-lg-6 col-md-12">
                 <div class="box">
                   <h3>Email & Text</h3>
-                  <h4><sup>$</sup>32<span> / month</span></h4>
+                  <h4 id="price-amount"><sup>$</sup>32<span> / month</span></h4>
                   <ul>
-                    <li>Aida dere</li>
-                    <li>Nec feugiat nisl</li>
-                    <li>Nulla at volutpat dola</li>
-                    <li>Pharetra massa</li>
-                    <li class="na">Massa ultricies mi</li>
+                    <li>Automated email event notifications</li>
+                    <li>Automated email special offer notifications</li>
+                    <li>Automated text notifications for events</li>
+                    <li>Automated text notifications for special offers</li>
                   </ul>
                   <div class="btn-wrap">
                     <div class="d-flex justify-content-center">
                       <% if user_signed_in? %>
                         <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
                           <input type="hidden" name="price_id" value="price_1MZkF3J7HwUPnCdq7G6vIEca" />
-                          <input type="submit" value="Monthly" class="btn-buy" />
+                          <input type="submit" value="Monthly" id="pricing-input" />
                         <% end %>
 
                         <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
                           <input type="hidden" name="price_id" value="price_1Ma6pHJ7HwUPnCdqRAjxe9bI" />
-                          <input type="submit" value="Yearly" class="btn-buy pl-5" />
+                          <input type="submit" value="Yearly" id="pricing-input" />
                         <% end %>
                       </div>
                     <% else %>
                       <div class="d-flex justify-content-center">
-                        <%= link_to "Monthly", new_user_registration_path, class: "btn-buy" %>
-                        <%= link_to "Yearly", new_user_registration_path, class: "btn-buy" %>
+                        <%= link_to "Monthly", new_user_registration_path, id: "pricing-input" %>
+                        <%= link_to "Yearly", new_user_registration_path, id: "pricing-input" %>
                       </div>
                     <% end %>
                   </div>
