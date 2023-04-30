@@ -40,11 +40,9 @@ class Lounge < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  AM_HOURS_DISPLAY = ['Closed', '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM', '6:00 AM', '7:00 AM',
-                      '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM'].freeze
-
-  PM_HOURS_DISPLAY = ['Closed', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM',
-                      '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM', '12:00 PM'].freeze
+  HOURS_DISPLAY = ['Closed', '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM', '6:00 AM', '7:00 AM',
+                   '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM', '6:00 PM', '7:00 PM',
+                   '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM', '12:00 PM'].freeze
 
   TIME_ZONES = ['Eastern Time', 'Central Time', 'Mountain Time', 'Pacific Time', 'Alaska Time',
                 'Hawaii-Aleutian Time'].freeze
@@ -69,18 +67,17 @@ class Lounge < ApplicationRecord
     scope: %i[address_street_1 city state zip_code],
     message: 'A lounge already exists at this location.'
   }
-  validates :details, length: { maximum: 1000, too_long: "%{count} characters is the maximum allowed." }
+  validates :details, length: { maximum: 1000, too_long: '%<count>s characters is the maximum allowed.' }
 
   validates_format_of :zip_code,
-                    :with => /\A\d{5}-\d{4}|\A\d{5}\z/,
-                    :message => "should be 12345 or 12345-1234"
+                      with: /\A\d{5}-\d{4}|\A\d{5}\z/,
+                      message: 'should be 12345 or 12345-1234'
 
   validates :logo, file_size: { less_than_or_equal_to: 5.megabytes },
                    file_content_type: { allow: ['image/jpeg', 'image/png'] }
 
   validates :display_image, file_size: { less_than_or_equal_to: 5.megabytes },
-                   file_content_type: { allow: ['image/jpeg', 'image/png', 'image/jpg'] }
-
+                            file_content_type: { allow: ['image/jpeg', 'image/png', 'image/jpg'] }
 
   scope :featured, -> { where(featured: true) }
 
