@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   resources :webhooks, only: :create
 
   namespace :purchase do
-    resources :checkouts
+    post 'create-checkout-session', to: 'checkouts#create_checkout_session'
   end
 
   get 'my_lounges', to: 'lounges#my_lounges'

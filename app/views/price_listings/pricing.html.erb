@@ -34,14 +34,9 @@
                   <div class="btn-wrap">
                     <div class="d-flex justify-content-center">
                       <% if user_signed_in? %>
-                        <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
-                          <input type="hidden" name="price_id" value="price_1MZkF3J7HwUPnCdq7G6vIEca" />
-                          <input type="submit" value="Monthly" id="pricing-input" />
-                        <% end %>
-
-                        <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
-                          <input type="hidden" name="price_id" value="price_1Ma6pHJ7HwUPnCdqRAjxe9bI" />
-                          <input type="submit" value="Yearly" id="pricing-input" />
+                        <%= form_with url: '/purchase/create-checkout-session', data: { turbo: false }  do |f| %>
+                          <%= f.hidden_field :id, value: 'monthly_email_only_plan' %>
+                          <%= f.submit 'Monthly', class: 'btn btn-success' %>
                         <% end %>
                       </div>
                     <% else %>
@@ -66,23 +61,7 @@
                   </ul>
                   <div class="btn-wrap">
                     <div class="d-flex justify-content-center">
-                      <% if user_signed_in? %>
-                        <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
-                          <input type="hidden" name="price_id" value="price_1MZkF3J7HwUPnCdq7G6vIEca" />
-                          <input type="submit" value="Monthly" id="pricing-input" />
-                        <% end %>
 
-                        <%= form_tag purchase_checkouts_path, method: :post, data: { turbo: false } do %>
-                          <input type="hidden" name="price_id" value="price_1Ma6pHJ7HwUPnCdqRAjxe9bI" />
-                          <input type="submit" value="Yearly" id="pricing-input" />
-                        <% end %>
-                      </div>
-                    <% else %>
-                      <div class="d-flex justify-content-center">
-                        <%= link_to "Monthly", new_user_registration_path, id: "pricing-input" %>
-                        <%= link_to "Yearly", new_user_registration_path, id: "pricing-input" %>
-                      </div>
-                    <% end %>
                   </div>
                 </div>
               </div>
