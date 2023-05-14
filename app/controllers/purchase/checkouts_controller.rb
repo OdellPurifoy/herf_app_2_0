@@ -11,8 +11,8 @@ module Purchase
                                                      quantity: 1
                                                    }],
                                                    mode: 'subscription',
-                                                   success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
-                                                   cancel_url: 'http://localhost:3000'
+                                                   success_url: 'https://powerful-hamlet-29520.herokuapp.com/success?session_id={CHECKOUT_SESSION_ID}',
+                                                   cancel_url: 'https://powerful-hamlet-29520.herokuapp.com/'
                                                  })
 
       redirect_to session.url, allow_other_host: true, status: 303
@@ -25,8 +25,8 @@ module Purchase
                                                      quantity: 1
                                                    }],
                                                    mode: 'subscription',
-                                                   success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
-                                                   cancel_url: 'http://localhost:3000'
+                                                   success_url: 'https://powerful-hamlet-29520.herokuapp.com/success?session_id={CHECKOUT_SESSION_ID}',
+                                                   cancel_url: 'https://powerful-hamlet-29520.herokuapp.com/'
                                                  })
 
       redirect_to session.url, allow_other_host: true, status: 303
@@ -39,8 +39,8 @@ module Purchase
                                                      quantity: 1
                                                    }],
                                                    mode: 'subscription',
-                                                   success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
-                                                   cancel_url: 'http://localhost:3000'
+                                                   success_url: 'https://powerful-hamlet-29520.herokuapp.com/success?session_id={CHECKOUT_SESSION_ID}',
+                                                   cancel_url: 'https://powerful-hamlet-29520.herokuapp.com/'
                                                  })
 
       redirect_to session.url, allow_other_host: true, status: 303
@@ -53,8 +53,8 @@ module Purchase
                                                      quantity: 1
                                                    }],
                                                    mode: 'subscription',
-                                                   success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
-                                                   cancel_url: 'http://localhost:3000'
+                                                   success_url: 'https://powerful-hamlet-29520.herokuapp.com/success?session_id={CHECKOUT_SESSION_ID}',
+                                                   cancel_url: 'https://powerful-hamlet-29520.herokuapp.com/'
                                                  })
 
       redirect_to session.url, allow_other_host: true, status: 303
