@@ -34,9 +34,13 @@
                   <div class="btn-wrap">
                     <div class="d-flex justify-content-center">
                       <% if user_signed_in? %>
-                        <%= form_with url: '/purchase/create-checkout-session', data: { turbo: false }  do |f| %>
+                        <%= form_with url: '/purchase/create-monthly-email-checkout-session', data: { turbo: false }  do |f| %>
                           <%= f.hidden_field :id, value: 'monthly_email_only_plan' %>
-                          <%= f.submit 'Monthly', class: 'btn btn-success' %>
+                          <%= f.submit 'Monthly', id: 'pricing-input' %>
+                        <% end %>
+                        <%= form_with url: '/purchase/create-yearly-email-checkout-session', data: { turbo: false }  do |f| %>
+                          <%= f.hidden_field :id, value: 'yearly_email_only_plan' %>
+                          <%= f.submit 'Yearly', id: 'pricing-input' %>
                         <% end %>
                       </div>
                     <% else %>
@@ -61,7 +65,22 @@
                   </ul>
                   <div class="btn-wrap">
                     <div class="d-flex justify-content-center">
-
+                      <% if user_signed_in? %>
+                        <%= form_with url: '/purchase/create-monthly-email-and-text-checkout-session', data: { turbo: false }  do |f| %>
+                          <%= f.hidden_field :id, value: 'monthly_email_only_plan' %>
+                          <%= f.submit 'Monthly', id: 'pricing-input' %>
+                        <% end %>
+                        <%= form_with url: '/purchase/create-yearly-email-checkout-session', data: { turbo: false }  do |f| %>
+                          <%= f.hidden_field :id, value: 'yearly_email_only_plan' %>
+                          <%= f.submit 'Yearly', id: 'pricing-input' %>
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <div class="d-flex justify-content-center">
+                        <%= link_to "Monthly", new_user_registration_path, id: "pricing-input" %>
+                        <%= link_to "Yearly", new_user_registration_path, id: "pricing-input" %>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
               </div>

@@ -5,7 +5,7 @@ class BillingController < ApplicationController
 
   def show
     session = Stripe::BillingPortal::Session.create({
-      customer: current_user.customer_id,
+      customer: current_user&.subscriptions&.last&.customer_id,
       return_url: root_url
     })
 
