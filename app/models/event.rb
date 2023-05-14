@@ -200,32 +200,6 @@ class Event < ApplicationRecord
     end
   end
 
-  def new_event_text_for_members
-    return if lounge.memberships.active.empty?
-
-    text_all_members(lounge.memberships.active, new_event_message)
-  end
-
-  def updated_event_text_for_members
-    return if lounge.memberships.active.empty?
-
-    text_all_members(lounge.memberships.active, updated_event_message)
-  end
-
-  def cancelled_event_text_for_members
-    return if lounge.memberships.active.empty?
-
-    text_all_members(lounge.memberships.active, cancelled_event_message)
-  end
-
-  def text_all_members(memberships, message)
-    members_phone_numbers = memberships.active.pluck(:phone_number).compact
-
-    members_phone_numbers.each do |phone_number|
-      TwilioClient.new.send_text(phone_number, message, self)
-    end
-  end
-
   def rsvp_update_message
     %(#{rsvp.user.first_name}, your RSVP has been updated for the
       #{name} event, hosted by #{lounge.name}!
