@@ -45,10 +45,6 @@ class Event < ApplicationRecord
   validates :event_url, url: true, if: proc { |event| event.event_type == 'Virtual' }
   validate :end_date_not_after_start_date, :end_time_not_earlier_than_start_time
 
-  after_commit :notify_followers_and_or_members, on: :create
-  after_commit :update_followers_and_or_members, :update_rsvps_text, on: :update
-  after_commit :cancel_follower_and_or_members, :cancel_rsvps_text, on: :destroy
-
   paginates_per 10
 
   def self.send_reminder_text
@@ -142,14 +138,6 @@ class Event < ApplicationRecord
     end
   end
 
-  def notify_members
-    return if lounge.memberships.active.empty?
-
-    lounge.memberships.active.each do |membership|
-      NotifyFollowersMailer.with(membership: membership, event: self).notify_members.deliver_later
-    end
-  end
-
   def update_followers
     return if lounge.favoritors.empty?
 
@@ -158,27 +146,11 @@ class Event < ApplicationRecord
     end
   end
 
-  def update_members
-    return if lounge.memberships.active.empty?
-
-    lounge.memberships.active.each do |membership|
-      UpdatedEventNotificationMailer.with(membership: membership, event: self).update_notify_members.deliver_later
-    end
-  end
-
   def cancellation_event_followers
     return if lounge.favoritors.empty?
 
     lounge.favoritors.each do |favoritor|
       CancelledEventNotificationMailer.with(favoritor: favoritor, event: self).cancel_notify_followers.deliver_later
-    end
-  end
-
-  def cancellation_event_members
-    return if lounge.memberships.active.empty?
-
-    lounge.memberships.active.each do |membership|
-      CancelledEventNotificationMailer.with(membership: membership, event: self).cancel_notify_members.deliver_later
     end
   end
 
@@ -226,61 +198,6 @@ class Event < ApplicationRecord
     favoritors_phone_numbers.each do |phone_number|
       TwilioClient.new.send_text(phone_number, message)
     end
-  end
-
-  def new_event_text_for_members
-    return if lounge.memberships.active.empty?
-
-    text_all_members(lounge.memberships.active, new_event_message)
-  end
-
-  def updated_event_text_for_members
-    return if lounge.memberships.active.empty?
-
-    text_all_members(lounge.memberships.active, updated_event_message)
-  end
-
-  def cancelled_event_text_for_members
-    return if lounge.memberships.active.empty?
-
-    text_all_members(lounge.memberships.active, cancelled_event_message)
-  end
-
-  def text_all_members(memberships, message)
-    members_phone_numbers = memberships.active.pluck(:phone_number).compact
-
-    members_phone_numbers.each do |phone_number|
-      TwilioClient.new.send_text(phone_number, message, self)
-    end
-  end
-
-  def new_event_message
-    %(You have been invited to #{name},
-      hosted by #{lounge.name}!
-      Here are the details:
-      Event: #{name}
-      Date: #{event_date.strftime('%b %e, %Y')}
-      Start Time: #{start_time.strftime('%l:%M %P')}
-      End Time: #{end_time.strftime('%l:%M %P')}
-      Location: #{lounge.address_street_1}, #{lounge.city}, #{lounge.state}, #{lounge.zip_code}
-      Phone: #{lounge.phone})
-  end
-
-  def updated_event_message
-    %(The #{name} event, hosted by #{lounge.name} has been updated.
-      Here are the latest details:
-      Event: #{name}
-      Date: #{event_date.strftime('%b %e, %Y')}
-      Start Time: #{start_time.strftime('%l:%M %P')}
-      End Time: #{end_time.strftime('%l:%M %P')}
-      Location: #{lounge.address_street_1}, #{lounge.city}, #{lounge.state}, #{lounge.zip_code}
-      Phone: #{lounge.phone})
-  end
-
-  def cancelled_event_message
-    %(The #{name} event, hosted by #{lounge.name} has been cancelled.
-      Please contact #{lounge.name} at: #{lounge.phone} for additional information.
-      Thank you.)
   end
 
   def rsvp_update_message

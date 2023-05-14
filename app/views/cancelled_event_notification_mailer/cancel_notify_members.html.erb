@@ -8,6 +8,10 @@
 
 <%= @event.lounge.name %> has cancelled <%= @event.name %>!
 
+<p><%= "#{@event.name} event, hosted by #{@event.lounge.name} has been cancelled." %><br />
+<p>Please contact: <%= "#{@event.lounge.name} at: #{@event.lounge.phone} for additional information." %><br />
+<p>Thank you.</p>
+
 <p>
-  <%= @event.description %>
+  <%= @event.event_description %>
 </p>

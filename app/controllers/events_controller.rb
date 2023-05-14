@@ -25,6 +25,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        EventNotificationService.new(@event).new_notification
         format.turbo_stream { redirect_to event_path(@event) }
         format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
@@ -41,6 +42,7 @@ class EventsController < ApplicationController
       authorize @event
 
       if @event.update(event_params)
+        EventNotificationService.new(@event).update_notification
         format.turbo_stream { redirect_to [@lounge, @event] }
         format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
@@ -54,7 +56,7 @@ class EventsController < ApplicationController
   def destroy
     # Pundit check
     authorize @event
-
+    EventNotificationService.new(@event).cancellation_notification
     @event.destroy
 
     redirect_to root_path, status: :see_other
