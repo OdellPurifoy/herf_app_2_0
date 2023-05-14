@@ -17,10 +17,10 @@ class LoungePolicy < ApplicationPolicy
   end
 
   def update?
-    @user.admin? || @user.id == lounge.user_id
+    @user.admin? || @user.id == lounge.user_id && @user.subscribed?
   end
 
   def destroy?
-    @user.admin? || @user.id == lounge.user_id
+    @user.admin? || @user.id == lounge.user_id && @user.subscribed?
   end
 end
