@@ -6,57 +6,57 @@ module Purchase
 
     def create_monthly_email_checkout_session
       session = Stripe::Checkout::Session.create({
-        line_items: [{
-          price: 'price_1N7PkIJ7HwUPnCdq49wDuerY',
-          quantity: 1,
-        }],
-        mode: 'subscription',
-        success_url: "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: 'http://localhost:3000',
-      })
-  
+                                                   line_items: [{
+                                                     price: 'price_1N7PkIJ7HwUPnCdq49wDuerY',
+                                                     quantity: 1
+                                                   }],
+                                                   mode: 'subscription',
+                                                   success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
+                                                   cancel_url: 'http://localhost:3000'
+                                                 })
+
       redirect_to session.url, allow_other_host: true, status: 303
     end
 
     def create_yearly_email_checkout_session
       session = Stripe::Checkout::Session.create({
-        line_items: [{
-          price: 'price_1N7PkIJ7HwUPnCdqoXFdy8H8',
-          quantity: 1,
-        }],
-        mode: 'subscription',
-        success_url: "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: 'http://localhost:3000',
-      })
-  
+                                                   line_items: [{
+                                                     price: 'price_1N7PkIJ7HwUPnCdqoXFdy8H8',
+                                                     quantity: 1
+                                                   }],
+                                                   mode: 'subscription',
+                                                   success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
+                                                   cancel_url: 'http://localhost:3000'
+                                                 })
+
       redirect_to session.url, allow_other_host: true, status: 303
     end
 
     def create_monthly_email_and_text_checkout_session
       session = Stripe::Checkout::Session.create({
-        line_items: [{
-          price: 'price_1N7SNXJ7HwUPnCdqNhZF2sRL',
-          quantity: 1,
-        }],
-        mode: 'subscription',
-        success_url: "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: 'http://localhost:3000',
-      })
-  
+                                                   line_items: [{
+                                                     price: 'price_1N7SNXJ7HwUPnCdqNhZF2sRL',
+                                                     quantity: 1
+                                                   }],
+                                                   mode: 'subscription',
+                                                   success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
+                                                   cancel_url: 'http://localhost:3000'
+                                                 })
+
       redirect_to session.url, allow_other_host: true, status: 303
     end
 
     def create_yearly_email_and_text_checkout_session
       session = Stripe::Checkout::Session.create({
-        line_items: [{
-          price: 'price_1N7SNXJ7HwUPnCdq0SIZhzQ4',
-          quantity: 1,
-        }],
-        mode: 'subscription',
-        success_url: "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: 'http://localhost:3000',
-      })
-  
+                                                   line_items: [{
+                                                     price: 'price_1N7SNXJ7HwUPnCdq0SIZhzQ4',
+                                                     quantity: 1
+                                                   }],
+                                                   mode: 'subscription',
+                                                   success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
+                                                   cancel_url: 'http://localhost:3000'
+                                                 })
+
       redirect_to session.url, allow_other_host: true, status: 303
     end
 

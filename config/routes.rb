@@ -56,7 +56,6 @@ Rails.application.routes.draw do
   end
 
   resources :subscriptions
-  resources :webhooks, only: :create
 
   namespace :purchase do
     post 'create-monthly-email-checkout-session', to: 'checkouts#create_monthly_email_checkout_session'
