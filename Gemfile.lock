@@ -295,6 +295,7 @@ GEM
     ruby-vips (2.1.4)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
+    ruby_http_client (3.5.5)
     rubyzip (2.3.2)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -304,6 +305,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sendgrid-ruby (6.6.2)
+      ruby_http_client (~> 3.4)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
     simple_form (5.1.0)
@@ -388,6 +391,7 @@ DEPENDENCIES
   resque (~> 2.4)
   rspec-rails (~> 5.1, >= 5.1.2)
   rubocop
+  sendgrid-ruby
   shoulda-matchers (~> 5.1)
   simple_form
   sprockets-rails

@@ -19,6 +19,7 @@ gem 'pundit', '~> 2.3'
 gem 'phonelib', '~> 0.7.4'
 gem 'resque', '~> 2.4'
 gem 'rubocop', require: false
+gem 'sendgrid-ruby'
 gem 'simple_form'
 gem 'stripe', '~> 8.1'
 gem 'twilio-ruby', '~> 5.73', '>= 5.73.3'
