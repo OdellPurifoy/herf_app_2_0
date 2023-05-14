@@ -1,0 +1,22 @@
+<% if @event.lounge.logo.present? %>
+  <%= image_tag(@event.lounge.logo, size: "55x55") %>
+<% else %>
+  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+<% end %>
+
+<h1><%= @membership&.first_name %></h1>
+
+<p>Event Update!</p>
+
+<b>Here are the new details: </b>
+<p> <%= "#{@event.name} event, hosted by #{@event.lounge.name} has been updated." %><br/>
+<p> <b>Event:</b> <%= "#{@event.name}" %><br/>
+<p> <b>Date:</b> <%= "#{@event.event_date.strftime('%b %e, %Y')}" %><br/>
+<p> <b>Start Time:</b> <%= "#{@event.start_time.strftime('%l:%M %P')}" %><br/>
+<p> <b>End Time:</b> <%= "#{@event.end_time.strftime('%l:%M %P')}" %><br/>
+<p> <b>Location:</b> <%= "#{@event.lounge.address_street_1}, #{@event.lounge.city}, #{@event.lounge.state}, #{@event.lounge.zip_code}" %><br/>
+<p> <b>Phone:</b> <%= "#{@event.lounge.phone}" %><br/>
+
+<p>
+ <%= @event.event_description %>
+</p>

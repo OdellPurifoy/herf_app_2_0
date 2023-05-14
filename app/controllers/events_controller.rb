@@ -25,6 +25,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        new_event_notification_for_members(@event)
         format.turbo_stream { redirect_to event_path(@event) }
         format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
@@ -41,6 +42,7 @@ class EventsController < ApplicationController
       authorize @event
 
       if @event.update(event_params)
+        updated_event_notification_for_members(@event)
         format.turbo_stream { redirect_to [@lounge, @event] }
         format.html { redirect_to lounge_event_url(@event), notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
@@ -54,7 +56,7 @@ class EventsController < ApplicationController
   def destroy
     # Pundit check
     authorize @event
-
+    cancelled_event_notification_for_members(@event)
     @event.destroy
 
     redirect_to root_path, status: :see_other
@@ -62,6 +64,30 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def new_event_notification_for_members(event)
+    return if event.lounge.memberships.active.empty?
+
+    event.lounge.memberships.active.each do |membership|
+      NotifyFollowersMailer.with(membership: membership, event: event).notify_members.deliver_now
+    end
+  end
+
+  def updated_event_notification_for_members(event)
+    return if @event.lounge.memberships.active.empty?
+
+    @event.lounge.memberships.active.each do |membership|
+      UpdatedEventNotificationMailer.with(membership: membership, event: event).update_notify_members.deliver_now
+    end
+  end
+
+  def cancelled_event_notification_for_members(event)
+    return if event.lounge.memberships.active.empty?
+
+    event.lounge.memberships.active.each do |membership|
+      CancelledEventNotificationMailer.with(membership: membership, event: event).cancel_notify_members.deliver_now
+    end
+  end
 
   def set_event
     @event = Event.friendly.find(params[:id])
