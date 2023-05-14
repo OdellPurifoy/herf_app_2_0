@@ -56,10 +56,12 @@ Rails.application.routes.draw do
   end
 
   resources :subscriptions
-  resources :webhooks, only: :create
 
   namespace :purchase do
-    resources :checkouts
+    post 'create-monthly-email-checkout-session', to: 'checkouts#create_monthly_email_checkout_session'
+    post 'create-monthly-email-and-text-checkout-session', to: 'checkouts#create_monthly_email_and_text_checkout_session'
+    post 'create-yearly-email-checkout-session', to: 'checkouts#create_yearly_email_checkout_session'
+    post 'create-yearly-email-and-text-checkout-session', to: 'checkouts#create_yearly_email_and_text_checkout_session'
   end
 
   get 'my_lounges', to: 'lounges#my_lounges'

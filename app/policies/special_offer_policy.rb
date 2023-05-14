@@ -9,18 +9,18 @@ class SpecialOfferPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.admin? || @user.subscribed?
+    @user.admin? || @user.subscribed? && @user.id == @special_offer.lounge.user_id
   end
 
   def create?
-    @user.admin? || @user.subscribed?
+    @user.admin? || @user.subscribed? && @user.id == @special_offer.lounge.user_id
   end
 
   def update?
-    @user.admin? || @user.id == @special_offer.lounge.user_id
+    @user.admin? || @user.id == @special_offer.lounge.user_id && @user.subscribed?
   end
 
   def destroy?
-    @user.admin? || @user.id == @special_offer.lounge.user_id
+    @user.admin? || @user.id == @special_offer.lounge.user_id && @user.subscribed?
   end
 end
